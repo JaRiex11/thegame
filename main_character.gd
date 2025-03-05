@@ -1,25 +1,84 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+@onready var player_sprite = $PlayerSprite
 
-@export var bullet_scene = preload("res://Bullet.tscn")
+const Weapon = preload("res://scenes/based_scenes/weapon.gd")
+
+@export var SPEED = 300.0
+@export var max_health: int = 100
+
+var current_health: int
+var weapons: Array = []
+@onready var current_weapon: Node = null
+
+func _ready():
+	current_health = max_health
 
 func _physics_process(delta):
-	var mouse_position = get_global_mouse_position()
-	var direction = (mouse_position - global_position).normalized()
-	var angle = direction.angle()
+	var mouse_pos = get_global_mouse_position()
+	var look_dir = (mouse_pos - global_position).normalized()
+	rotation = look_dir.angle()
 	
-	var move_direction = Input.get_vector("left", "right", "up", "down")
-	velocity = move_direction * SPEED
-	
-	rotation = angle
-	if Input.is_action_just_pressed("attack1"):
-		shoot()
+	var move_dir = Input.get_vector("left", "right", "up", "down")
+	velocity = move_dir * SPEED
 	move_and_slide()
 	
+	if Input.is_action_pressed("attack1") and current_weapon:
+		handle_shooting()
+	
+	if Input.is_action_just_pressed("reload") and current_weapon:
+		handle_reload()
 
-func shoot():
-	var bullet = bullet_scene.instantiate()
-	bullet.direction = Vector2.RIGHT.rotated(rotation)
-	bullet.position = position + bullet.direction * 20  # Позиция пули перед персонажем
-	get_parent().add_child(bullet)
+func handle_shooting():
+	print("Стреляем из текущего оружия")
+	current_weapon.shoot(Vector2.RIGHT.rotated(rotation))
+
+func handle_reload():
+	print("Перезаряжаем оружие")
+	current_weapon.reload()
+
+func pick_up_weapon(new_weapon: Weapon):
+	# Если оружие уже есть - добавить патроны
+	print("picked up: ", new_weapon.weapon_name)
+	for weapon in weapons:
+		if weapon.weapon_name == new_weapon.weapon_name:
+			weapon.update_ammo(new_weapon.total_ammo)
+			return
+			
+	# Новое оружие
+	# Удаляем оружие из сцены уровня
+	new_weapon.get_parent().remove_child(new_weapon)
+	
+	# Добавляем оружие как дочерний элемент игрока
+	add_child(new_weapon)
+	new_weapon.position = new_weapon.sprite_offset  # Устанавливаем позицию оружия относительно игрока
+	weapons.append(new_weapon)
+	
+	print("Оружие добавлено в инвентарь. Всего оружия: ", weapons.size())
+	print("current_weapon: ", current_weapon)
+	
+	switch_weapon(weapons.size() - 1)
+	
+
+func switch_weapon(index: int):
+	if index < 0 or index >= weapons.size():
+		print("Некорректный индекс оружия")
+		return
+		
+	if current_weapon:
+		current_weapon.hide()
+		
+	current_weapon = weapons[index]
+	current_weapon.show()
+	player_sprite.texture = current_weapon.player_sprite_texture
+	print("Текущее оружие:", current_weapon.weapon_name)
+	print("current_weapon: ", current_weapon)
+
+func take_damage(damage: int):
+	current_health -= damage
+	if current_health <= 0:
+		die()
+
+func die():
+	# Логика смерти
+	queue_free()

@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://f5kkcfsue58p"]
+
+[ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_288ch"]
+[ext_resource type="Texture2D" uid="uid://cb4k6a63kfs4a" path="res://img/фон1.png" id="2_twv1b"]
+[ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="3_y0w3d"]
+[ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="4_u5f0c"]
+[ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/Enemy1.tscn" id="5_0g6v0"]
+[ext_resource type="PackedScene" uid="uid://b7fhf1urqd2e3" path="res://scenes/weapons/ak_74.tscn" id="6_twv1b"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_288ch")
+
+[node name="Фон1" type="Sprite2D" parent="."]
+position = Vector2(370, 152)
+texture = ExtResource("2_twv1b")
+
+[node name="MainCharacter" parent="." instance=ExtResource("3_y0w3d")]
+position = Vector2(57, 267)
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_u5f0c")]
+visible = false
+
+[node name="Enemy1" parent="." instance=ExtResource("5_0g6v0")]
+position = Vector2(226, 60)
+
+[node name="Enemy2" parent="." instance=ExtResource("5_0g6v0")]
+position = Vector2(444, 163)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_0g6v0")]
+position = Vector2(395, 350)
+
+[node name="AK-74" parent="." instance=ExtResource("6_twv1b")]
+position = Vector2(277, 256)

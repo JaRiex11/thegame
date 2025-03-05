@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://busfdkt32lom"]
+
+[ext_resource type="Script" uid="uid://cbpaf56en82v3" path="res://scenes/based_scenes/weapon.gd" id="1_og7uq"]
+
+[node name="Weapon" type="Node2D"]
+texture_filter = 1
+texture_repeat = 1
+script = ExtResource("1_og7uq")
+
+[node name="InHandSprite" type="Sprite2D" parent="."]
+
+[node name="OnGroundSprite" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+
+[node name="ShootPoint" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

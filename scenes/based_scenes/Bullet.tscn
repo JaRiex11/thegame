@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr54ggccdhg1f"]
+
+[ext_resource type="Script" uid="uid://g8d1u1exfdtv" path="res://scenes/based_scenes/bullet.gd" id="1_aayb2"]
+
+[node name="Bullet" type="Area2D"]
+scale = Vector2(0.160076, 0.146392)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_aayb2")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -9.09495e-13)
+rotation = 1.5708
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+rotation = -1.5708
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

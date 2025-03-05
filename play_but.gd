@@ -1,6 +1,6 @@
 extends Button
 
-@export var scene_path: String = "res://Tutorial.tscn"
+@export var scene_path: String = "res://scenes/Tutorial.tscn"
 
 func _ready() -> void:
 	pressed.connect(_on_button_pressed)
