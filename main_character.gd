@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
-@onready var player_sprite = $PlayerSprite
+@onready var player_sprite = $AnimatedSprite2D
 
 const Weapon = preload("res://scenes/based_scenes/weapon.gd")
 
-@export var SPEED = 300.0
+@export var SPEED = 400.0
 @export var max_health: int = 100
+
+# Переменная для хранения текущего направления (пригодится для idle)
+var is_facing_right = true
 
 var current_health: int
 var weapons: Array = []
@@ -15,13 +18,26 @@ func _ready():
 	current_health = max_health
 
 func _physics_process(delta):
-	var mouse_pos = get_global_mouse_position()
-	var look_dir = (mouse_pos - global_position).normalized()
-	rotation = look_dir.angle()
+	#var mouse_pos = get_global_mouse_position()
+	#var look_dir = (mouse_pos - global_position).normalized()
+	#rotation = look_dir.angle()
 	
 	var move_dir = Input.get_vector("left", "right", "up", "down")
 	velocity = move_dir * SPEED
 	move_and_slide()
+	
+	if move_dir.x != 0 or move_dir.y != 0:
+		if move_dir.x > 0 or (move_dir.y != 0 and is_facing_right):
+			player_sprite.play("WalkR")
+			is_facing_right = true
+		else:
+			player_sprite.play("WalkL")
+			is_facing_right = false
+	else:
+		if is_facing_right:
+			player_sprite.play("IdleR")
+		else:
+			player_sprite.play("IdleL")
 	
 	if Input.is_action_pressed("attack1") and current_weapon:
 		handle_shooting()
