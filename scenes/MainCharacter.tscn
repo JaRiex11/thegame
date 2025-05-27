@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://byk402vjjcu8t"]
+[gd_scene load_steps=30 format=3 uid="uid://byk402vjjcu8t"]
 
 [ext_resource type="Script" uid="uid://c3wvffvw20lst" path="res://main_character.gd" id="1_ghikb"]
 [ext_resource type="Texture2D" uid="uid://cw4ci1py8ala0" path="res://img/characters_sprites_animations.png" id="2_udfat"]
+[ext_resource type="Texture2D" uid="uid://dk3velau7becx" path="res://img/spriteset.png" id="3_8wgdu"]
 [ext_resource type="Script" uid="uid://dfm23eoqta2k" path="res://scenes/camera_2d.gd" id="3_iivhx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4qar"]
@@ -24,37 +25,69 @@ region = Rect2(0, 0, 128, 128)
 atlas = ExtResource("2_udfat")
 region = Rect2(128, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ukiaq"]
-atlas = ExtResource("2_udfat")
-region = Rect2(128, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqrn6"]
-atlas = ExtResource("2_udfat")
-region = Rect2(256, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bsb8y"]
-atlas = ExtResource("2_udfat")
-region = Rect2(384, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_48q8x"]
-atlas = ExtResource("2_udfat")
-region = Rect2(0, 128, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_3h3nx"]
-atlas = ExtResource("2_udfat")
-region = Rect2(512, 0, 128, 128)
+atlas = ExtResource("3_8wgdu")
+region = Rect2(512, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwm8f"]
-atlas = ExtResource("2_udfat")
-region = Rect2(640, 0, 128, 128)
+atlas = ExtResource("3_8wgdu")
+region = Rect2(640, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dq2vd"]
-atlas = ExtResource("2_udfat")
-region = Rect2(768, 0, 128, 128)
+atlas = ExtResource("3_8wgdu")
+region = Rect2(768, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aggmo"]
-atlas = ExtResource("2_udfat")
+atlas = ExtResource("3_8wgdu")
+region = Rect2(896, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48q8x"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1024, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukiaq"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1152, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqrn6"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1280, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsb8y"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1408, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytwf3"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wm1n"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1ai5"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7iv0i"]
+atlas = ExtResource("3_8wgdu")
 region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqftv"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvy1d"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a2hu"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1280, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvs5d"]
+atlas = ExtResource("3_8wgdu")
+region = Rect2(1408, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ppvyy"]
 animations = [{
@@ -82,23 +115,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ukiaq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qqrn6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bsb8y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_48q8x")
-}],
-"loop": true,
-"name": &"WalkL",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_3h3nx")
 }, {
 "duration": 1.0,
@@ -109,10 +125,51 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aggmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48q8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukiaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqrn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsb8y")
+}],
+"loop": true,
+"name": &"WalkL",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytwf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wm1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1ai5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7iv0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqftv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvy1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8a2hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvs5d")
 }],
 "loop": true,
 "name": &"WalkR",
-"speed": 5.0
+"speed": 13.0
 }]
 
 [sub_resource type="Animation" id="Animation_8wgdu"]
@@ -138,9 +195,7 @@ shape = SubResource("CapsuleShape2D_g4qar")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, 1)
 sprite_frames = SubResource("SpriteFrames_ppvyy")
-animation = &"WalkR"
-frame = 1
-frame_progress = 0.770814
+animation = &"WalkL"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -148,7 +203,7 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(1.2, 1.2)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.1
@@ -156,3 +211,11 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 script = ExtResource("3_iivhx")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+z_index = -2940
+offset_left = -1480.0
+offset_top = -766.0
+offset_right = 1363.0
+offset_bottom = 833.0
+color = Color(0.129412, 0.129412, 0.137255, 1)
