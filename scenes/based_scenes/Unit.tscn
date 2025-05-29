@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://eneimymgmmg7"]
+
+[ext_resource type="Script" uid="uid://dqq671ope8nrk" path="res://scenes/based_scenes/unit.gd" id="1_gtclq"]
+
+[node name="Unit" type="CharacterBody2D" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_gtclq")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]

@@ -9,6 +9,7 @@ const Weapon = preload("res://scenes/based_scenes/weapon.gd")
 
 # Переменная для хранения текущего направления (пригодится для idle)
 var is_facing_right = true
+var timer_jump = Timer.new()
 
 var current_health: int
 var weapons: Array = []
@@ -27,7 +28,11 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if move_dir.x != 0 or move_dir.y != 0:
-		if move_dir.x > 0 or (move_dir.y != 0 and is_facing_right):
+		if Input.is_action_just_pressed("jump"):
+			SPEED = 500
+			timer_jump.wait_time = 0.5
+			SPEED = 400
+		elif move_dir.x > 0 or (move_dir.y != 0 and is_facing_right):
 			player_sprite.play("WalkR")
 			is_facing_right = true
 		else:
