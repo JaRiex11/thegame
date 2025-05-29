@@ -86,7 +86,7 @@ func switch_weapon(index: int):
 		
 	current_weapon = weapons[index]
 	current_weapon.show()
-	player_sprite.texture = current_weapon.player_sprite_texture
+s	player_sprite.texture = current_weapon.player_sprite_texture
 	print("Текущее оружие:", current_weapon.weapon_name)
 	print("current_weapon: ", current_weapon)
 

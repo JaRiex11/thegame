@@ -187,6 +187,8 @@ _data = {
 [node name="MainCharacter" type="CharacterBody2D" groups=["player"]]
 collision_mask = 11
 script = ExtResource("1_ghikb")
+SPEED = null
+max_health = null
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
