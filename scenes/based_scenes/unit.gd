@@ -16,9 +16,12 @@ enum UNIT_STATE {
 @export var move_speed := 150.0
 @export var attack_damage := 10.0
 @export var attack_range := 50.0
+<<<<<<< Updated upstream
 @export var knockback_resistance := 0.5  # Сопротивление отбрасыванию (0-1)
 @export var body_damage := 25
 
+=======
+>>>>>>> Stashed changes
 @export_category("Animations")
 @export var idle_right_anim : String = "IdleR"
 @export var idle_left_anim : String = "IdleL"
@@ -38,12 +41,19 @@ var last_state: UNIT_STATE = UNIT_STATE.IDLE
 var target : Unit = null
 var is_facing_right := true  # Для определения направления
 var death_completed := false # Флаг завершения анимации смерти
+<<<<<<< Updated upstream
 var invincible := false
 var animated_sprite : AnimatedSprite2D
+=======
+var animated_sprite : AnimatedSprite2D
+var animation_player : AnimationPlayer
+>>>>>>> Stashed changes
 #endregion
 
 #region Встроенные функции
 func _ready() -> void:
+	animated_sprite = $AnimatedSprite2D
+	animation_player = $AnimationPlayer
 	current_health = max_health
 	_initialize_components()
 	change_state(UNIT_STATE.IDLE)
