@@ -126,6 +126,7 @@ func _enter_state(new_state: UNIT_STATE) -> void:
 	
 	match new_state:
 		UNIT_STATE.IDLE:
+			print("Попали в айдл")
 			anim_name = idle_right_anim if is_facing_right else idle_left_anim
 		UNIT_STATE.MOVE:
 			anim_name = walk_right_anim if is_facing_right else walk_left_anim
