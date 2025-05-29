@@ -7,7 +7,9 @@ texture_filter = 1
 texture_repeat = 1
 script = ExtResource("1_og7uq")
 
-[node name="InHandSprite" type="Sprite2D" parent="."]
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="InHandSprite" type="Sprite2D" parent="Pivot"]
 
 [node name="OnGroundSprite" type="Sprite2D" parent="."]
 

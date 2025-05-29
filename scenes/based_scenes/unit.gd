@@ -16,9 +16,9 @@ enum UNIT_STATE {
 @export var move_speed := 150.0
 @export var attack_damage := 10.0
 @export var attack_range := 50.0
-@export_category("Visuals")
-@export var sprite : Sprite2D
-@export var animation_player : AnimationPlayer
+@export var knockback_resistance := 0.5  # Сопротивление отбрасыванию (0-1)
+@export var body_damage := 25
+
 @export_category("Animations")
 @export var idle_right_anim : String = "IdleR"
 @export var idle_left_anim : String = "IdleL"
@@ -33,11 +33,13 @@ enum UNIT_STATE {
 
 #region Внутренние переменные
 var current_health : float
-var current_state : UNIT_STATE = UNIT_STATE.IDLE
+var current_state : UNIT_STATE
+var last_state: UNIT_STATE = UNIT_STATE.IDLE
 var target : Unit = null
-var facing_direction := Vector2.RIGHT
 var is_facing_right := true  # Для определения направления
 var death_completed := false # Флаг завершения анимации смерти
+var invincible := false
+var animated_sprite : AnimatedSprite2D
 #endregion
 
 #region Встроенные функции
@@ -47,26 +49,35 @@ func _ready() -> void:
 	change_state(UNIT_STATE.IDLE)
 
 func _physics_process(delta: float) -> void:
+#	_update_timers(delta)
 	_update_movement(delta)
 	_update_animation()
 	_handle_state_logic(delta)
 #endregion
 
 #region Публичные функции
-func take_damage(amount: float, attacker: Unit) -> void:
-	if current_state == UNIT_STATE.DEAD: return
+func take_damage(amount: float, attacker: Node) -> void:
+	if not is_instance_valid(attacker):
+		print("Attacker is invalid")
+		return
+	
+	if current_state == UNIT_STATE.DEAD or invincible: return
+	
 	current_health -= amount
+	print("unit's health: ", current_health)
 	_play_hit_effect()
-	if current_health <= 0: die()
+	var attack_pos = attacker.global_position if is_instance_valid(attacker) else global_position
+	_knockback(attack_pos)
+	
+	if current_health <= 0:
+		die()
 	else: 
 		change_state(UNIT_STATE.HURT)
-		_knockback(attacker.global_position)
 
 func die() -> void:
 	change_state(UNIT_STATE.DEAD)
 	set_physics_process(false)
 	_play_death_effect()
-	queue_free()
 
 func heal(amount: float) -> void:
 	current_health = min(current_health + amount, max_health)
@@ -76,34 +87,37 @@ func change_state(new_state: UNIT_STATE) -> void:
 	if current_state == new_state:
 		return
 	
+	last_state = current_state
 	_exit_state(current_state)
 	current_state = new_state
 	_enter_state(new_state)
+
+func get_body_gamage():
+	return body_damage
 #endregion
 
 #region Внутренние методы (переопределяются в дочерних классах)
 func _initialize_components() -> void:
-	pass
+	animated_sprite = get_node_or_null("AnimatedSprite2D")
+	if not animated_sprite:
+		push_error("AnimatedSprite2D missing in Unit scene!")
+	# Автоподключение сигнала атаки
 
 func _update_movement(delta: float) -> void:
 	if current_state == UNIT_STATE.DEAD:
 		return
-	
+	 
 	var movement := _calculate_movement()
 	velocity = movement * move_speed
 	move_and_slide()
 	
-	if movement.length_squared() > 0.1:
-		facing_direction = movement.normalized()
-		_update_facing()
+	_update_facing()
 
 func _update_facing() -> void:
-	if facing_direction.x != 0:
-		is_facing_right = facing_direction.x > 0
-		
-		# Если состояние позволяет, меняем анимацию
-		if current_state in [UNIT_STATE.IDLE, UNIT_STATE.MOVE]:
-			change_state(current_state)
+	if velocity.x > 0 or (velocity.y != 0 and is_facing_right):
+		is_facing_right = true
+	else: 
+		is_facing_right = false
 
 func _calculate_movement() -> Vector2:
 	return Vector2.ZERO
@@ -126,7 +140,6 @@ func _enter_state(new_state: UNIT_STATE) -> void:
 	
 	match new_state:
 		UNIT_STATE.IDLE:
-			print("Попали в айдл")
 			anim_name = idle_right_anim if is_facing_right else idle_left_anim
 		UNIT_STATE.MOVE:
 			anim_name = walk_right_anim if is_facing_right else walk_left_anim
@@ -138,12 +151,11 @@ func _enter_state(new_state: UNIT_STATE) -> void:
 		UNIT_STATE.DEAD:
 			anim_name = death_anim
 			# Для анимации смерти подписываемся на её завершение
-			if animation_player.has_animation(anim_name):
-				animation_player.animation_finished.connect(_on_death_animation_finished, CONNECT_ONE_SHOT)
-
-	if animation_player.has_animation(anim_name):
-		animation_player.play(anim_name)
+			if animated_sprite.sprite_frames.has_animation(anim_name):
+				animated_sprite.animation_finished.connect(_on_death_animation_finished, CONNECT_ONE_SHOT)
 		
+	play_anim(anim_name)
+
 # Обработчик завершения анимации смерти
 func _on_death_animation_finished(anim_name: String) -> void:
 	if anim_name == death_anim:
@@ -153,7 +165,10 @@ func _exit_state(old_state: UNIT_STATE) -> void:
 	pass
 
 func _idle_state(delta: float) -> void:
-	pass
+	if is_facing_right:
+		play_anim(idle_right_anim)
+	else:
+		play_anim(idle_left_anim)
 
 func _move_state(delta: float) -> void:
 	pass
@@ -178,32 +193,35 @@ func _play_hit_effect() -> void:
 	tween.tween_property(self, "modulate", Color.WHITE, 0.3)
 
 func _play_heal_effect() -> void:
-	# Для смерти используем специальную анимацию вместо твина
-	if animation_player.has_animation(death_anim):
-		animation_player.play(death_anim)
+	pass
+
+func _play_death_effect() -> void:
+	if animated_sprite.sprite_frames.has_animation(death_anim):
+		animated_sprite.play(death_anim)
+		await animated_sprite.animation_finished
 	else:
 		# Фолбэк если анимации смерти нет
 		var tween = create_tween()
-		tween.tween_property(self, "modulate:a", 0.0, 1.0)
-		tween.tween_callback(queue_free)
-
-func _play_death_effect() -> void:
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 1.0)
-	tween.tween_callback(queue_free)
+		tween.tween_property(self, "modulate:a", 1.0, 0.0)
+		await tween.finished
+	queue_free()
 
 func _knockback(source_position: Vector2) -> void:
 	var direction = (global_position - source_position).normalized()
-	var knockback_force = direction * 300.0
+	var knockback_force = direction * 300.0 * knockback_resistance
 	velocity = knockback_force
 	move_and_slide()
 #endregion
 
 #region Вспомогательные методы
+func play_anim(anim_name: String):
+	if (animated_sprite.sprite_frames.has_animation(anim_name)): # Чтобы игра не упала, если не найдет анимацию
+		animated_sprite.play(anim_name)
+
 func is_in_attack_range(target_position: Vector2) -> bool:
 	return global_position.distance_to(target_position) <= attack_range
 
-func can_see_target(target: Unit) -> bool:
+func can_see_target(target: CharacterBody2D) -> bool:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(
 		global_position,

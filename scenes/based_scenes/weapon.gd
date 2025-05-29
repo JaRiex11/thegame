@@ -1,4 +1,5 @@
 extends Node2D
+class_name Weapon
 
 # Характеристики оружия
 @export var player_sprite_texture: Texture2D
@@ -12,20 +13,25 @@ extends Node2D
 @export var bullet_scene: PackedScene
 @export var sprite_offset = Vector2(0, 0)
 
+@export var pivot_offset := Vector2(20, -10)  # Смещение точки вращения
+@export var flip_offset := Vector2(-10, 0)  # Смещение при зеркалировании влево
+
 var current_ammo: int
 var total_ammo: int
 var can_shoot: bool = true
 var is_reloading: bool = false
 
 # Спрайты и позиции
-@onready var ground_sprite = $OnGroundSprite
-@onready var hand_sprite = $InHandSprite
+@onready var ground_sprite: Sprite2D = $OnGroundSprite
+@onready var hand_sprite: Sprite2D = $Pivot/InHandSprite
 @onready var shoot_point = $ShootPoint
 
 func _ready():
 	current_ammo = magazine_size
 	total_ammo = max_ammo - magazine_size
 	hand_sprite.hide()
+	hand_sprite.z_index = 1
+	ground_sprite.show()
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
@@ -33,15 +39,19 @@ func _on_body_entered(body):
 		ground_sprite.hide()
 		#queue_free()
 
-func shoot(direction: Vector2):
-	print("shooting 2!!!")
+func shoot(direction: Vector2, owner: Node):
 	if can_shoot and current_ammo > 0 and not is_reloading:
 		var bullet = bullet_scene.instantiate()
+		
+		var flip_mod = -1 if hand_sprite.flip_v else 1
 		bullet.direction = direction
 		bullet.position = shoot_point.global_position
 		bullet.rotation = direction.angle()
 		bullet.speed = bullet_speed
 		bullet.damage = damage
+		
+		bullet.owner_ref = weakref(owner)
+		
 		get_tree().current_scene.add_child(bullet)
 		
 		current_ammo -= 1
@@ -69,6 +79,24 @@ func reload():
 		
 	is_reloading = false
 	print("finish reloading")
+
+func update_aim(target_position: Vector2):
+	# Вычисляем направление к цели
+	var direction = (target_position - global_position).normalized()
+
+	# Поворачиваем оружие
+	rotation = direction.angle()
+
+	# Вертикальное зеркалирование при стрельбе влево
+	if direction.x < 0:
+		hand_sprite.flip_h = false
+		position = flip_offset  # Смещаем для правильного позиционирования
+	else:
+		hand_sprite.flip_h = true
+		position = Vector2.ZERO
+		
+	# Всегда сохраняем ShootPoint справа от оружия
+	shoot_point.position.x = abs(shoot_point.position.x)
 
 func update_ammo(new_ammo: int):
 	total_ammo += new_ammo

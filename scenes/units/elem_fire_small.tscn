@@ -1,6 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://wno55x14kbsr"]
+[gd_scene load_steps=38 format=3 uid="uid://wno55x14kbsr"]
 
 [ext_resource type="PackedScene" uid="uid://eneimymgmmg7" path="res://scenes/based_scenes/Unit.tscn" id="1_faebf"]
+[ext_resource type="Script" uid="uid://dlv51i04aukjk" path="res://scenes/units/elem_fire_small.gd" id="2_5fa17"]
 [ext_resource type="Texture2D" uid="uid://owxonpwtqenk" path="res://img/SpriteFireD.png" id="2_koo4c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fa17"]
@@ -250,29 +251,38 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_oyo0q"]
-resource_name = "idle_r"
-
-[sub_resource type="Animation" id="Animation_iakwc"]
-resource_name = "idle_l"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ddsg"]
-_data = {
-&"idle_l": SubResource("Animation_iakwc"),
-&"idle_r": SubResource("Animation_oyo0q")
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_gocw2"]
+radius = 338.013
 
 [node name="Unit" instance=ExtResource("1_faebf")]
+collision_layer = 4
+script = ExtResource("2_5fa17")
+large_attack_dist = 500
+small_attack_dist = 50
+patrol_speed = 80.0
+chase_speed = 260.0
+sight_range = 800.0
+patrol_wait_time = 1.0
+search_duration = 5.0
+dash_speed = 1000.0
+dash_duration = 0.6
+dash_cooldown = 2.0
+attack_duration = 0.5
+max_health = 80.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_blged")
 animation = &"IdleR"
 
-[node name="AnimationPlayer" parent="." index="1"]
-libraries = {
-&"": SubResource("AnimationLibrary_5ddsg")
-}
+[node name="Hitbox" parent="." index="1"]
+polygon = PackedVector2Array(9, -2, 17, 7, 17, 23, 4, 32, -6, 32, -20, 23, -20, 6, -12, -2)
 
-[node name="CollisionPolygon2D" parent="Area2D" index="0"]
-polygon = PackedVector2Array(-13, 30, 4, 31, 17, 20, 15, 2, 0, -3, -15, -1, -20, 14)
+[node name="ViewArea" type="Area2D" parent="." index="2"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea" index="0"]
+position = Vector2(0, 14)
+shape = SubResource("CircleShape2D_gocw2")
+
+[connection signal="body_entered" from="ViewArea" to="." method="_on_detection_area_body_entered"]

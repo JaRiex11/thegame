@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/Enemy1.tscn" id="5_0g6v0"]
 [ext_resource type="PackedScene" uid="uid://b7fhf1urqd2e3" path="res://scenes/weapons/ak_74.tscn" id="6_twv1b"]
 [ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="6_y0w3d"]
-[ext_resource type="PackedScene" uid="uid://wno55x14kbsr" path="res://units/elem_fire_small.tscn" id="7_y0w3d"]
+[ext_resource type="PackedScene" uid="uid://wno55x14kbsr" path="res://scenes/units/elem_fire_small.tscn" id="7_y0w3d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5f0c"]
 texture = ExtResource("6_y0w3d")
@@ -52,7 +52,7 @@ script = ExtResource("1_288ch")
 [node name="MainCharacter" parent="." instance=ExtResource("3_y0w3d")]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(57, 267)
+position = Vector2(-309, 305)
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_u5f0c")]
 visible = false
@@ -70,7 +70,7 @@ position = Vector2(395, 350)
 position = Vector2(277, 256)
 
 [node name="AK-75" parent="." instance=ExtResource("6_twv1b")]
-position = Vector2(867, 132)
+position = Vector2(-134, 338)
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
@@ -83,4 +83,6 @@ tile_map_data = PackedByteArray("AAAAAAIAAAACAAMAAAAAAAEAAAACAAMAAAAAAAAAAAACAAM
 tile_set = SubResource("TileSet_0g6v0")
 
 [node name="Unit" parent="." instance=ExtResource("7_y0w3d")]
-position = Vector2(2, -11)
+position = Vector2(188, -66)
+chase_speed = 280.0
+max_health = 100.0

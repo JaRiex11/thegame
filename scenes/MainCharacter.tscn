@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://byk402vjjcu8t"]
+[gd_scene load_steps=27 format=3 uid="uid://byk402vjjcu8t"]
 
 [ext_resource type="Script" uid="uid://c3wvffvw20lst" path="res://main_character.gd" id="1_ghikb"]
 [ext_resource type="Texture2D" uid="uid://cw4ci1py8ala0" path="res://img/characters_sprites_animations.png" id="2_udfat"]
@@ -172,18 +172,6 @@ animations = [{
 "speed": 13.0
 }]
 
-[sub_resource type="Animation" id="Animation_8wgdu"]
-resource_name = "idle_left"
-
-[sub_resource type="Animation" id="Animation_iivhx"]
-resource_name = "idle_right"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppvyy"]
-_data = {
-&"idle_left": SubResource("Animation_8wgdu"),
-&"idle_right": SubResource("Animation_iivhx")
-}
-
 [node name="MainCharacter" type="CharacterBody2D" groups=["player"]]
 collision_mask = 11
 script = ExtResource("1_ghikb")
@@ -192,15 +180,17 @@ script = ExtResource("1_ghikb")
 position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_g4qar")
 
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtBox"]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_g4qar")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, 1)
 sprite_frames = SubResource("SpriteFrames_ppvyy")
 animation = &"IdleL"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ppvyy")
-}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.2, 1.2)
@@ -219,3 +209,5 @@ offset_top = -766.0
 offset_right = 1363.0
 offset_bottom = 833.0
 color = Color(0.129412, 0.129412, 0.137255, 1)
+
+[connection signal="body_entered" from="PlayerHurtBox" to="." method="_on_body_entered_enemy_body"]

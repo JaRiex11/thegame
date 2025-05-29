@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7fhf1urqd2e3"]
+[gd_scene load_steps=7 format=3 uid="uid://b7fhf1urqd2e3"]
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_eiecg"]
 [ext_resource type="Script" uid="uid://ch150ekqhqtwc" path="res://scenes/weapons/ak_74.gd" id="2_7g5m4"]
@@ -8,10 +8,6 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_8t5mj"]
 atlas = ExtResource("4_8t5mj")
 region = Rect2(184, 63, 44, 88)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kvinn"]
-atlas = ExtResource("4_8t5mj")
-region = Rect2(48, 176, 7, 73)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tabce"]
 atlas = ExtResource("4_8t5mj")
@@ -30,10 +26,16 @@ bullet_speed = 500.0
 bullet_scene = ExtResource("3_8t5mj")
 sprite_offset = Vector2(5, 13)
 
-[node name="InHandSprite" parent="." index="0"]
+[node name="Pivot" parent="." index="0"]
+position = Vector2(-4, 3)
+
+[node name="InHandSprite" parent="Pivot" index="0"]
 visible = false
 rotation = -1.5708
-texture = SubResource("AtlasTexture_kvinn")
+texture = ExtResource("4_8t5mj")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(64, 176, 25, 73)
 
 [node name="OnGroundSprite" parent="." index="1"]
 rotation = -1.5708
@@ -48,5 +50,5 @@ collision_mask = 9
 polygon = PackedVector2Array(36, -6, 0, -13, -36, -5, 2, 12)
 
 [node name="ShootPoint" parent="." index="3"]
-position = Vector2(37, 0)
+position = Vector2(36, -6)
 gizmo_extents = 0.0
