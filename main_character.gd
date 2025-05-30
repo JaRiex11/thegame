@@ -130,10 +130,12 @@ func die():
 	queue_free()
 
 func _on_body_entered_enemy_body(body: Unit) -> void:
-	print(current_health)
+	
 	if body.is_in_group("hazards"):
 		# Получаем компонент урона от объекта
 		if body.has_method("get_body_damage"):
 			take_damage(body.get_body_damage())
+			print(current_health)
 		else:
 			take_damage(15)
+			print(current_health)

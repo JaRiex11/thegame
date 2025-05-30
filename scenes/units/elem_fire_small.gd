@@ -104,7 +104,7 @@ func _start_dash_attack() -> void:
 
 func _handle_dash_state(delta: float) -> void:
 	# Плавное замедление рывка
-	velocity = velocity.move_toward(Vector2.ZERO, delta * dash_speed * 3.0)
+	velocity = velocity.move_toward(Vector2.ZERO, delta * dash_speed * 2.0)
 
 func _start_melee_attack() -> void:
 	is_attacking = true
@@ -119,9 +119,9 @@ func _start_melee_attack() -> void:
 		animated_sprite.play("attack_left")
 	
 	# Наносим урон (можно через Area2D)
-	$AttackHitbox/CollisionShape2D.disabled = false
+	$Hitbox.disabled = false
 	await get_tree().create_timer(0.2).timeout  # Задержка перед уроном
-	$AttackHitbox/CollisionShape2D.disabled = true
+	$Hitbox.disabled = true
 
 func _handle_attack_state(delta: float) -> void:
 	# Персонаж стоит на месте во время атаки
