@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtucaakamvdhs"]
+
+[ext_resource type="Texture2D" uid="uid://cspa3j0xj67v5" path="res://img/magic and HUD sprites1.png" id="1_ahhtf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahhtf"]
+atlas = ExtResource("1_ahhtf")
+region = Rect2(160, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
+atlas = ExtResource("1_ahhtf")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ysmq"]
+atlas = ExtResource("1_ahhtf")
+region = Rect2(128, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6fi6k"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"HeartNonStandart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ysmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ysmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}],
+"loop": true,
+"name": &"HeartStandart",
+"speed": 10.0
+}]
+
+[node name="HUD" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, 1)
+
+[node name="Heart" type="AnimatedSprite2D" parent="Camera2D"]
+z_index = 2845
+position = Vector2(-938, -521)
+sprite_frames = SubResource("SpriteFrames_6fi6k")
+animation = &"HeartStandart"
+frame_progress = 0.184226
