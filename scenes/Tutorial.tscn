@@ -61,7 +61,7 @@ visible = false
 position = Vector2(226, 60)
 
 [node name="Enemy2" parent="." instance=ExtResource("5_0g6v0")]
-position = Vector2(444, 163)
+position = Vector2(-304, 35)
 
 [node name="Enemy3" parent="." instance=ExtResource("5_0g6v0")]
 position = Vector2(395, 350)
@@ -83,6 +83,9 @@ tile_map_data = PackedByteArray("AAAAAAIAAAACAAMAAAAAAAEAAAACAAMAAAAAAAAAAAACAAM
 tile_set = SubResource("TileSet_0g6v0")
 
 [node name="Unit" parent="." instance=ExtResource("7_y0w3d")]
-position = Vector2(188, -66)
+position = Vector2(121, -51)
 chase_speed = 280.0
 max_health = 100.0
+
+[node name="Unit2" parent="." instance=ExtResource("7_y0w3d")]
+position = Vector2(216, 438)
