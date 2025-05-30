@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_eiecg"]
 [ext_resource type="Script" uid="uid://ch150ekqhqtwc" path="res://scenes/weapons/ak_74.gd" id="2_7g5m4"]
-[ext_resource type="PackedScene" uid="uid://tu8eg5q1275o" path="res://scenes/weapons/5_45_mm.tscn" id="3_8t5mj"]
+[ext_resource type="PackedScene" uid="uid://tu8eg5q1275o" path="res://scenes/weapons/Bullets/5_45_mm.tscn" id="3_8t5mj"]
 [ext_resource type="Texture2D" uid="uid://6kmg82a2alk1" path="res://img/sprite_list_1.png" id="4_8t5mj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8t5mj"]

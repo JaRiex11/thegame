@@ -45,7 +45,6 @@ var animated_sprite : AnimatedSprite2D
 #region Встроенные функции
 func _ready() -> void:
 	animated_sprite = $AnimatedSprite2D
-	animation_player = $AnimationPlayer
 	current_health = max_health
 	_initialize_components()
 	change_state(UNIT_STATE.IDLE)

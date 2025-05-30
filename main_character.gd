@@ -5,7 +5,7 @@ class_name PLayer
 
 const Weapon = preload("res://scenes/based_scenes/weapon.gd")
 
-@export var SPEED = 400.0
+@export var SPEED := 400.0
 @export var max_health: int = 100
 
 # Переменная для хранения текущего направления (пригодится для idle)
@@ -22,9 +22,6 @@ func _ready():
 		$PlayerHurtbox.body_entered.connect(_on_body_entered_enemy_body)
 
 func _physics_process(delta):
-	#var mouse_pos = get_global_mouse_position()
-	#var look_dir = (mouse_pos - global_position).normalized()
-	#rotation = look_dir.angle()
 	
 	var move_dir = Input.get_vector("left", "right", "up", "down")
 	velocity = move_dir * SPEED
