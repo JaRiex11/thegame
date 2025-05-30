@@ -16,12 +16,9 @@ enum UNIT_STATE {
 @export var move_speed := 150.0
 @export var attack_damage := 10.0
 @export var attack_range := 50.0
-<<<<<<< Updated upstream
-@export var knockback_resistance := 0.5  # Сопротивление отбрасыванию (0-1)
+@export var knockback_resistance := 0.2  # Сопротивление отбрасыванию (0-1)
 @export var body_damage := 25
 
-=======
->>>>>>> Stashed changes
 @export_category("Animations")
 @export var idle_right_anim : String = "IdleR"
 @export var idle_left_anim : String = "IdleL"
@@ -41,13 +38,8 @@ var last_state: UNIT_STATE = UNIT_STATE.IDLE
 var target : Unit = null
 var is_facing_right := true  # Для определения направления
 var death_completed := false # Флаг завершения анимации смерти
-<<<<<<< Updated upstream
 var invincible := false
 var animated_sprite : AnimatedSprite2D
-=======
-var animated_sprite : AnimatedSprite2D
-var animation_player : AnimationPlayer
->>>>>>> Stashed changes
 #endregion
 
 #region Встроенные функции
@@ -102,7 +94,7 @@ func change_state(new_state: UNIT_STATE) -> void:
 	current_state = new_state
 	_enter_state(new_state)
 
-func get_body_gamage():
+func get_body_damage():
 	return body_damage
 #endregion
 
@@ -218,7 +210,7 @@ func _play_death_effect() -> void:
 
 func _knockback(source_position: Vector2) -> void:
 	var direction = (global_position - source_position).normalized()
-	var knockback_force = direction * 300.0 * knockback_resistance
+	var knockback_force = direction * 500.0 * knockback_resistance
 	velocity = knockback_force
 	move_and_slide()
 #endregion
