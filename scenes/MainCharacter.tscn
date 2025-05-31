@@ -291,4 +291,7 @@ sprite_frames = SubResource("SpriteFrames_6fi6k")
 animation = &"HeartStandart"
 frame_progress = 0.0597292
 
+[node name="WeaponPivot" type="Marker2D" parent="."]
+position = Vector2(5, -20)
+
 [connection signal="body_entered" from="PlayerHurtBox" to="." method="_on_body_entered_enemy_body"]

@@ -4,38 +4,25 @@
 [ext_resource type="Script" uid="uid://ch150ekqhqtwc" path="res://scenes/weapons/ak_74.gd" id="2_7g5m4"]
 [ext_resource type="PackedScene" uid="uid://tu8eg5q1275o" path="res://scenes/weapons/5_45_mm.tscn" id="3_8t5mj"]
 [ext_resource type="Texture2D" uid="uid://6kmg82a2alk1" path="res://img/sprite_list_1.png" id="4_8t5mj"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8t5mj"]
-atlas = ExtResource("4_8t5mj")
-region = Rect2(184, 63, 44, 88)
+[ext_resource type="Texture2D" uid="uid://xwx7lmghroto" path="res://img/пуля.png" id="5_kvinn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tabce"]
 atlas = ExtResource("4_8t5mj")
 region = Rect2(64, 176, 25, 73)
 
 [node name="AK-74" instance=ExtResource("1_eiecg")]
-position = Vector2(4, 0)
+position = Vector2(3, 0)
 script = ExtResource("2_7g5m4")
-player_sprite_texture = SubResource("AtlasTexture_8t5mj")
+bullet_scene = ExtResource("3_8t5mj")
+bullet_speed = 500.0
 weapon_name = "AK-74"
 damage = 50
 fire_rate = 0.2
 magazine_size = 30
-max_ammo = 60
-bullet_speed = 500.0
-bullet_scene = ExtResource("3_8t5mj")
-sprite_offset = Vector2(5, 13)
+max_ammo = 120
 
-[node name="Pivot" parent="." index="0"]
-position = Vector2(-4, 3)
-
-[node name="InHandSprite" parent="Pivot" index="0"]
+[node name="InHandSprite" parent="." index="0"]
 visible = false
-rotation = -1.5708
-texture = ExtResource("4_8t5mj")
-flip_h = true
-region_enabled = true
-region_rect = Rect2(64, 176, 25, 73)
 
 [node name="OnGroundSprite" parent="." index="1"]
 rotation = -1.5708
@@ -50,5 +37,10 @@ collision_mask = 9
 polygon = PackedVector2Array(36, -6, 0, -13, -36, -5, 2, 12)
 
 [node name="ShootPoint" parent="." index="3"]
-position = Vector2(36, -6)
+position = Vector2(38, -6)
 gizmo_extents = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ShootPoint" index="0"]
+position = Vector2(2.00001, -9.53674e-07)
+scale = Vector2(0.0185185, 0.0185185)
+texture = ExtResource("5_kvinn")

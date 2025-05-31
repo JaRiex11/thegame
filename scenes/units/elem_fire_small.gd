@@ -40,6 +40,12 @@ func _ready() -> void:
 	_generate_patrol_points(4)  # Генерация точек патрулирования
 	move_speed = patrol_speed
 
+func _process(delta):
+	queue_redraw()  # Обновляем отрисовку каждый кадр
+
+#func _draw():
+	#_draw_debug()  # Вызываем нашу отладочную отрисовку
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	
@@ -59,7 +65,7 @@ func _physics_process(delta: float) -> void:
 		_handle_patrol_state(delta)
 	
 	move_and_slide()
-	_draw_debug()
+	#_draw_debug()
 
 func _update_timers(delta: float) -> void:
 	if dash_cooldown_timer > 0:
@@ -195,15 +201,15 @@ func _generate_patrol_points(count: int) -> void:
 		)
 		patrol_points.append(global_position + random_offset)
 
-func _draw_debug() -> void:
-	if Engine.is_editor_hint():
-		return
-		
-	# Рисуем точки патрулирования
-	for point in patrol_points:
-		draw_circle(point - global_position, 5.0, Color.GREEN)
-		
-	# Рисуем последнюю известную позицию
-	if is_searching:
-		draw_circle(last_known_position - global_position, 8.0, Color.RED)
+#func _draw_debug() -> void:
+	#if Engine.is_editor_hint():
+		#return
+		#
+	## Рисуем точки патрулирования
+	#for point in patrol_points:
+		#draw_circle(to_local(point), 5.0, Color.GREEN)
+		#
+	## Рисуем последнюю известную позицию
+	#if is_searching:
+		#draw_circle(to_local(last_known_position), 8.0, Color.RED)
 #endregion
