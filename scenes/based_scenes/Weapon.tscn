@@ -6,8 +6,10 @@
 texture_filter = 1
 texture_repeat = 1
 script = ExtResource("1_og7uq")
+bullet_speed = 800.0
 
 [node name="InHandSprite" type="Sprite2D" parent="."]
+visible = false
 
 [node name="OnGroundSprite" type="Sprite2D" parent="."]
 

@@ -114,9 +114,9 @@ func _start_melee_attack() -> void:
 	# Определяем направление атаки
 	var attack_dir = sign(current_target.global_position.x - global_position.x)
 	if attack_dir > 0:
-		animated_sprite.play("attack_right")
+		play_anim("attack_right")
 	else:
-		animated_sprite.play("attack_left")
+		play_anim("attack_left")
 	
 	# Наносим урон (можно через Area2D)
 	$Hitbox.disabled = false

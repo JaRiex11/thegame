@@ -15,6 +15,7 @@ func initialize_components(_owner_pos: Vector2, _direction: Vector2, _speed: flo
 	speed = _speed
 	damage = _damage
 	knockback_force = _knockback_force
+	print("bullet speed :", speed)
 
 func _on_body_entered(body):
 	if body.has_method("take_damage"):

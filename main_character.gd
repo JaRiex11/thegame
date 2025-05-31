@@ -97,11 +97,11 @@ func handle_weapon():
 		return
 	
 	# Обновляем прицеливание оружия
-	current_weapon.update_aim(get_global_mouse_position()) #, weapon_pivot)
+	current_weapon.update_aim(get_global_mouse_position(), weapon_pivot) #, weapon_pivot)
 	
 	# Стрельба
 	if Input.is_action_pressed("attack1"):
-		var direction = (get_global_mouse_position() - global_position).normalized()
+		var direction = (get_global_mouse_position() - current_weapon.shoot_point.global_position).normalized()
 		current_weapon.try_shoot(direction, self.position)
 	
 	# Перезарядка
@@ -151,11 +151,13 @@ func _deferred_add_weapon(new_weapon: Weapon):
 	# Добавляем к точке вращения
 	weapon_pivot.add_child(new_weapon)
 	new_weapon.z_index = 1  # Оружие поверх персонажа
-	new_weapon.position = Vector2.ZERO
+	
+	new_weapon.position.x = new_weapon.pivot_offset_x
+	new_weapon.position.y = new_weapon.pivot_offset_y
 	
 	# Настраиваем оружие
 	new_weapon.ground_sprite.hide()
-	#new_weapon.hand_sprite.show()
+	new_weapon.hand_sprite.show()
 	new_weapon.set_process(true)
 	
 	weapons.append(new_weapon)

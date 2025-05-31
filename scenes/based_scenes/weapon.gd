@@ -8,6 +8,8 @@ enum WeaponState { IDLE, SHOOTING, RELOADING }
 @export_category("Связанные сцены")
 @export var bullet_scene: PackedScene
 @export var bullet_speed: float = 700
+@export var pivot_offset_y := 70  # Смещение точки вращения
+@export var pivot_offset_x := 0  # Смещение точки вращения
 
 @export_category("Характеристики")
 @export var weapon_name: String = "Pistol"
@@ -53,20 +55,25 @@ func _ready():
 	reload_timer.timeout.connect(_on_reload_finished)
 	reload_timer.one_shot = true
 
-func update_aim(target_position: Vector2):
+func update_aim(target_position: Vector2, weapon_pivot: Marker2D):
 	# Вычисляем направление к цели
 	var direction = (target_position - global_position).normalized()
 
 	# Поворачиваем оружие
+	
+	#position.y = weapon_pivot.position.y + pivot_offset_y
+	#position.x = weapon_pivot.position.x + pivot_offset_x
+	
 	rotation = direction.angle()
-
+	
 	# Вертикальное зеркалирование при стрельбе влево
 	if direction.x < 0:
 		hand_sprite.flip_h = false
-		position = flip_offset  # Смещаем для правильного позиционирования
+		
+		#position = flip_offset  # Смещаем для правильного позиционирования
 	else:
 		hand_sprite.flip_h = true
-		position = Vector2.ZERO
+		#position = Vector2.ZERO
 		
 	# Всегда сохраняем ShootPoint справа от оружия
 	shoot_point.position.x = abs(shoot_point.position.x)
@@ -123,9 +130,10 @@ func _deferred_pick_up(player):
 	
 	# Передаем оружие игроку
 	if is_instance_valid(player) and player.has_method("pick_up_weapon"):
-		player.pick_up_weapon(self)
 		ground_sprite.hide()
 		hand_sprite.show()
+		player.pick_up_weapon(self)
+		
 
 func try_reload() -> bool:
 	if current_state != WeaponState.IDLE or total_ammo <= 0 or current_ammo == magazine_size:
