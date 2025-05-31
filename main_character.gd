@@ -3,13 +3,12 @@ class_name Player
 
 const Weapon = preload("res://scenes/based_scenes/weapon.gd")
 
-@export var SPEED = 400.0
 # Состояния игрока
+enum PlayerState { IDLE, WALK, HURT, DEAD }
 
 @export var SPEED := 400.0
 @export var max_health: int = 100
 
-# Переменная для хранения текущего направления (пригодится для idle)
 @export_category("Animations")
 @export var idle_right_anim : String = "IdleR"
 @export var idle_left_anim : String = "IdleL"
@@ -41,11 +40,11 @@ func _ready():
 	change_state(PlayerState.IDLE)
 
 func _physics_process(delta):
-	
 	update_facing_direction()
 	handle_movement()
 	handle_weapon()
 	update_animations()
+
 func update_facing_direction():
 	var mouse_pos = get_global_mouse_position()
 	# Определяем направление взгляда по позиции курсора
@@ -56,7 +55,6 @@ func handle_movement():
 	velocity = move_dir * SPEED
 	move_and_slide()
 	
-		if Input.is_action_just_pressed("jump"):
 	# Изменение состояния движения
 	if move_dir.length() > 0:
 		if current_state != PlayerState.WALK:
