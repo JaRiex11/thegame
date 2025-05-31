@@ -30,7 +30,7 @@ var reload_timer: Timer
 
 # Спрайты и позиции
 @onready var ground_sprite: Sprite2D = $OnGroundSprite
-@onready var hand_sprite: Sprite2D = $Pivot/InHandSprite
+@onready var hand_sprite: Sprite2D = $InHandSprite
 @onready var shoot_point = $ShootPoint
 @onready var collision := $Area2D/CollisionPolygon2D
 
@@ -153,3 +153,7 @@ func _on_reload_finished():
 	emit_signal("ammo_updated", current_ammo, total_ammo)
 	current_state = WeaponState.IDLE
 	emit_signal("state_changed", current_state)
+
+func update_ammo(new_ammo: int): # Нужно при подборе патронов для оружия
+	total_ammo += new_ammo
+	total_ammo = min(total_ammo, max_ammo)

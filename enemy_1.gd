@@ -7,7 +7,7 @@ const SPEED = 100.0
 func _physics_process(delta: float) -> void:
 	pass
 
-func take_damage(damage, owner):
+func take_damage(damage, owner, kb_force):
 	health -= damage
 	if health <= 0:
 		die()

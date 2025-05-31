@@ -20,17 +20,6 @@ fire_rate = 0.2
 magazine_size = 30
 max_ammo = 60
 
-[node name="Pivot" parent="." index="0"]
-position = Vector2(-4, 3)
-
-[node name="InHandSprite" parent="Pivot" index="0"]
-visible = false
-rotation = -1.5708
-texture = ExtResource("4_8t5mj")
-flip_h = true
-region_enabled = true
-region_rect = Rect2(64, 176, 25, 73)
-
 [node name="OnGroundSprite" parent="." index="1"]
 rotation = -1.5708
 texture = SubResource("AtlasTexture_tabce")
