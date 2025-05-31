@@ -57,18 +57,14 @@ func _physics_process(delta: float) -> void:
 #endregion
 
 #region Публичные функции
-func take_damage(amount: float, attacker: Node) -> void:
-	if not is_instance_valid(attacker):
-		print("Attacker is invalid")
-		return
-	
+func take_damage(amount: float, attacker_pos: Vector2, attacker_kb_force: float) -> void:
 	if current_state == UNIT_STATE.DEAD or invincible: return
 	
 	current_health -= amount
 	print("unit's health: ", current_health)
 	_play_hit_effect()
-	var attack_pos = attacker.global_position if is_instance_valid(attacker) else global_position
-	_knockback(attack_pos)
+	#var attack_pos = attacker.global_position if is_instance_valid(attacker) else global_position
+	_knockback(attacker_pos, attacker_kb_force)
 	
 	if current_health <= 0:
 		die()
@@ -158,9 +154,8 @@ func _enter_state(new_state: UNIT_STATE) -> void:
 	play_anim(anim_name)
 
 # Обработчик завершения анимации смерти
-func _on_death_animation_finished(anim_name: String) -> void:
-	if anim_name == death_anim:
-		death_completed = true
+func _on_death_animation_finished() -> void:
+	death_completed = true
 
 func _exit_state(old_state: UNIT_STATE) -> void:
 	pass
@@ -207,9 +202,9 @@ func _play_death_effect() -> void:
 		await tween.finished
 	queue_free()
 
-func _knockback(source_position: Vector2) -> void:
+func _knockback(source_position: Vector2, source_knockback_force: float) -> void:
 	var direction = (global_position - source_position).normalized()
-	var knockback_force = direction * 500.0 * knockback_resistance
+	var knockback_force = direction * source_knockback_force * knockback_resistance
 	velocity = knockback_force
 	move_and_slide()
 #endregion

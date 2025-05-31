@@ -53,8 +53,6 @@ script = ExtResource("1_288ch")
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(-309, 305)
-SPEED = 400.0
-max_health = 100
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_u5f0c")]
 visible = false

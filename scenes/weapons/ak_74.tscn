@@ -1,13 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7fhf1urqd2e3"]
+[gd_scene load_steps=6 format=3 uid="uid://b7fhf1urqd2e3"]
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_eiecg"]
 [ext_resource type="Script" uid="uid://ch150ekqhqtwc" path="res://scenes/weapons/ak_74.gd" id="2_7g5m4"]
 [ext_resource type="PackedScene" uid="uid://tu8eg5q1275o" path="res://scenes/weapons/Bullets/5_45_mm.tscn" id="3_8t5mj"]
 [ext_resource type="Texture2D" uid="uid://6kmg82a2alk1" path="res://img/sprite_list_1.png" id="4_8t5mj"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8t5mj"]
-atlas = ExtResource("4_8t5mj")
-region = Rect2(184, 63, 44, 88)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tabce"]
 atlas = ExtResource("4_8t5mj")
@@ -16,15 +12,13 @@ region = Rect2(64, 176, 25, 73)
 [node name="AK-74" instance=ExtResource("1_eiecg")]
 position = Vector2(4, 0)
 script = ExtResource("2_7g5m4")
-player_sprite_texture = SubResource("AtlasTexture_8t5mj")
+bullet_scene = ExtResource("3_8t5mj")
+bullet_speed = 500.0
 weapon_name = "AK-74"
 damage = 50
 fire_rate = 0.2
 magazine_size = 30
 max_ammo = 60
-bullet_speed = 500.0
-bullet_scene = ExtResource("3_8t5mj")
-sprite_offset = Vector2(5, 13)
 
 [node name="Pivot" parent="." index="0"]
 position = Vector2(-4, 3)
