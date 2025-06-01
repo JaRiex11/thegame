@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://r4pbpxjc4bgf"]
 
-[ext_resource type="PackedScene" uid="uid://da3agk7xajbm0" path="res://scenes/based_scenes/MagicSpell.tscn" id="1_uje1r"]
+[ext_resource type="PackedScene" uid="uid://da3agk7xajbm0" path="res://scenes/based_scenes/Spell.tscn" id="1_uje1r"]
 
 [node name="MagicSpell" instance=ExtResource("1_uje1r")]

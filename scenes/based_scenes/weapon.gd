@@ -7,7 +7,7 @@ enum WeaponState { IDLE, SHOOTING, RELOADING }
 # Характеристики оружия
 @export_category("Связанные сцены")
 @export var bullet_scene: PackedScene
-@export var bullet_speed: float = 700
+@export var bullet_speed: float = 1000
 @export var pivot_offset_y := 70  # Смещение точки вращения
 @export var pivot_offset_x := 0  # Смещение точки вращения
 @export var shoot_point_offset := 5
@@ -20,6 +20,7 @@ enum WeaponState { IDLE, SHOOTING, RELOADING }
 @export var max_ammo: int = 50
 @export var reload_time: float = 1.5
 @export var knockback_force: float = 500
+@export var damage_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE 
 
 @export var pivot_offset := Vector2(20, -10)  # Смещение точки вращения
 @export var flip_offset := Vector2(-10, 0)  # Смещение при зеркалировании влево
@@ -88,8 +89,8 @@ func shoot(weapon_owner_pos: Vector2):
 	# Задаем направление от начала ствола до конца (чтобы летело строго в направлении оружия)
 	var new_direction = (shoot_point.global_position - shoot_start_point.global_position).normalized()
 	
-	# Порядок: (_owner_pos: Vector2, _direction: Vector2, _speed: float, _damage: int, _knockback_force: float)
-	bullet.initialize_components(weapon_owner_pos, new_direction, bullet_speed, damage, knockback_force)
+# Порядок: (_owner_pos: Vector2, _direction: Vector2, _speed: float, _damage: int, _knockback_force: float, damage_element: ElemSys.ELEMENT)
+	bullet.init_components(weapon_owner_pos, new_direction, bullet_speed, damage, knockback_force, damage_element)
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = new_direction.angle()
 	

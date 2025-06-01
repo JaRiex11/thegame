@@ -86,8 +86,6 @@ position = Vector2(216, 438)
 
 [node name="AK-74_1" parent="." instance=ExtResource("7_u5f0c")]
 position = Vector2(-176, 331)
-bullet_speed = 700.0
 
 [node name="AK-74_2" parent="." instance=ExtResource("7_u5f0c")]
 position = Vector2(12, 471)
-bullet_speed = 700.0

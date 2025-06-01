@@ -14,7 +14,7 @@ region = Rect2(64, 176, 25, 73)
 
 [node name="AK-74_2" instance=ExtResource("1_mi5ef")]
 bullet_scene = ExtResource("2_o04r2")
-bullet_speed = 1000.0
+bullet_speed = 2000.0
 pivot_offset_y = 25
 pivot_offset_x = 8
 weapon_name = "AK-74_2"

@@ -1,4 +1,4 @@
-extends Unit
+extends FireElemental
 class_name ElemFireSmall
 
 @export var large_attack_dist := 100

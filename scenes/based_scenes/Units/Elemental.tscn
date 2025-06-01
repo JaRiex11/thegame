@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://mbesurj7hyg4"]
+
+[ext_resource type="PackedScene" uid="uid://eneimymgmmg7" path="res://scenes/based_scenes/Units/Unit.tscn" id="1_wcg6q"]
+[ext_resource type="Script" uid="uid://ci66w1n26nyft" path="res://scenes/based_scenes/Units/elemental.gd" id="2_caixx"]
+
+[node name="Elemental" instance=ExtResource("1_wcg6q")]
+script = ExtResource("2_caixx")

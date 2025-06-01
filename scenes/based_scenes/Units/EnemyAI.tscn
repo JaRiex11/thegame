@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ckfkc1djecl8y"]
 
-[ext_resource type="Script" uid="uid://d4f0cjoio1nku" path="res://scenes/based_scenes/enemy_ai.gd" id="1_pvh85"]
+[ext_resource type="Script" uid="uid://d4f0cjoio1nku" path="res://scenes/based_scenes/Units/enemy_ai.gd" id="1_pvh85"]
 [ext_resource type="PackedScene" uid="uid://wno55x14kbsr" path="res://scenes/units/elem_fire_small.tscn" id="2_3diu6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvh85"]

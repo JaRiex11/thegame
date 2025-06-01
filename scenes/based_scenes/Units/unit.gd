@@ -40,6 +40,10 @@ var is_facing_right := true  # Для определения направлен�
 var death_completed := false # Флаг завершения анимации смерти
 var invincible := false
 var animated_sprite : AnimatedSprite2D
+# Стихийная логика
+var current_status_effects: Array[ElemSys.STATUS_EFFECT] = []
+var current_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
+var is_elemental: bool = false
 #endregion
 
 #region Встроенные функции
@@ -57,14 +61,26 @@ func _physics_process(delta: float) -> void:
 #endregion
 
 #region Публичные функции
-func take_damage(amount: float, attacker_pos: Vector2, attacker_kb_force: float) -> void:
+func take_damage(
+	amount: float, 
+	attacker_pos: Vector2, 
+	attacker_kb_force: float, 
+	damage_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
+	) -> void:
 	if current_state == UNIT_STATE.DEAD or invincible: return
 	
-	current_health -= amount
+	# Рассчитываем множитель урона в зависимости от элементов
+	var damage_multiplier = _get_elemental_damage_multiplier(damage_element)
+	var final_damage = amount * damage_multiplier
+	
+	current_health -= final_damage
 	print("unit's health: ", current_health)
 	_play_hit_effect()
-	#var attack_pos = attacker.global_position if is_instance_valid(attacker) else global_position
 	_knockback(attacker_pos, attacker_kb_force)
+	
+	# Обрабатываем элементальные реакции
+	if damage_element != ElemSys.ELEMENT.NONE:
+		_process_elemental_reaction(damage_element)
 	
 	if current_health <= 0:
 		die()
@@ -91,6 +107,72 @@ func change_state(new_state: UNIT_STATE) -> void:
 
 func get_body_damage():
 	return body_damage
+#endregion
+
+#region Стихийная логика
+func _get_elemental_damage_multiplier(damage_element: ElemSys.ELEMENT) -> float:
+	if is_elemental:
+		if (damage_element == ElemSys.ELEMENT.NONE || damage_element == ElemSys.ELEMENT.PHYSIC): # Пока что 1.0, но вообще, надо 0
+			return 0.5
+		# Для элементалей учитываем их стихию
+		return ElemSys.get_damage_multiplier(damage_element, current_element)
+	else:
+		# Для не-элементалей просто 1.0, если не учитываем статус эффекты
+		return 1.0
+
+func _process_elemental_reaction(attacker_element: ElemSys.ELEMENT) -> void:
+	# Обрабатываем реакции между элементами
+	if is_elemental:
+		var reaction = ElemSys.get_reaction(attacker_element, current_element)
+		if reaction != ElemSys.ELEMENT.NONE:
+			_apply_elemental_reaction(reaction)
+	else:
+		# Обрабатываем статус эффекты для не-элементалей
+		var new_status = _get_status_from_element(attacker_element)
+		if new_status != ElemSys.STATUS_EFFECT.NONE:
+			_apply_status_effect(new_status)
+
+func _apply_status_effect(status: ElemSys.STATUS_EFFECT) -> void:
+	# Проверяем, есть ли уже такой эффект
+	if current_status_effects.has(status):
+		return
+	
+	current_status_effects.append(status)
+	
+	# Проверяем возможные реакции между статус эффектами
+	_check_status_interactions()
+
+func _check_status_interactions() -> void:
+	# Проверяем взаимодействия между статус эффектами
+	if current_status_effects.has(ElemSys.STATUS_EFFECT.BURNING) and current_status_effects.has(ElemSys.STATUS_EFFECT.WET):
+		# Произошла реакция пара
+		_apply_elemental_reaction(ElemSys.ELEMENT.STEAM)
+		# Удаляем статус эффекты
+		current_status_effects.erase(ElemSys.STATUS_EFFECT.BURNING)
+		current_status_effects.erase(ElemSys.STATUS_EFFECT.WET)
+
+func _apply_elemental_reaction(reaction: ElemSys.ELEMENT) -> void:
+	match reaction:
+		ElemSys.ELEMENT.STEAM:
+			# Эффект пара - наносим дополнительный урон
+			take_damage(10.0, global_position, 0, ElemSys.ELEMENT.NONE)
+			_play_steam_effect()
+		# Можно добавить другие реакции
+
+func _play_steam_effect() -> void:
+	# Визуальный эффект пара
+	# var steam_particles = preload("res://effects/steam_particles.tscn").instantiate()
+	#add_child(steam_particles)
+	#steam_particles.emitting = true
+	#await get_tree().create_timer(1.0).timeout
+	#steam_particles.queue_free()
+	pass
+
+func _get_status_from_element(element: ElemSys.ELEMENT) -> ElemSys.STATUS_EFFECT:
+	match element:
+		ElemSys.ELEMENT.FIRE: return ElemSys.STATUS_EFFECT.BURNING
+		ElemSys.ELEMENT.WATER: return ElemSys.STATUS_EFFECT.WET
+		_: return ElemSys.STATUS_EFFECT.NONE
 #endregion
 
 #region Внутренние методы (переопределяются в дочерних классах)

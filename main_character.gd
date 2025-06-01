@@ -186,6 +186,7 @@ func take_damage(damage: int):
 	current_health -= damage
 	if current_health <= 0:
 		change_state(PlayerState.DEAD)
+		die()
 	else:
 		change_state(PlayerState.HURT)
 

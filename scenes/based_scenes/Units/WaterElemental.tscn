@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca53ykphtdiiq"]
+
+[ext_resource type="PackedScene" uid="uid://mbesurj7hyg4" path="res://scenes/based_scenes/Units/Elemental.tscn" id="1_d3ck4"]
+[ext_resource type="Script" uid="uid://djr87ldin7ngq" path="res://scenes/based_scenes/Units/water_elemental.gd" id="2_ufjj0"]
+
+[node name="WaterElemental" instance=ExtResource("1_d3ck4")]
+script = ExtResource("2_ufjj0")
+max_health = null
+move_speed = null
+attack_damage = null
+attack_range = null
+knockback_resistance = null
+body_damage = null
+idle_right_anim = null
+idle_left_anim = null
+walk_right_anim = null
+walk_left_anim = null
+attack_right_anim = null
+attack_left_anim = null
+hurt_right_anim = null
+hurt_left_anim = null
+death_anim = null
+base_element = null
+is_elemental = null

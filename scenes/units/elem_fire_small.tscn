@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://wno55x14kbsr"]
 
-[ext_resource type="PackedScene" uid="uid://eneimymgmmg7" path="res://scenes/based_scenes/Unit.tscn" id="1_faebf"]
+[ext_resource type="PackedScene" uid="uid://eneimymgmmg7" path="res://scenes/based_scenes/Units/Unit.tscn" id="1_faebf"]
 [ext_resource type="Script" uid="uid://dlv51i04aukjk" path="res://scenes/units/elem_fire_small.gd" id="2_5fa17"]
 [ext_resource type="Texture2D" uid="uid://owxonpwtqenk" path="res://img/SpriteFireD.png" id="2_koo4c"]
 [ext_resource type="Texture2D" uid="uid://dw8h5g4cpnvcs" path="res://img/min_fire_d.png" id="3_avlgy"]
