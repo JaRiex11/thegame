@@ -38,3 +38,6 @@ polygon = PackedVector2Array(-36, 1, -36, -8, 4, -12, 38, -6, 1, -3, 5, 12)
 
 [node name="ShootPoint" parent="." index="3"]
 position = Vector2(35, -6)
+
+[node name="ShootStartPoint" parent="." index="4"]
+position = Vector2(0, -6)

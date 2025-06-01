@@ -1,0 +1,101 @@
+[gd_scene load_steps=10 format=4 uid="uid://f5kkcfsue58p"]
+
+[ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_288ch"]
+[ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="3_y0w3d"]
+[ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="4_u5f0c"]
+[ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/Enemy1.tscn" id="5_0g6v0"]
+[ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="6_y0w3d"]
+[ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="7_u5f0c"]
+[ext_resource type="PackedScene" uid="uid://wno55x14kbsr" path="res://scenes/units/elem_fire_small.tscn" id="7_y0w3d"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5f0c"]
+texture = ExtResource("6_y0w3d")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_0g6v0"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_u5f0c")
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_288ch")
+
+[node name="MainCharacter" parent="." instance=ExtResource("3_y0w3d")]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(-309, 305)
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_u5f0c")]
+visible = false
+
+[node name="Enemy1" parent="." instance=ExtResource("5_0g6v0")]
+position = Vector2(226, 60)
+
+[node name="Enemy2" parent="." instance=ExtResource("5_0g6v0")]
+position = Vector2(-304, 35)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_0g6v0")]
+position = Vector2(395, 350)
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -1
+tile_set = SubResource("TileSet_0g6v0")
+format = 2
+
+[node name="Layer1" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAIAAAACAAMAAAAAAAEAAAACAAMAAAAAAAAAAAACAAMAAAABAAEAAAACAAMAAAABAAAAAAACAAMAAAABAAIAAAACAAMAAAACAAIAAAACAAMAAAACAAEAAAACAAMAAAACAAAAAAACAAMAAAD//wAAAAACAAMAAAD//wEAAAACAAMAAAD//wIAAAACAAMAAAD+/wAAAAACAAMAAAD+/wEAAAACAAMAAAD+/wIAAAACAAMAAAD+////AAACAAIAAAD/////AAACAAIAAAAAAP//AAACAAIAAAABAP//AAACAAIAAAACAP//AAACAAIAAAADAP//AAADAAIAAAADAAAAAAADAAMAAAADAAEAAAADAAMAAAADAAIAAAADAAMAAAD9////AAABAAIAAAD9/wAAAAABAAMAAAD9/wEAAAABAAMAAAD9/wIAAAABAAMAAAD9/wMAAAABAAQAAAD+/wMAAAACAAQAAAD//wMAAAACAAQAAAAAAAMAAAACAAQAAAABAAMAAAACAAQAAAACAAMAAAACAAQAAAADAAMAAAADAAQAAAD8/wQAAAAAAAUAAAD9/wQAAAABAAUAAAD+/wQAAAABAAUAAAD//wQAAAABAAUAAAAAAAQAAAABAAUAAAABAAQAAAABAAUAAAACAAQAAAABAAUAAAADAAQAAAABAAUAAAAEAAQAAAAEAAUAAAAEAAMAAAAEAAQAAAAEAAIAAAAEAAQAAAAEAAEAAAAEAAQAAAAEAAAAAAAEAAQAAAAEAP//AAAEAAQAAAAEAP7/AAAEAAEAAAD8//7/AAAAAAEAAAD9//7/AAACAAEAAAD+//7/AAADAAEAAAD///7/AAABAAEAAAAAAP7/AAADAAEAAAABAP7/AAACAAEAAAACAP7/AAABAAEAAAADAP7/AAADAAEAAAD8////AAAAAAEAAAD8/wAAAAAAAAEAAAD8/wEAAAAAAAEAAAD8/wIAAAAAAAEAAAD8/wMAAAAAAAEAAAADAP3/AAADAAAAAAACAP3/AAADAAAAAAABAP3/AAADAAAAAAAAAP3/AAADAAAAAAD///3/AAADAAAAAAD+//3/AAADAAAAAAD9//3/AAADAAAAAAD8//3/AAAAAAAAAAAEAP3/AAAEAAAAAAA=")
+tile_set = SubResource("TileSet_0g6v0")
+
+[node name="Unit" parent="." instance=ExtResource("7_y0w3d")]
+position = Vector2(121, -51)
+chase_speed = 280.0
+max_health = 100.0
+
+[node name="Unit2" parent="." instance=ExtResource("7_y0w3d")]
+position = Vector2(216, 438)
+
+[node name="AK-74_1" parent="." instance=ExtResource("7_u5f0c")]
+position = Vector2(-176, 331)
+bullet_speed = 700.0
+reload_time = 1.5
+knockback_force = 500.0
+pivot_offset = Vector2(20, -10)
+flip_offset = Vector2(-10, 0)
+
+[node name="AK-74_2" parent="." instance=ExtResource("7_u5f0c")]
+position = Vector2(12, 471)
+bullet_speed = 700.0
+reload_time = 1.5
+knockback_force = 500.0
+pivot_offset = Vector2(20, -10)
+flip_offset = Vector2(-10, 0)

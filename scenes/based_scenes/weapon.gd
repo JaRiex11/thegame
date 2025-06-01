@@ -10,6 +10,7 @@ enum WeaponState { IDLE, SHOOTING, RELOADING }
 @export var bullet_speed: float = 700
 @export var pivot_offset_y := 70  # Смещение точки вращения
 @export var pivot_offset_x := 0  # Смещение точки вращения
+@export var shoot_point_offset := 5
 
 @export_category("Характеристики")
 @export var weapon_name: String = "Pistol"
@@ -35,6 +36,7 @@ var reload_timer: Timer
 @onready var hand_sprite: Sprite2D = $InHandSprite
 @onready var shoot_point = $ShootPoint
 @onready var collision := $Area2D/CollisionPolygon2D
+@onready var shoot_start_point := $ShootStartPoint
 
 signal state_changed(new_state)
 signal ammo_updated(current, total)
@@ -57,45 +59,39 @@ func _ready():
 
 func update_aim(target_position: Vector2, weapon_pivot: Marker2D):
 	# Вычисляем направление к цели
-	var direction = (target_position - global_position).normalized()
+	var direction = (target_position - shoot_start_point.global_position).normalized()
 
 	# Поворачиваем оружие
-	
-	#position.y = weapon_pivot.position.y + pivot_offset_y
-	#position.x = weapon_pivot.position.x + pivot_offset_x
-	
 	rotation = direction.angle()
 	
 	# Вертикальное зеркалирование при стрельбе влево
 	if direction.x < 0:
-		hand_sprite.flip_h = false
-		
-		#position = flip_offset  # Смещаем для правильного позиционирования
+		scale.y = -1
 	else:
-		hand_sprite.flip_h = true
-		#position = Vector2.ZERO
-		
-	# Всегда сохраняем ShootPoint справа от оружия
-	shoot_point.position.x = abs(shoot_point.position.x)
+		scale.y = 1
+	
 
 func try_shoot(direction: Vector2, weapon_owner_pos: Vector2) -> bool:
 	if current_state != WeaponState.IDLE or not can_shoot or current_ammo <= 0:
 		return false
 	
-	shoot(direction, weapon_owner_pos)
+	shoot(weapon_owner_pos)
 	return true
 
-func shoot(direction: Vector2, weapon_owner_pos: Vector2):
+func shoot(weapon_owner_pos: Vector2):
 	current_state = WeaponState.SHOOTING
 	emit_signal("state_changed", current_state)
 	
 	var bullet = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
 	
+	# Задаем направление от начала ствола до конца (чтобы летело строго в направлении оружия)
+	var new_direction = (shoot_point.global_position - shoot_start_point.global_position).normalized()
+	
 	# Порядок: (_owner_pos: Vector2, _direction: Vector2, _speed: float, _damage: int, _knockback_force: float)
-	bullet.initialize_components(weapon_owner_pos, direction, bullet_speed, damage, knockback_force)
+	bullet.initialize_components(weapon_owner_pos, new_direction, bullet_speed, damage, knockback_force)
 	bullet.global_position = shoot_point.global_position
-	bullet.rotation = direction.angle()
+	bullet.rotation = new_direction.angle()
 	
 	# Обновление боезапаса
 	current_ammo -= 1
@@ -107,7 +103,7 @@ func shoot(direction: Vector2, weapon_owner_pos: Vector2):
 	print("current_ammo: ", current_ammo)
 	
 	# Эффект отдачи
-	var recoil_vector = -direction * 10
+	var recoil_vector = -new_direction * 10
 	var original_pos = position
 	position += recoil_vector
 	

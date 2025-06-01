@@ -20,4 +20,6 @@ collision_layer = 8
 
 [node name="ShootPoint" type="Marker2D" parent="."]
 
+[node name="ShootStartPoint" type="Marker2D" parent="."]
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
