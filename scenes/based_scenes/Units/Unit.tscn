@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dqq671ope8nrk" path="res://scenes/based_scenes/Units/unit.gd" id="1_gtclq"]
 
 [node name="Unit" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 33
+safe_margin = 10.0
 script = ExtResource("1_gtclq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

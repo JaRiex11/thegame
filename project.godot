@@ -91,6 +91,7 @@ jump={
 2d_physics/layer_3="EnemyBody"
 2d_physics/layer_4="EnemyViewArea"
 2d_physics/layer_5="PickUpItems"
+2d_physics/layer_6="Walls"
 
 [rendering]
 

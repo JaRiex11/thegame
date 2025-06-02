@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://f5kkcfsue58p"]
+[gd_scene load_steps=12 format=4 uid="uid://f5kkcfsue58p"]
 
 [ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_288ch"]
 [ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="3_y0w3d"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="6_y0w3d"]
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="7_u5f0c"]
 [ext_resource type="PackedScene" uid="uid://wno55x14kbsr" path="res://scenes/units/elem_fire_small.tscn" id="7_y0w3d"]
+[ext_resource type="PackedScene" uid="uid://dp34ryswm1kkc" path="res://scenes/units/elem_water_small.tscn" id="8_u5f0c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5f0c"]
 texture = ExtResource("6_y0w3d")
@@ -46,6 +47,10 @@ texture_region_size = Vector2i(128, 128)
 tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_u5f0c")
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_u5f0c"]
+a = Vector2(-14, -500)
+b = Vector2(-16.5, 396.5)
+
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_288ch")
 
@@ -78,14 +83,58 @@ tile_set = SubResource("TileSet_0g6v0")
 
 [node name="Unit" parent="." instance=ExtResource("7_y0w3d")]
 position = Vector2(121, -51)
+collision_mask = 1
+safe_margin = 0.08
 chase_speed = 280.0
 max_health = 100.0
 
 [node name="Unit2" parent="." instance=ExtResource("7_y0w3d")]
 position = Vector2(216, 438)
+collision_mask = 1
+safe_margin = 0.08
 
 [node name="AK-74_1" parent="." instance=ExtResource("7_u5f0c")]
 position = Vector2(-176, 331)
 
 [node name="AK-74_2" parent="." instance=ExtResource("7_u5f0c")]
 position = Vector2(12, 471)
+
+[node name="ElemWaterSmall" parent="." instance=ExtResource("8_u5f0c")]
+position = Vector2(261, 182)
+safe_margin = 0.08
+
+[node name="Unit3" parent="." instance=ExtResource("7_y0w3d")]
+position = Vector2(379, -53)
+collision_mask = 1
+safe_margin = 0.08
+
+[node name="ElemWaterSmall2" parent="." instance=ExtResource("8_u5f0c")]
+position = Vector2(431, 88)
+safe_margin = 0.08
+
+[node name="ElemWaterSmall3" parent="." instance=ExtResource("8_u5f0c")]
+position = Vector2(5, -105)
+safe_margin = 0.08
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-2, -1)
+collision_layer = 32
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-371.5, 128.5)
+shape = SubResource("SegmentShape2D_u5f0c")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(12, 528)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_u5f0c")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(529, 169)
+shape = SubResource("SegmentShape2D_u5f0c")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(14, -242)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_u5f0c")

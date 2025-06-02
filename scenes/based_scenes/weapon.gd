@@ -58,7 +58,7 @@ func _ready():
 	reload_timer.timeout.connect(_on_reload_finished)
 	reload_timer.one_shot = true
 
-func update_aim(target_position: Vector2, weapon_pivot: Marker2D):
+func update_aim(target_position: Vector2):
 	# Вычисляем направление к цели
 	var direction = (target_position - shoot_start_point.global_position).normalized()
 

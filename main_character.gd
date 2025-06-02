@@ -28,6 +28,15 @@ var current_health: int
 var weapons: Array[Weapon] = []
 @onready var current_weapon: Weapon = null
 
+# Заклинания и все с ними связанное
+var current_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
+var current_spells = {
+	ElemSys.ELEMENT.FIRE: {},
+	ElemSys.ELEMENT.WATER: {
+		"melee": preload("res://scenes/spells/WaterMeleeWave.tscn")
+	}
+}
+
 func _ready():
 	current_health = max_health
 	if has_node("PlayerHurtbox"):
@@ -35,44 +44,14 @@ func _ready():
 	change_state(PlayerState.IDLE)
 
 func _physics_process(delta):
-	#var move_dir = Input.get_vector("left", "right", "up", "down")
-	#velocity = move_dir * SPEED
-	#move_and_slide()
-	#
-	#if move_dir.x != 0 or move_dir.y != 0:
-		#if Input.is_action_just_pressed("jump"):
-			#SPEED = 500
-			#timer_jump.wait_time = 0.5
-			#SPEED = 400
-		#elif move_dir.x > 0 or (move_dir.y != 0 and is_facing_right):
-			#player_sprite.play("WalkR")
-			#is_facing_right = true
-		#else:
-			#player_sprite.play("WalkL")
-			#is_facing_right = false
-	#else:
-		#if is_facing_right:
-			#player_sprite.play("IdleR")
-		#else:
-			#player_sprite.play("IdleL")
-	#
-	#if current_weapon:
-		## Получаем позицию курсора
-		#var mouse_pos = get_global_mouse_position()
-		## Обновляем прицеливание оружия
-		#current_weapon.update_aim(mouse_pos)
-#
-		## Стрельба
-		#if Input.is_action_pressed("attack1"):
-			#var look_dir = (mouse_pos - global_position).normalized()
-			#handle_shooting(look_dir)
-	#
-	#if Input.is_action_just_pressed("reload") and current_weapon:
-		#handle_reload()
 	update_facing_direction()
 	handle_movement()
 	handle_weapon()
 	update_animations()
+	
+	if Input.is_action_just_pressed("attack2"):
+		var direction = (get_global_mouse_position() - global_position).normalized()
+		cast_spell(false, 0)
 
 func update_facing_direction():
 	var mouse_pos = get_global_mouse_position()
@@ -97,11 +76,12 @@ func handle_weapon():
 		return
 	
 	# Обновляем прицеливание оружия
-	current_weapon.update_aim(get_global_mouse_position(), weapon_pivot) #, weapon_pivot)
+	current_weapon.update_aim(get_global_mouse_position())
 	
 	# Стрельба
 	if Input.is_action_pressed("attack1"):
 		var direction = (get_global_mouse_position() - current_weapon.shoot_point.global_position).normalized()
+		current_element = ElemSys.ELEMENT.WATER
 		current_weapon.try_shoot(direction, self.position)
 	
 	# Перезарядка
@@ -178,6 +158,16 @@ func switch_weapon(index: int):
 
 	# Для правильного порядка отрисовки
 	weapon_pivot.move_child(current_weapon, weapon_pivot.get_child_count() - 1)
+
+func cast_spell(is_ranged: bool, charge_level: int) -> void:
+	var spell_scene =  preload("res://scenes/spells/WaterMeleeWave.tscn")
+	var spell: Spell = spell_scene.instantiate()
+	
+	spell.setup(self, charge_level)
+	get_parent().add_child(spell)
+	
+	# Короткая анимация каста без прерывания движения
+	# animated_sprite.play("cast_quick")
 
 func take_damage(damage: int):
 	if current_state == PlayerState.DEAD or current_state == PlayerState.HURT:

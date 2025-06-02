@@ -1,5 +1,6 @@
 extends Elemental
+class_name WaterElemental
 
 func _ready():
-	base_element = ElemSys.ELEMENT.WATER
+	current_element = ElemSys.ELEMENT.WATER
 	super._ready()

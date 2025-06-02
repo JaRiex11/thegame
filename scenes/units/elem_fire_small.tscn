@@ -180,7 +180,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -238,7 +238,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"IdleR",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -267,7 +267,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkL",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -296,7 +296,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkR",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gocw2"]
@@ -308,7 +308,7 @@ script = ExtResource("2_5fa17")
 large_attack_dist = 500
 small_attack_dist = 50
 patrol_speed = 80.0
-chase_speed = 260.0
+chase_speed = 300.0
 sight_range = 500.0
 patrol_wait_time = 1.0
 search_duration = 5.0
@@ -317,6 +317,7 @@ dash_duration = 0.6
 dash_cooldown = 2.0
 attack_duration = 0.5
 max_health = 80.0
+attack_damage = 25.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(2, 2)

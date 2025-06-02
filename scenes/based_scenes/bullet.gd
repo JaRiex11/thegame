@@ -18,7 +18,6 @@ func init_components(_owner_pos: Vector2, _direction: Vector2, _speed: float, _d
 	damage = _damage
 	knockback_force = _knockback_force
 	damage_element = _damage_element
-	print("bullet speed :", speed)
 
 func _on_body_entered(body):
 	if body.has_method("take_damage"):
