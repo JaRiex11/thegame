@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://f5kkcfsue58p"]
+[gd_scene load_steps=16 format=4 uid="uid://f5kkcfsue58p"]
 
 [ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_2loec"]
 [ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="2_jbd4l"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="6_8bdjt"]
 [ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="7_wnywe"]
 [ext_resource type="PackedScene" uid="uid://dp34ryswm1kkc" path="res://scenes/units/elem_water_small.tscn" id="8_1of5j"]
+[ext_resource type="PackedScene" uid="uid://bub02w5cgrlq" path="res://scenes/units/elem_fire_big.tscn" id="9_jbd4l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5f0c"]
 size = Vector2(16, 626)
@@ -120,9 +121,17 @@ position = Vector2(12, 471)
 
 [node name="ElemFireSmall2" parent="." instance=ExtResource("7_wnywe")]
 position = Vector2(413, -45)
+dash_duration = 1.6
+dash_cooldown = 1.0
 
 [node name="ElemFireSmall3" parent="." instance=ExtResource("7_wnywe")]
 position = Vector2(-227, -141)
+dash_duration = 1.6
+dash_cooldown = 1.0
 
 [node name="ElemWaterSmall" parent="." instance=ExtResource("8_1of5j")]
 position = Vector2(419, 90)
+dash_duration = 0.6
+
+[node name="ElemFireBig" parent="." instance=ExtResource("9_jbd4l")]
+position = Vector2(232, 321)

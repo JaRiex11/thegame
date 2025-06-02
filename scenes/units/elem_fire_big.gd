@@ -1,5 +1,5 @@
 extends FireElemental
-class_name ElemFireSmall
+class_name ElemFireBig
 
 @export var large_attack_dist := 100
 @export var small_attack_dist := 20
@@ -11,8 +11,8 @@ class_name ElemFireSmall
 @export var search_duration := 5.0
 @export_category("Attack Settings")
 @export var dash_speed := 1000.0  # Скорость рывка
-@export var dash_duration := 1.6  # Длительность рывка
-@export var dash_cooldown := 1.0  # Перезарядка рывка
+@export var dash_duration := 0.5  # Длительность рывка
+@export var dash_cooldown := 2.0  # Перезарядка рывка
 @export var attack_duration := 0.5  # Длительность анимации атаки
 #endregion
 

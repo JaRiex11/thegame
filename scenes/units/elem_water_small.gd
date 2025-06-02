@@ -11,7 +11,7 @@ class_name ElemWaterSmall
 @export var search_duration := 5.0
 @export_category("Attack Settings")
 @export var dash_speed := 1000.0  # Скорость рывка
-@export var dash_duration := 0.3  # Длительность рывка
+@export var dash_duration := 0.6  # Длительность рывка
 @export var dash_cooldown := 2.0  # Перезарядка рывка
 @export var attack_duration := 0.5  # Длительность анимации атаки
 #endregion

@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://bub02w5cgrlq"]
+[gd_scene load_steps=22 format=3 uid="uid://bub02w5cgrlq"]
 
 [ext_resource type="PackedScene" uid="uid://brvuj1qm0pohq" path="res://scenes/based_scenes/Units/FireElemental.tscn" id="1_gsat0"]
 [ext_resource type="Texture2D" uid="uid://owxonpwtqenk" path="res://img/SpriteFireD.png" id="2_plb15"]
+[ext_resource type="Script" uid="uid://dilyjlmqln5cd" path="res://scenes/units/elem_fire_big.gd" id="2_th5ik"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_th5ik"]
 atlas = ExtResource("2_plb15")
@@ -128,9 +129,36 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_plb15"]
+radius = 479.026
+
 [node name="ElemFireBig" instance=ExtResource("1_gsat0")]
 safe_margin = 0.08
+script = ExtResource("2_th5ik")
+large_attack_dist = 100
+small_attack_dist = 20
+patrol_speed = 80.0
+chase_speed = 240.0
+patrol_wait_time = 1.0
+search_duration = 5.0
+dash_speed = 1000.0
+dash_duration = 0.5
+dash_cooldown = 2.0
+attack_duration = 0.5
+max_health = 200.0
+attack_damage = 50.0
+knockback_resistance = 0.8
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_32ml3")
 animation = &"IdleR"
+
+[node name="Hitbox" parent="." index="1"]
+polygon = PackedVector2Array(14, 29, 24, 10, 22, -10, 10, -20, 10, -41, -11, -41, -11, -21, -22, -15, -24, 19, -9, 31)
+
+[node name="CollisionShape2D" parent="ViewArea" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_plb15")
+
+[connection signal="body_entered" from="ViewArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
