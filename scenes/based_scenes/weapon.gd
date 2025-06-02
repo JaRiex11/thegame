@@ -19,7 +19,7 @@ enum WeaponState { IDLE, SHOOTING, RELOADING }
 @export var magazine_size: int = 10
 @export var max_ammo: int = 50
 @export var reload_time: float = 1.5
-@export var knockback_force: float = 500
+@export var knockback_force: float = 1000
 @export var damage_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE 
 
 @export var pivot_offset := Vector2(20, -10)  # Смещение точки вращения
@@ -29,6 +29,7 @@ var current_state: WeaponState = WeaponState.IDLE
 var current_ammo: int
 var total_ammo: int
 var can_shoot: bool = true
+var is_players: bool = false
 var shoot_cooldown: Timer
 var reload_timer: Timer
 
@@ -90,7 +91,7 @@ func shoot(weapon_owner_pos: Vector2):
 	var new_direction = (shoot_point.global_position - shoot_start_point.global_position).normalized()
 	
 # Порядок: (_owner_pos: Vector2, _direction: Vector2, _speed: float, _damage: int, _knockback_force: float, damage_element: ElemSys.ELEMENT)
-	bullet.init_components(weapon_owner_pos, new_direction, bullet_speed, damage, knockback_force, damage_element)
+	bullet.init_components(weapon_owner_pos, new_direction, bullet_speed, damage, knockback_force, damage_element, is_players)
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = new_direction.angle()
 	
@@ -118,7 +119,7 @@ func shoot(weapon_owner_pos: Vector2):
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
-		# Откладываем обработку подбора оружия
+		is_players = true
 		call_deferred("_deferred_pick_up", body)
 
 func _deferred_pick_up(player):

@@ -35,7 +35,6 @@ enum UNIT_STATE {
 var current_health : float
 var current_state : UNIT_STATE
 var last_state: UNIT_STATE = UNIT_STATE.IDLE
-var target : Unit = null
 var is_facing_right := true  # Для определения направления
 var death_completed := false # Флаг завершения анимации смерти
 var invincible := false
@@ -72,12 +71,12 @@ func take_damage(
 	# Рассчитываем множитель урона в зависимости от элементов
 	var damage_multiplier = _get_elemental_damage_multiplier(damage_element)
 	var final_damage = amount * damage_multiplier
-	
-	current_health -= final_damage
+	if final_damage != 0:
+		current_health -= final_damage
+		_play_hit_effect()
+		_knockback(attacker_pos, attacker_kb_force)
+		
 	print("unit's health: ", current_health)
-	_play_hit_effect()
-	_knockback(attacker_pos, attacker_kb_force)
-	
 	# Обрабатываем элементальные реакции
 	if damage_element != ElemSys.ELEMENT.NONE:
 		_process_elemental_reaction(damage_element)
@@ -188,7 +187,7 @@ func _update_movement(delta: float) -> void:
 	 
 	var movement := _calculate_movement()
 	velocity = movement * move_speed
-	move_and_slide()
+	move_and_collide(velocity * delta)
 	
 	_update_facing()
 
@@ -274,6 +273,7 @@ func _play_heal_effect() -> void:
 	pass
 
 func _play_death_effect() -> void:
+	$Hitbox.disabled = true;
 	if animated_sprite.sprite_frames.has_animation(death_anim):
 		animated_sprite.play(death_anim)
 		await animated_sprite.animation_finished
@@ -288,7 +288,7 @@ func _knockback(source_position: Vector2, source_knockback_force: float) -> void
 	var direction = (global_position - source_position).normalized()
 	var knockback_force = direction * source_knockback_force * knockback_resistance
 	velocity = knockback_force
-	move_and_slide()
+	move_and_collide(velocity, get_process_delta_time())
 #endregion
 
 #region Вспомогательные методы
@@ -300,12 +300,22 @@ func is_in_attack_range(target_position: Vector2) -> bool:
 	return global_position.distance_to(target_position) <= attack_range
 
 func can_see_target(target: CharacterBody2D) -> bool:
+	if not target:
+		return false
+	
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(
 		global_position,
 		target.global_position,
 		collision_mask
 	)
+	# Исключаем из проверки самого себя и возможные другие объекты
+	query.exclude = [self]
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	
 	var result = space_state.intersect_ray(query)
-	return result.is_empty() or result.collider == target
+	# Для отладки (можно убрать после тестов)
+	#print("Ray collider:", result.collider.name if result else "none")
+	return result.collider == target
 #endregion

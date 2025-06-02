@@ -7,7 +7,6 @@ class_name ElemFireSmall
 @export_category("AI Settings")
 @export var patrol_speed := 80.0
 @export var chase_speed := 280.0
-@export var sight_range := 800.0
 @export var patrol_wait_time := 1.0
 @export var search_duration := 5.0
 @export_category("Attack Settings")
@@ -25,6 +24,7 @@ var current_patrol_index := 0
 var patrol_timer := 0.0
 var search_timer := 0.0
 var is_searching := false
+var is_target_in_sight := false
 
 var is_dashing := false
 var dash_timer := 0.0
@@ -41,7 +41,7 @@ func _ready() -> void:
 	move_speed = patrol_speed
 
 func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
+	#super._physics_process(delta)
 	
 	# Обновляем таймеры
 	_update_timers(delta)
@@ -58,8 +58,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		_handle_patrol_state(delta)
 	
+	#move_and_collide(velocity * delta)
 	move_and_slide()
 	#_draw_debug()
+	super._physics_process(delta)
 
 func _update_timers(delta: float) -> void:
 	if dash_cooldown_timer > 0:
@@ -171,18 +173,24 @@ func _is_target_visible(target: Node2D) -> bool:
 		return false
 	
 	# Проверка дистанции
-	if global_position.distance_to(target.global_position) > sight_range:
+	if not is_target_in_sight:#global_position.distance_to(target.global_position) > sight_range:
 		return false
 		
 	# Проверка прямой видимости
 	return can_see_target(target)
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D and not current_target:  # Player - замените на ваш класс игрока
+	if body is Player: #and not current_target:
+		is_target_in_sight = true
 		if _is_target_visible(body):
+			print("uvideli")
 			current_target = body
 			move_speed = chase_speed
 			is_searching = false
+
+func _on_view_area_body_exited(body: Node2D) -> void:
+	if body is Player: #and not current_target:
+		is_target_in_sight = false
 #endregion
 
 #region Вспомогательные функции

@@ -81,17 +81,20 @@ jump={
 
 [layer_names]
 
-2d_render/layer_1="Gamer"
+2d_render/layer_1="Default"
 2d_render/layer_2="Bullet"
 2d_render/layer_3="EnemyBody"
 2d_render/layer_4="EnemyViewArea"
 2d_render/layer_5="PickUpItems"
-2d_physics/layer_1="Player"
+2d_render/layer_6="Walls"
+2d_render/layer_7="Player"
+2d_physics/layer_1="Default"
 2d_physics/layer_2="Bullet"
 2d_physics/layer_3="EnemyBody"
 2d_physics/layer_4="EnemyViewArea"
 2d_physics/layer_5="PickUpItems"
 2d_physics/layer_6="Walls"
+2d_physics/layer_7="Player"
 
 [rendering]
 

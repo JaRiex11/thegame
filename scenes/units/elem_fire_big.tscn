@@ -129,8 +129,6 @@ animations = [{
 }]
 
 [node name="ElemFireBig" instance=ExtResource("1_gsat0")]
-collision_layer = 1
-collision_mask = 1
 safe_margin = 0.08
 
 [node name="AnimatedSprite2D" parent="." index="0"]

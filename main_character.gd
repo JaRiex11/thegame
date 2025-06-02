@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name PLayer
+class_name Player
 
 @onready var player_sprite = $AnimatedSprite2D
 
@@ -9,6 +9,7 @@ enum PlayerState { IDLE, WALK, HURT, DEAD }
 
 @export var SPEED := 400.0
 @export var max_health: int = 100
+@export var knockback_resistance := 0.2  # Сопротивление отбрасыванию (0-1)
 @export_category("Animations")
 @export var idle_right_anim : String = "IdleR"
 @export var idle_left_anim : String = "IdleL"
@@ -24,7 +25,7 @@ var timer_jump = Timer.new()
 var hurt_timer: float = 0.0
 @onready var weapon_pivot := $WeaponPivot
 
-var current_health: int
+var current_health: float
 var weapons: Array[Weapon] = []
 @onready var current_weapon: Weapon = null
 
@@ -169,30 +170,58 @@ func cast_spell(is_ranged: bool, charge_level: int) -> void:
 	# Короткая анимация каста без прерывания движения
 	# animated_sprite.play("cast_quick")
 
-func take_damage(damage: int):
+func take_damage(
+	amount: float, 
+	attacker_pos: Vector2, 
+	attacker_kb_force: float, 
+	damage_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
+	):
 	if current_state == PlayerState.DEAD or current_state == PlayerState.HURT:
 		return
 	
-	current_health -= damage
+	# Рассчитываем множитель урона в зависимости от элементов
+	var damage_multiplier = _get_elemental_damage_multiplier(damage_element)
+	var final_damage = amount * damage_multiplier
+	
+	current_health -= final_damage
+	_play_hit_effect()
+	_knockback(attacker_pos, attacker_kb_force)
+	
 	if current_health <= 0:
 		change_state(PlayerState.DEAD)
 		die()
 	else:
 		change_state(PlayerState.HURT)
 
+func _get_elemental_damage_multiplier(damage_element: ElemSys.ELEMENT) -> float:
+	return 1.0 # Пока без множителя, но вдруг понадобится
+
+func _play_hit_effect() -> void:
+	# Можно добавить particles или tween эффект
+	modulate = Color.RED
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.WHITE, 0.3)
+
+func _knockback(source_position: Vector2, source_knockback_force: float) -> void:
+	var direction = (global_position - source_position).normalized()
+	var knockback_force = direction * source_knockback_force * knockback_resistance
+	velocity = knockback_force
+	move_and_slide()
+
 func die():
 	# Логика смерти
 	queue_free()
 
-func _on_body_entered_enemy_body(body: Unit) -> void:
-	
+func _on_body_entered_enemy_body(body: Node2D) -> void:
+	if not (body is Unit):
+		return
 	if body.is_in_group("hazards"):
 		# Получаем компонент урона от объекта
 		if body.has_method("get_body_damage"):
-			take_damage(body.get_body_damage())
+			take_damage(body.get_body_damage(), body.global_position, 1.0, ElemSys.ELEMENT.NONE)
 			print(current_health)
 		else:
-			take_damage(15)
+			take_damage(15, body.global_position, 1.0, ElemSys.ELEMENT.NONE)
 			print(current_health)
 
 func play_anim(anim_name: String):
