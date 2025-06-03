@@ -295,6 +295,8 @@ func _knockback(source_position: Vector2, source_knockback_force: float) -> void
 func play_anim(anim_name: String):
 	if (animated_sprite.sprite_frames.has_animation(anim_name)): # Чтобы игра не упала, если не найдет анимацию
 		animated_sprite.play(anim_name)
+	else:
+		print("Анимация ", anim_name, " не найдена")
 
 func is_in_attack_range(target_position: Vector2) -> bool:
 	return global_position.distance_to(target_position) <= attack_range

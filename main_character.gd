@@ -166,6 +166,7 @@ func cast_spell(is_ranged: bool, charge_level: int) -> void:
 	
 	spell.setup(self, charge_level)
 	get_parent().add_child(spell)
+
 	
 	# Короткая анимация каста без прерывания движения
 	# animated_sprite.play("cast_quick")

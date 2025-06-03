@@ -2,7 +2,7 @@ extends FireElemental
 class_name ElemFireBig
 
 @export var large_attack_dist := 100
-@export var small_attack_dist := 20
+@export var small_attack_dist := 100
 #region Экспортируемые переменные
 @export_category("AI Settings")
 @export var patrol_speed := 80.0
@@ -87,8 +87,8 @@ func _handle_combat_state(delta: float) -> void:
 	# Логика атак
 	if distance_to_target <= small_attack_dist and not is_attacking and dash_cooldown_timer <= 0:
 		_start_melee_attack()
-	elif distance_to_target <= large_attack_dist and not is_dashing and dash_cooldown_timer <= 0:
-		_start_dash_attack()
+	#elif distance_to_target <= large_attack_dist and not is_dashing and dash_cooldown_timer <= 0:
+		#_start_dash_attack()
 	else:
 		# Обычное преследование
 		velocity = (current_target.global_position - global_position).normalized() * chase_speed
@@ -109,16 +109,19 @@ func _handle_dash_state(delta: float) -> void:
 	velocity = velocity.move_toward(Vector2.ZERO, delta * dash_speed * 2.0)
 
 func _start_melee_attack() -> void:
-	is_attacking = true
 	attack_timer = attack_duration
 	velocity = Vector2.ZERO
-	
+	print("start melee attack")
 	# Определяем направление атаки
 	var attack_dir = sign(current_target.global_position.x - global_position.x)
-	if attack_dir > 0:
-		play_anim("attack_right")
-	else:
-		play_anim("attack_left")
+	if attack_dir >= 0 and not is_attacking:
+		is_attacking = true
+		print("start attack r")
+		play_anim("AttackR")
+	elif attack_dir < 0 and not is_attacking:
+		is_attacking = true
+		print("start attack l")
+		play_anim("AttackL")
 	
 	# Наносим урон (можно через Area2D)
 	$Hitbox.disabled = false
