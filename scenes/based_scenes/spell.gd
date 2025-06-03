@@ -5,7 +5,7 @@ class_name Spell
 @export var combo_animations : Array[String] = ["attack1", "attack2", "attack3"]
 @export var damage_per_combo := [15.0, 25.0, 40.0]
 @export var kb_force_per_combo := [50.0, 60.0, 80.0]
-@export var cast_point_offset := Vector2(15, -10)  # Смещение от персонажа
+@export var cast_point_offset := Vector2(20, -5)  # Смещение от персонажа
 @export var hand_length := 30.0                    # Длина "руки" для эффекта
 @export var combo_timeout := 0.5                   # Время между ударами комбо
 @export var combo_timer := 1.0
@@ -13,7 +13,7 @@ class_name Spell
 # Ссылки на узлы
 @onready var hand_pivot = $HandPivot
 @onready var hand_sprite = $HandPivot/HandSprite
-@onready var spell_effect = $AnimationPlayer #$HandPivot/SpellEffect
+@onready var animation_player = $AnimationPlayer
 @onready var hitbox = $Hitbox
 # Состояние
 var caster: Node2D
@@ -38,8 +38,8 @@ func update_aim(mouse_pos: Vector2) -> void:
 	var direction = (mouse_pos - global_position).normalized()
 	cur_direction = mouse_pos
 	rotation = direction.angle()  # Поворот всей сцены к мышке
-	#spell_effect.position = Vector2(hand_length, 0)
-	hitbox.position = hand_pivot.position #spell_effect.position
+	#animation_player.position = Vector2(hand_length, 0)
+	hitbox.position = hand_pivot.position #animation_player.position
 
 func start_cast(mouse_pos: Vector2) -> void:
 	print("in start cast")
@@ -74,11 +74,10 @@ func _process_animation_queue() -> void:
 	current_animation_playing = true
 	var anim_name = animation_queue.pop_front()
 	
-	hand_sprite.play("Hand")
-	spell_effect.play(anim_name)
+	animation_player.play(anim_name)
 	_setup_hitbox(combo_count)
 	
-	await spell_effect.animation_finished
+	await animation_player.animation_finished
 	current_animation_playing = false
 	
 	# Проверяем нужно ли продолжить

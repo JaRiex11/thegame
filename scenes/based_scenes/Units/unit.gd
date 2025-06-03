@@ -273,7 +273,7 @@ func _play_heal_effect() -> void:
 	pass
 
 func _play_death_effect() -> void:
-	$Hitbox.disabled = true;
+	$Hitbox.set_deferred("disabled", true)
 	if animated_sprite.sprite_frames.has_animation(death_anim):
 		animated_sprite.play(death_anim)
 		await animated_sprite.animation_finished

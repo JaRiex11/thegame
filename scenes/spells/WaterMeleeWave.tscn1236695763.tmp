@@ -1,9 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://b8b46g58vor71"]
+[gd_scene load_steps=48 format=3 uid="uid://b8b46g58vor71"]
 
 [ext_resource type="PackedScene" uid="uid://da3agk7xajbm0" path="res://scenes/based_scenes/Spell.tscn" id="1_f6g1j"]
 [ext_resource type="Script" uid="uid://ckxyeuunil1c4" path="res://scenes/spells/water_melee_wave.gd" id="2_gpy0y"]
-[ext_resource type="Texture2D" uid="uid://cu2euebjgqllt" path="res://img/128x128.png" id="3_ct085"]
-[ext_resource type="Texture2D" uid="uid://ctfehunqhbjqw" path="res://img/16x16.png" id="4_ct085"]
+[ext_resource type="Texture2D" uid="uid://b0yeqvfcyy076" path="res://img/MiniMap+Spells_f_w.png" id="3_ct085"]
+[ext_resource type="Texture2D" uid="uid://b3soul2pon2uo" path="res://img/magic and HUD sprites1-Recovered.png" id="5_rikot"]
 
 [sub_resource type="Animation" id="Animation_1icsq"]
 length = 0.001
@@ -82,7 +82,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_vunn6"]
 resource_name = "attack1"
-length = 0.433337
+length = 0.36667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -102,10 +102,10 @@ tracks/1/path = NodePath("HandPivot/SpellEffect:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -134,18 +134,18 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("HandPivot/HandSprite:animation")
+tracks/4/path = NodePath("HandPivot/HandSprite:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [&"Hand"]
+"values": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
-tracks/5/enabled = true
+tracks/5/enabled = false
 tracks/5/path = NodePath("HandPivot/HandSprite:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
@@ -154,18 +154,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("HandPivot/HandSprite:frame")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 }
 
 [sub_resource type="Animation" id="Animation_ieaau"]
@@ -234,31 +222,31 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("HandPivot/HandSprite:visible")
+tracks/5/path = NodePath("HandPivot/HandSprite:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = false
+tracks/6/path = NodePath("HandPivot/HandSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("HandPivot/HandSprite:frame")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-}
 
 [sub_resource type="Animation" id="Animation_ct085"]
 resource_name = "attack3"
-length = 0.433337
+length = 0.36667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -278,10 +266,10 @@ tracks/1/path = NodePath("HandPivot/SpellEffect:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -333,15 +321,15 @@ tracks/5/keys = {
 }
 tracks/6/type = "value"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("HandPivot/HandSprite:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+"values": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ieaau"]
@@ -398,11 +386,11 @@ region = Rect2(512, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y0erm"]
 atlas = ExtResource("3_ct085")
-region = Rect2(640, 128, 128, 128)
+region = Rect2(640, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvbyg"]
 atlas = ExtResource("3_ct085")
-region = Rect2(768, 128, 128, 128)
+region = Rect2(768, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ovu3t"]
 atlas = ExtResource("3_ct085")
@@ -450,11 +438,47 @@ region = Rect2(1024, 384, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pgfgh"]
 atlas = ExtResource("3_ct085")
-region = Rect2(0, 512, 128, 128)
+region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qoex1"]
 atlas = ExtResource("3_ct085")
-region = Rect2(128, 512, 128, 128)
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2eiw"]
+atlas = ExtResource("3_ct085")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7avp6"]
+atlas = ExtResource("3_ct085")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67q6w"]
+atlas = ExtResource("3_ct085")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipext"]
+atlas = ExtResource("3_ct085")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bacwk"]
+atlas = ExtResource("3_ct085")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t320"]
+atlas = ExtResource("3_ct085")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqmbr"]
+atlas = ExtResource("3_ct085")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqqld"]
+atlas = ExtResource("3_ct085")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjxyw"]
+atlas = ExtResource("3_ct085")
+region = Rect2(512, 128, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b74pn"]
 animations = [{
@@ -491,18 +515,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fwuyn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y0erm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qvbyg")
 }],
 "loop": false,
 "name": &"attack1",
 "speed": 30.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0erm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvbyg")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ovu3t")
 }, {
@@ -535,12 +559,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_eo6gg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pgfgh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qoex1")
 }],
 "loop": false,
 "name": &"attack2",
@@ -548,43 +566,37 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rikot")
+"texture": SubResource("AtlasTexture_pgfgh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vunn6")
+"texture": SubResource("AtlasTexture_qoex1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1icsq")
+"texture": SubResource("AtlasTexture_b2eiw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ieaau")
+"texture": SubResource("AtlasTexture_7avp6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b2fob")
+"texture": SubResource("AtlasTexture_67q6w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_duujb")
+"texture": SubResource("AtlasTexture_ipext")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_05vlm")
+"texture": SubResource("AtlasTexture_bacwk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_76jiv")
+"texture": SubResource("AtlasTexture_0t320")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_utvv8")
+"texture": SubResource("AtlasTexture_nqmbr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mjma1")
+"texture": SubResource("AtlasTexture_jqqld")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fwuyn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y0erm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qvbyg")
+"texture": SubResource("AtlasTexture_cjxyw")
 }],
 "loop": false,
 "name": &"attack3",
@@ -592,42 +604,31 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b74pn"]
-atlas = ExtResource("4_ct085")
+atlas = ExtResource("5_rikot")
 region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b2eiw"]
-atlas = ExtResource("4_ct085")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7avp6"]
-atlas = ExtResource("4_ct085")
-region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pgfgh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b74pn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b2eiw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7avp6")
 }],
 "loop": false,
 "name": &"Hand",
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ct085"]
-radius = 6.5
-
 [node name="WaterMeleeWave" instance=ExtResource("1_f6g1j")]
 script = ExtResource("2_gpy0y")
-bombastic_name = "The Debase of Poseidon"
+bombastic_name = null
+combo_animations = null
+damage_per_combo = null
+kb_force_per_combo = null
+cast_point_offset = Vector2(0, 0)
+hand_length = null
 combo_timeout = 1.0
 combo_timer = 2.0
+can_move_during_cast = null
 
 [node name="Hitbox" parent="." index="0"]
 collision_layer = 128
@@ -643,17 +644,14 @@ libraries = {
 }
 
 [node name="SpellEffect" parent="HandPivot" index="0"]
-position = Vector2(83.5, 0.5)
+position = Vector2(92, 0.5)
 sprite_frames = SubResource("SpriteFrames_b74pn")
-animation = &"attack3"
+animation = &"attack1"
 
 [node name="HandSprite" parent="HandPivot" index="1"]
 visible = false
-position = Vector2(16.5, 2.5)
+position = Vector2(25, 2.5)
 sprite_frames = SubResource("SpriteFrames_pgfgh")
 animation = &"Hand"
-
-[node name="CollisionShape2D" parent="." index="3"]
-shape = SubResource("CircleShape2D_ct085")
 
 [connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]

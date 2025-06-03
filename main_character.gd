@@ -32,7 +32,7 @@ var weapons: Array[Weapon] = []
 # Заклинания и все с ними связанное
 enum SpellType { MELEE, RANGED }
 var current_spell_type: SpellType = SpellType.MELEE
-var current_element: ElementsSystem.ELEMENT = ElementsSystem.ELEMENT.WATER
+var current_element: ElementsSystem.ELEMENT = ElementsSystem.ELEMENT.FIRE
 var current_spell: Spell = null
 var current_active_spell: Spell = null  # Текущее активное заклинание в комбо
 var in_spell_cooldown := false
@@ -41,10 +41,10 @@ var is_spelling := false
 
 # Словарь заклинаний 
 var spells_db = {
-	#ElementsSystem.ELEMENT.FIRE: {
-		#SpellType.MELEE: preload("res://scenes/spells/FireMeleeSpell.tscn"),
+	ElementsSystem.ELEMENT.FIRE: {
+		SpellType.MELEE: preload("res://scenes/spells/FireMeleeWave.tscn"),
 		#SpellType.RANGED: preload("res://scenes/spells/FireRangedSpell.tscn")
-	#},
+	},
 	ElementsSystem.ELEMENT.WATER: {
 		SpellType.MELEE: preload("res://scenes/spells/WaterMeleeWave.tscn"),
 		#SpellType.RANGED: preload("res://scenes/spells/WaterRangedSpell.tscn")
@@ -80,10 +80,6 @@ func update_facing_direction():
 func handle_movement():
 	var move_dir = Input.get_vector("left", "right", "up", "down")
 	velocity = move_dir * SPEED
-	if (is_instance_valid(current_active_spell)):
-		velocity += current_active_spell.cur_direction.normalized() * 100
-		print(current_active_spell.cur_direction.normalized() * 2)
-		pass
 	move_and_slide()
 	
 	# Изменение состояния движения

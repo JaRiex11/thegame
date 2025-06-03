@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0yeqvfcyy076"
-path="res://.godot/imported/MiniMap+Spells_f_w.png-b9860ea919092d6647e2752f609318e5.ctex"
+uid="uid://6absmhqt6ub1"
+path="res://.godot/imported/64x96.png-0ae1eb71adba3fec873017fd00dbe18f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/MiniMap+Spells_f_w.png"
-dest_files=["res://.godot/imported/MiniMap+Spells_f_w.png-b9860ea919092d6647e2752f609318e5.ctex"]
+source_file="res://img/64x96.png"
+dest_files=["res://.godot/imported/64x96.png-0ae1eb71adba3fec873017fd00dbe18f.ctex"]
 
 [params]
 

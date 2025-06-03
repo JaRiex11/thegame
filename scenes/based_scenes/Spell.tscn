@@ -19,3 +19,5 @@ script = ExtResource("2_mmwp3")
 [node name="SpellEffect" type="AnimatedSprite2D" parent="HandPivot"]
 
 [node name="HandSprite" type="AnimatedSprite2D" parent="HandPivot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
