@@ -134,5 +134,4 @@ position = Vector2(419, 90)
 dash_duration = 0.6
 
 [node name="ElemFireBig" parent="." instance=ExtResource("9_jbd4l")]
-position = Vector2(232, 321)
-small_attack_dist = 100
+position = Vector2(-88, -43)

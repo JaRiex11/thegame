@@ -225,7 +225,7 @@ death_anim = "Death"
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ij3ls")
-animation = &"Death"
+animation = &"IdleL"
 
 [node name="Hitbox" parent="." index="1"]
 scale = Vector2(2, 2)
