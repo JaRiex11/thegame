@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://f5kkcfsue58p"]
+[gd_scene load_steps=15 format=4 uid="uid://f5kkcfsue58p"]
 
 [ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_2loec"]
 [ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="2_jbd4l"]
@@ -8,19 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="6_8bdjt"]
 [ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="7_wnywe"]
 [ext_resource type="PackedScene" uid="uid://dp34ryswm1kkc" path="res://scenes/units/elem_water_small.tscn" id="8_1of5j"]
-[ext_resource type="PackedScene" uid="uid://bub02w5cgrlq" path="res://scenes/units/elem_fire_big.tscn" id="9_jbd4l"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5f0c"]
-size = Vector2(16, 626)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g6v0"]
-size = Vector2(15.9989, 896)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvqni"]
-size = Vector2(16, 784)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1qfbs"]
-size = Vector2(16, 912)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5f0c"]
 texture = ExtResource("5_xftjw")
@@ -60,8 +47,30 @@ texture_region_size = Vector2i(128, 128)
 tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_u5f0c")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5f0c"]
+size = Vector2(16, 626)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g6v0"]
+size = Vector2(15.9989, 896)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvqni"]
+size = Vector2(16, 784)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1qfbs"]
+size = Vector2(16, 912)
+
 [node name="Test" type="Node2D"]
 script = ExtResource("1_2loec")
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -1
+tile_set = SubResource("TileSet_0g6v0")
+format = 2
+
+[node name="Layer1" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAIAAAACAAMAAAAAAAEAAAACAAMAAAAAAAAAAAACAAMAAAABAAEAAAACAAMAAAABAAAAAAACAAMAAAABAAIAAAACAAMAAAACAAIAAAACAAMAAAACAAEAAAACAAMAAAACAAAAAAACAAMAAAD//wAAAAACAAMAAAD//wEAAAACAAMAAAD//wIAAAACAAMAAAD+/wAAAAACAAMAAAD+/wEAAAACAAMAAAD+/wIAAAACAAMAAAD+////AAACAAIAAAD/////AAACAAIAAAAAAP//AAACAAIAAAABAP//AAACAAIAAAACAP//AAACAAIAAAADAP//AAADAAIAAAADAAAAAAADAAMAAAADAAEAAAADAAMAAAADAAIAAAADAAMAAAD9////AAABAAIAAAD9/wAAAAABAAMAAAD9/wEAAAABAAMAAAD9/wIAAAABAAMAAAD9/wMAAAABAAQAAAD+/wMAAAACAAQAAAD//wMAAAACAAQAAAAAAAMAAAACAAQAAAABAAMAAAACAAQAAAACAAMAAAACAAQAAAADAAMAAAADAAQAAAD8/wQAAAAAAAUAAAD9/wQAAAABAAUAAAD+/wQAAAABAAUAAAD//wQAAAABAAUAAAAAAAQAAAABAAUAAAABAAQAAAABAAUAAAACAAQAAAABAAUAAAADAAQAAAABAAUAAAAEAAQAAAAEAAUAAAAEAAMAAAAEAAQAAAAEAAIAAAAEAAQAAAAEAAEAAAAEAAQAAAAEAAAAAAAEAAQAAAAEAP//AAAEAAQAAAAEAP7/AAAEAAEAAAD8//7/AAAAAAEAAAD9//7/AAACAAEAAAD+//7/AAADAAEAAAD///7/AAABAAEAAAAAAP7/AAADAAEAAAABAP7/AAACAAEAAAACAP7/AAABAAEAAAADAP7/AAADAAEAAAD8////AAAAAAEAAAD8/wAAAAAAAAEAAAD8/wEAAAAAAAEAAAD8/wIAAAAAAAEAAAD8/wMAAAAAAAEAAAADAP3/AAADAAAAAAACAP3/AAADAAAAAAABAP3/AAADAAAAAAAAAP3/AAADAAAAAAD///3/AAADAAAAAAD+//3/AAADAAAAAAD9//3/AAADAAAAAAD8//3/AAAAAAAAAAAEAP3/AAAEAAAAAAA=")
+tile_set = SubResource("TileSet_0g6v0")
 
 [node name="Area2D" type="StaticBody2D" parent="."]
 position = Vector2(-2, -1)
@@ -103,16 +112,6 @@ position = Vector2(-304, 35)
 [node name="Enemy3" parent="." instance=ExtResource("4_bhwsq")]
 position = Vector2(395, 350)
 
-[node name="TileMap" type="TileMap" parent="."]
-z_index = -1
-tile_set = SubResource("TileSet_0g6v0")
-format = 2
-
-[node name="Layer1" type="TileMapLayer" parent="TileMap"]
-use_parent_material = true
-tile_map_data = PackedByteArray("AAAAAAIAAAACAAMAAAAAAAEAAAACAAMAAAAAAAAAAAACAAMAAAABAAEAAAACAAMAAAABAAAAAAACAAMAAAABAAIAAAACAAMAAAACAAIAAAACAAMAAAACAAEAAAACAAMAAAACAAAAAAACAAMAAAD//wAAAAACAAMAAAD//wEAAAACAAMAAAD//wIAAAACAAMAAAD+/wAAAAACAAMAAAD+/wEAAAACAAMAAAD+/wIAAAACAAMAAAD+////AAACAAIAAAD/////AAACAAIAAAAAAP//AAACAAIAAAABAP//AAACAAIAAAACAP//AAACAAIAAAADAP//AAADAAIAAAADAAAAAAADAAMAAAADAAEAAAADAAMAAAADAAIAAAADAAMAAAD9////AAABAAIAAAD9/wAAAAABAAMAAAD9/wEAAAABAAMAAAD9/wIAAAABAAMAAAD9/wMAAAABAAQAAAD+/wMAAAACAAQAAAD//wMAAAACAAQAAAAAAAMAAAACAAQAAAABAAMAAAACAAQAAAACAAMAAAACAAQAAAADAAMAAAADAAQAAAD8/wQAAAAAAAUAAAD9/wQAAAABAAUAAAD+/wQAAAABAAUAAAD//wQAAAABAAUAAAAAAAQAAAABAAUAAAABAAQAAAABAAUAAAACAAQAAAABAAUAAAADAAQAAAABAAUAAAAEAAQAAAAEAAUAAAAEAAMAAAAEAAQAAAAEAAIAAAAEAAQAAAAEAAEAAAAEAAQAAAAEAAAAAAAEAAQAAAAEAP//AAAEAAQAAAAEAP7/AAAEAAEAAAD8//7/AAAAAAEAAAD9//7/AAACAAEAAAD+//7/AAADAAEAAAD///7/AAABAAEAAAAAAP7/AAADAAEAAAABAP7/AAACAAEAAAACAP7/AAABAAEAAAADAP7/AAADAAEAAAD8////AAAAAAEAAAD8/wAAAAAAAAEAAAD8/wEAAAAAAAEAAAD8/wIAAAAAAAEAAAD8/wMAAAAAAAEAAAADAP3/AAADAAAAAAACAP3/AAADAAAAAAABAP3/AAADAAAAAAAAAP3/AAADAAAAAAD///3/AAADAAAAAAD+//3/AAADAAAAAAD9//3/AAADAAAAAAD8//3/AAAAAAAAAAAEAP3/AAAEAAAAAAA=")
-tile_set = SubResource("TileSet_0g6v0")
-
 [node name="AK-74_1" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(-247, 474)
 
@@ -133,5 +132,11 @@ dash_cooldown = 1.0
 position = Vector2(419, 90)
 dash_duration = 0.6
 
-[node name="ElemFireBig" parent="." instance=ExtResource("9_jbd4l")]
-position = Vector2(322, 320)
+[node name="ElemFireSmall4" parent="." instance=ExtResource("7_wnywe")]
+position = Vector2(292, 385)
+
+[node name="ElemFireSmall5" parent="." instance=ExtResource("7_wnywe")]
+position = Vector2(173, 155)
+
+[node name="ElemFireSmall6" parent="." instance=ExtResource("7_wnywe")]
+position = Vector2(72, 5)

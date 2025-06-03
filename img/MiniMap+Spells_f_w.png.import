@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjblauo2medcu"
-path="res://.godot/imported/ak74-top-down.png-c197252f173b453ceb8f1968ef323d68.ctex"
+uid="uid://b0yeqvfcyy076"
+path="res://.godot/imported/MiniMap+Spells_f_w.png-b9860ea919092d6647e2752f609318e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/ak74-top-down.png"
-dest_files=["res://.godot/imported/ak74-top-down.png-c197252f173b453ceb8f1968ef323d68.ctex"]
+source_file="res://img/MiniMap+Spells_f_w.png"
+dest_files=["res://.godot/imported/MiniMap+Spells_f_w.png-b9860ea919092d6647e2752f609318e5.ctex"]
 
 [params]
 

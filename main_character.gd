@@ -37,6 +37,7 @@ var current_spell: Spell = null
 var current_active_spell: Spell = null  # Текущее активное заклинание в комбо
 var in_spell_cooldown := false
 var spell_coldown_timer : float = 0.3
+var is_spelling := false
 
 # Словарь заклинаний 
 var spells_db = {
@@ -70,12 +71,19 @@ func _physics_process(delta):
 
 func update_facing_direction():
 	var mouse_pos = get_global_mouse_position()
-	# Определяем направление взгляда по позиции курсора
-	is_facing_right = mouse_pos.x > global_position.x
+	if is_spelling and is_instance_valid(current_active_spell):
+		
+		is_facing_right = current_active_spell.cur_direction.x > global_position.x
+	else:
+		is_facing_right = mouse_pos.x > global_position.x
 
 func handle_movement():
 	var move_dir = Input.get_vector("left", "right", "up", "down")
 	velocity = move_dir * SPEED
+	if (is_instance_valid(current_active_spell)):
+		velocity += current_active_spell.cur_direction.normalized() * 100
+		print(current_active_spell.cur_direction.normalized() * 2)
+		pass
 	move_and_slide()
 	
 	# Изменение состояния движения
@@ -116,7 +124,7 @@ func handle_spells():
 		#_switch_element(-1)
 	
 	# Каст заклинания               "cast_spell"
-	if Input.is_action_just_pressed("attack2"):#and not in_spell_cooldown:
+	if Input.is_action_just_pressed("attack2"):
 		print("Нажатие ПКМ зафиксировано")
 		cast_spell()
 
@@ -202,6 +210,7 @@ func switch_weapon(index: int):
 	weapon_pivot.move_child(current_weapon, weapon_pivot.get_child_count() - 1)
 
 func cast_spell() -> void:
+	is_spelling = true
 	if in_spell_cooldown: return
 	
 	var mouse_pos = get_global_mouse_position()
@@ -226,6 +235,7 @@ func _on_spell_combo_finished():
 	in_spell_cooldown = true
 	await get_tree().create_timer(0.3).timeout
 	in_spell_cooldown = false
+	is_spelling = false
 
 func take_damage(
 	amount: float, 

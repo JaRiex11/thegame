@@ -6,6 +6,67 @@
 [ext_resource type="Script" uid="uid://dfm23eoqta2k" path="res://scenes/camera_2d.gd" id="3_iivhx"]
 [ext_resource type="Texture2D" uid="uid://cspa3j0xj67v5" path="res://img/magic and HUD sprites1.png" id="5_ppvyy"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahhtf"]
+atlas = ExtResource("5_ppvyy")
+region = Rect2(160, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
+atlas = ExtResource("5_ppvyy")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ysmq"]
+atlas = ExtResource("5_ppvyy")
+region = Rect2(128, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6fi6k"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"HeartNonStandart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ysmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ysmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo0fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahhtf")
+}],
+"loop": true,
+"name": &"HeartStandart",
+"speed": 10.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4qar"]
 radius = 25.0
 height = 98.0
@@ -183,89 +244,11 @@ animations = [{
 "speed": 13.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ahhtf"]
-atlas = ExtResource("5_ppvyy")
-region = Rect2(160, 96, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
-atlas = ExtResource("5_ppvyy")
-region = Rect2(144, 96, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ysmq"]
-atlas = ExtResource("5_ppvyy")
-region = Rect2(128, 96, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6fi6k"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"HeartNonStandart",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahhtf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oo0fn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ysmq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oo0fn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahhtf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oo0fn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ysmq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oo0fn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahhtf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahhtf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahhtf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahhtf")
-}],
-"loop": true,
-"name": &"HeartStandart",
-"speed": 10.0
-}]
-
 [node name="MainCharacter" type="CharacterBody2D" groups=["player"]]
 collision_layer = 64
 collision_mask = 57
 script = ExtResource("1_ghikb")
 max_health = 150
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
-shape = SubResource("CapsuleShape2D_g4qar")
-
-[node name="PlayerHurtBox" type="Area2D" parent="."]
-collision_layer = 64
-collision_mask = 36
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtBox"]
-position = Vector2(1, 0)
-shape = SubResource("CapsuleShape2D_g4qar")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(4, 1)
-sprite_frames = SubResource("SpriteFrames_ppvyy")
-animation = &"IdleR"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.2, 1.2)
@@ -293,6 +276,23 @@ position = Vector2(-784, -436)
 sprite_frames = SubResource("SpriteFrames_6fi6k")
 animation = &"HeartStandart"
 frame_progress = 0.0597292
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_g4qar")
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 36
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtBox"]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_g4qar")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, 1)
+sprite_frames = SubResource("SpriteFrames_ppvyy")
+animation = &"IdleR"
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
 position = Vector2(0, -19)
