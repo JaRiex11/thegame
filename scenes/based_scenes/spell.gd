@@ -1,118 +1,111 @@
 extends Node2D
 class_name Spell
 
-# Базовые параметры
-@export var base_damage := 10.0
-@export var base_knockback := 50.0
-@export var element: ElementsSystem.ELEMENT = ElementsSystem.ELEMENT.NONE
-@export var is_ranged := false  # True для дальних, False для ближних заклинаний
-@export var cast_time := 0.5  # Время анимации каста
-@export_category("Animations")
-@export var quick_cast_anim : String = "quick_cast"
-@export var medium_cast_anim : String = "medium_cast"
-@export var charged_cast_anim : String = "charged_cast"
-@export var quick_anim : String = "quick"
-@export var medium_anim : String = "medium"
-@export var charged_anim : String = "charged"
-
-# Компоненты
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: Area2D = $Hitbox
-@onready var collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
-
-# Внутренние переменные
-var charge_level: int = 0  # 0 - quick, 1 - medium, 2 - charged
-var caster: Node2D = null
-var damage_multipliers := [0.8, 1.0, 1.5]
-#var size_multipliers := [0.7, 1.0, 1.3]
-
-func _ready() -> void:
-	# Настройка параметров
-	#var scale_mult = size_multipliers[charge_level]
-	#scale = Vector2(scale_mult, scale_mult)
-	
-	# Подписка на события
-	animated_sprite.animation_finished.connect(_on_animation_finished)
-	hitbox.body_entered.connect(_on_body_entered)
-	
-	# Запуск анимации
-	_start_cast()
+# Настройки)
+@export var combo_animations : Array[String] = ["attack1", "attack2", "attack3"]
+@export var damage_per_combo := [10.0, 15.0, 20.0]
+@export var cast_point_offset := Vector2(15, -10)  # Смещение от персонажа
+@export var hand_length := 30.0                    # Длина "руки" для эффекта
+@export var combo_timeout := 0.5                   # Время между ударами комбо
+@export var combo_timer := 1.0
+@export var can_move_during_cast := true           # Разрешить движение при касте
+# Ссылки на узлы
+@onready var hand_pivot = $HandPivot
+@onready var hand_sprite = $HandPivot/HandSprite
+@onready var spell_effect = $HandPivot/SpellEffect
+@onready var hitbox = $HandPivot/Hitbox
+# Состояние
+var caster: Node2D
+var current_element: ElementsSystem.ELEMENT
+var combo_count := 0
+var is_casting := false
+var animation_queue: Array[String] = []
+var current_animation_playing := false
+# Сигналы
+signal combo_finished
 
 func _physics_process(delta: float) -> void:
-	global_position = caster.global_position + Vector2(20, 0)
+	position = caster.position + cast_point_offset
 
-func setup(caster_ref: Node2D, charge: int) -> void:
-	caster = caster_ref
-	charge_level = clamp(charge, 0, 2)
-	global_position = caster.global_position
+func setup(caster_node: Node2D, element: ElementsSystem.ELEMENT) -> void:
+	caster = caster_node
+	current_element = element
+	position = caster.position + cast_point_offset
+
+func update_aim(mouse_pos: Vector2) -> void:
+	var direction = (mouse_pos - global_position).normalized()
+	rotation = direction.angle()  # Поворот всей сцены к мышке
+	spell_effect.position = Vector2(hand_length, 0)
+	hitbox.position = spell_effect.position
+
+func start_cast(mouse_pos: Vector2) -> void:
+	print("in start cast")
+	if not is_casting:
+		# Начало нового комбо
+		print("is first time")
+		show()
+		is_casting = true
+		combo_count = 0
+		update_aim(mouse_pos)
 	
-	if is_ranged:
-		# Для дальних заклинаний - направление в сторону взгляда
-		if caster.is_facing_right:
-			position += Vector2(30, 0)
-		else:
-			position += Vector2(-30, 0)
-			scale.x *= -1  # Отражаем спрайт
+	_add_to_combo(mouse_pos)
+	print("not first time")
 
-func _start_cast() -> void:
-	var anim_name = [quick_cast_anim, medium_cast_anim, charged_cast_anim][charge_level]
-	play_anim(anim_name)
-	
-	# Активируем хитбокс только после анимации каста
-	collision_shape.set_deferred("disabled", true)
-
-func _on_animation_finished() -> void:
-	print("popali pered super if")
-	if animated_sprite.animation.ends_with("cast"): # Проверяем, на что оканчивается название анимации
-		# Завершение каста - активируем эффект
-		# Тут можно санимировать какой то начальный эффект видимо
-		collision_shape.set_deferred("disabled", false)
-		print("popali pered if")
-		if is_ranged:
-			print("popali v if")
-			_start_ranged_effect()
-		else:
-			_start_melee_effect()
-	else:
-		queue_free()
-
-func _start_ranged_effect() -> void:# Логика для дальних заклинаний
-	pass
-
-func _start_melee_effect() -> void:# Логика для ближних заклинаний
-	pass
-
-func _on_body_entered(body: Node) -> void:
-	if body == caster or not body.has_method("take_damage"):
+func _add_to_combo(mouse_pos: Vector2) -> void:
+	if combo_count >= combo_animations.size():
 		return
 	
-	var damage = base_damage * damage_multipliers[charge_level]
-	body.take_damage(
-		damage,
-		global_position,
-		base_knockback, #* size_multipliers[charge_level],
-		element
-	)
+	combo_count += 1
+	combo_timer = combo_timeout
 	
-	if not is_ranged: # Здесь можно сыграть анимацию удара (типо)
-		#animated_sprite.play("impact")
-		pass
-	else:
-		_ranged_impact(body)
+	# Добавляем анимацию в очередь
+	animation_queue.append(combo_animations[combo_count - 1])
+	_process_animation_queue()
+	
+	update_aim(mouse_pos)
 
-func _ranged_impact(body: Node) -> void:
-	# Логика попадания дальнего заклинания
-	# animated_sprite.play("impact")
-	set_physics_process(false)
+func _process_animation_queue() -> void:
+	if current_animation_playing or animation_queue.is_empty():
+		return
+	
+	current_animation_playing = true
+	var anim_name = animation_queue.pop_front()
+	
+	hand_sprite.play("Hand")
+	spell_effect.play(anim_name)
+	_setup_hitbox(combo_count)
+	
+	await spell_effect.animation_finished
+	current_animation_playing = false
+	
+	# Проверяем нужно ли продолжить
+	if not animation_queue.is_empty():
+		_process_animation_queue()
+	elif combo_timer <= 0:
+		finish_combo()
+
+func _setup_hitbox(combo_level: int) -> void:
+	# Настройка хитбокса в зависимости от комбо
+	var damage = damage_per_combo[combo_level - 1]
+	hitbox.damage = damage
+	hitbox.element = current_element
+	
+	# Позиционируем хитбокс в направлении атаки
+	#hitbox.position = direction * 30
+	#hitbox.rotation = direction.angle()
+
+func finish_combo() -> void:
+	if not is_casting:
+		return
+	
+	is_casting = false
+	combo_count = 0
+	animation_queue.clear()
+	hide()
+	emit_signal("combo_finished")
 
 func _process(delta: float) -> void:
-	if is_ranged and animated_sprite.animation == "active":
-		# Движение дальнего заклинания
-		position += Vector2.RIGHT.rotated(rotation) * 300 * delta
-	
-func play_anim(anim_name: String):
-	if (animated_sprite.sprite_frames.has_animation(anim_name)): # Чтобы игра не упала, если не найдет анимацию
-		animated_sprite.play(anim_name)
-		print("Сыграна анимация ", anim_name)
-	else:
-		print("Анимации ", anim_name, " нет в Spell")
+	if is_casting:
+		combo_timer -= delta
+		if combo_timer <= 0 and not current_animation_playing:
+			finish_combo()

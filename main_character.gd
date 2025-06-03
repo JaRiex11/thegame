@@ -30,11 +30,23 @@ var weapons: Array[Weapon] = []
 @onready var current_weapon: Weapon = null
 
 # Заклинания и все с ними связанное
-var current_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
-var current_spells = {
-	ElemSys.ELEMENT.FIRE: {},
-	ElemSys.ELEMENT.WATER: {
-		"melee": preload("res://scenes/spells/WaterMeleeWave.tscn")
+enum SpellType { MELEE, RANGED }
+var current_spell_type: SpellType = SpellType.MELEE
+var current_element: ElementsSystem.ELEMENT = ElementsSystem.ELEMENT.WATER
+var current_spell: Spell = null
+var current_active_spell: Spell = null  # Текущее активное заклинание в комбо
+var in_spell_cooldown := false
+var spell_coldown_timer : float = 0.3
+
+# Словарь заклинаний 
+var spells_db = {
+	#ElementsSystem.ELEMENT.FIRE: {
+		#SpellType.MELEE: preload("res://scenes/spells/FireMeleeSpell.tscn"),
+		#SpellType.RANGED: preload("res://scenes/spells/FireRangedSpell.tscn")
+	#},
+	ElementsSystem.ELEMENT.WATER: {
+		SpellType.MELEE: preload("res://scenes/spells/WaterMeleeWave.tscn"),
+		#SpellType.RANGED: preload("res://scenes/spells/WaterRangedSpell.tscn")
 	}
 }
 
@@ -43,6 +55,10 @@ func _ready():
 	if has_node("PlayerHurtbox"):
 		$PlayerHurtbox.body_entered.connect(_on_body_entered_enemy_body)
 	change_state(PlayerState.IDLE)
+	
+	current_spell = preload("res://scenes/based_scenes/Spell.tscn").instantiate()
+	add_child(current_spell)
+	current_spell.setup(self, current_element)
 
 func _physics_process(delta):
 	update_facing_direction()
@@ -50,9 +66,7 @@ func _physics_process(delta):
 	handle_weapon()
 	update_animations()
 	
-	if Input.is_action_just_pressed("attack2"):
-		var direction = (get_global_mouse_position() - global_position).normalized()
-		cast_spell(false, 0)
+	handle_spells()  # Добавляем обработку заклинаний
 
 func update_facing_direction():
 	var mouse_pos = get_global_mouse_position()
@@ -88,6 +102,33 @@ func handle_weapon():
 	# Перезарядка
 	if Input.is_action_just_pressed("reload"):
 		current_weapon.try_reload()
+
+func handle_spells():
+	# Переключение типа заклинания
+	#if Input.is_action_just_pressed("switch_spell_type"):
+		#current_spell_type = SpellType.RANGED if current_spell_type == SpellType.MELEE else SpellType.MELEE
+		#print("Тип заклинания: ", "Дальнее" if current_spell_type == SpellType.RANGED else "Ближнее")
+	
+	# Переключение стихии
+	#if Input.is_action_just_pressed("next_element"):
+		#_switch_element(1)
+	#elif Input.is_action_just_pressed("prev_element"):
+		#_switch_element(-1)
+	
+	# Каст заклинания               "cast_spell"
+	if Input.is_action_just_pressed("attack2"):#and not in_spell_cooldown:
+		print("Нажатие ПКМ зафиксировано")
+		cast_spell()
+
+func _switch_element(direction: int):
+	var elements = ElementsSystem.ELEMENT.values()
+	var current_idx = elements.find(current_element)
+	var new_idx = wrapi(current_idx + direction, 0, elements.size())
+	current_element = elements[new_idx]
+	
+	# Обновляем текущее заклинание
+	current_spell.setup(self, current_element)
+	print("Стихия изменена на: ", ElementsSystem.element_to_string(current_element))
 
 func change_state(new_state: PlayerState):
 	if current_state == new_state:
@@ -160,16 +201,31 @@ func switch_weapon(index: int):
 	# Для правильного порядка отрисовки
 	weapon_pivot.move_child(current_weapon, weapon_pivot.get_child_count() - 1)
 
-func cast_spell(is_ranged: bool, charge_level: int) -> void:
-	var spell_scene =  preload("res://scenes/spells/WaterMeleeWave.tscn")
-	var spell: Spell = spell_scene.instantiate()
+func cast_spell() -> void:
+	if in_spell_cooldown: return
 	
-	spell.setup(self, charge_level)
-	get_parent().add_child(spell)
+	var mouse_pos = get_global_mouse_position()
+	if not current_active_spell or not is_instance_valid(current_active_spell):
+		# Создаем новое заклинание если нет активного
+		var spell_scene = spells_db[current_element][current_spell_type]
+		current_active_spell = spell_scene.instantiate()
+		get_parent().add_child(current_active_spell)
+		current_active_spell.setup(self, current_element)
+		current_active_spell.combo_finished.connect(_on_spell_combo_finished)
+	
+	current_active_spell.start_cast(mouse_pos)
+	
+	# Короткая анимация каста
+	#player_sprite.play("cast_quick")
 
+func _on_spell_combo_finished():
+	if current_active_spell:
+		current_active_spell.queue_free()
+		current_active_spell = null
 	
-	# Короткая анимация каста без прерывания движения
-	# animated_sprite.play("cast_quick")
+	in_spell_cooldown = true
+	await get_tree().create_timer(0.3).timeout
+	in_spell_cooldown = false
 
 func take_damage(
 	amount: float, 

@@ -1,14 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://da3agk7xajbm0"]
+[gd_scene load_steps=3 format=3 uid="uid://da3agk7xajbm0"]
 
 [ext_resource type="Script" uid="uid://cgefdx4um2r75" path="res://scenes/based_scenes/spell.gd" id="1_tfivf"]
+[ext_resource type="Script" uid="uid://dpmjqrsj27vsu" path="res://scenes/based_scenes/spell_hitbox.gd" id="2_mmwp3"]
 
 [node name="MagicSpell" type="Area2D"]
 script = ExtResource("1_tfivf")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="HandPivot" type="Node2D" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="SpellEffect" type="AnimatedSprite2D" parent="HandPivot"]
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="HandSprite" type="AnimatedSprite2D" parent="HandPivot"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="Hitbox" type="Area2D" parent="HandPivot"]
+script = ExtResource("2_mmwp3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HandPivot/Hitbox"]

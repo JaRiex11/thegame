@@ -31,3 +31,6 @@ static func get_damage_multiplier(attacker: ELEMENT, defender: ELEMENT) -> float
 		if multiplier[0] == attacker and multiplier[1] == defender:
 			return multiplier[2]
 	return 1.0
+
+static func element_to_string(element: ELEMENT) -> String:
+	return ELEMENT.keys()[element]
