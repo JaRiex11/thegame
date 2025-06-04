@@ -6,6 +6,8 @@ enum STATUS_EFFECT { NONE, BURNING, WET }
 
 # Реакции как массив [атакующий, защитник, результат]
 const _REACTIONS = [
+	[ELEMENT.FIRE, ELEMENT.FIRE, ELEMENT.NONE],
+	[ELEMENT.WATER, ELEMENT.WATER, ELEMENT.NONE],
 	[ELEMENT.FIRE, ELEMENT.WATER, ELEMENT.STEAM],
 	[ELEMENT.FIRE, STATUS_EFFECT.WET, ELEMENT.STEAM],
 	[ELEMENT.WATER, ELEMENT.FIRE, ELEMENT.STEAM],
@@ -17,12 +19,16 @@ const _DAMAGE_MULTIPLIERS = [
 	[ELEMENT.FIRE, ELEMENT.FIRE, 0.0],
 	[ELEMENT.FIRE, ELEMENT.WATER, 2.0],
 	[ELEMENT.WATER, ELEMENT.WATER, 0.0],
-	[ELEMENT.WATER, ELEMENT.FIRE, 2.0]
+	[ELEMENT.WATER, ELEMENT.FIRE, 2.0],
+	[ELEMENT.STEAM, ELEMENT.FIRE, 1.0],
+	[ELEMENT.STEAM, ELEMENT.WATER, 0.5]
 ]
 
 static func get_reaction(attacker: ELEMENT, defender: Variant) -> ELEMENT:
+	
 	for reaction in _REACTIONS:
 		if reaction[0] == attacker and reaction[1] == defender:
+			print("In ElemSys,  reaction element: ", reaction[2])
 			return reaction[2]
 	return ELEMENT.NONE
 

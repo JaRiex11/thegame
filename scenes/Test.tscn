@@ -104,13 +104,13 @@ position = Vector2(-345, 396)
 visible = false
 
 [node name="Enemy1" parent="." instance=ExtResource("4_bhwsq")]
-position = Vector2(226, 60)
+position = Vector2(460, -30)
 
 [node name="Enemy2" parent="." instance=ExtResource("4_bhwsq")]
-position = Vector2(-304, 35)
+position = Vector2(-318, -33)
 
 [node name="Enemy3" parent="." instance=ExtResource("4_bhwsq")]
-position = Vector2(395, 350)
+position = Vector2(461, 420)
 
 [node name="AK-74_1" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(-247, 474)
@@ -118,25 +118,14 @@ position = Vector2(-247, 474)
 [node name="AK-74_2" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(12, 471)
 
+[node name="ElemWaterSmall" parent="." instance=ExtResource("8_1of5j")]
+position = Vector2(356, 422)
+
+[node name="ElemWaterSmall2" parent="." instance=ExtResource("8_1of5j")]
+position = Vector2(426, 346)
+
 [node name="ElemFireSmall2" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(413, -45)
-dash_duration = 1.6
-dash_cooldown = 1.0
+position = Vector2(308, -110)
 
 [node name="ElemFireSmall3" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(-227, -141)
-dash_duration = 1.6
-dash_cooldown = 1.0
-
-[node name="ElemWaterSmall" parent="." instance=ExtResource("8_1of5j")]
-position = Vector2(419, 90)
-dash_duration = 0.6
-
-[node name="ElemFireSmall4" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(292, 385)
-
-[node name="ElemFireSmall5" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(173, 155)
-
-[node name="ElemFireSmall6" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(72, 5)
+position = Vector2(224, -108)
