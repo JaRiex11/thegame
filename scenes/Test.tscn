@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_2loec"]
 [ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="2_jbd4l"]
 [ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="3_fu3ou"]
-[ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/Enemy1.tscn" id="4_bhwsq"]
+[ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/units/Enemy1.tscn" id="4_bhwsq"]
 [ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="5_xftjw"]
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="6_8bdjt"]
 [ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="7_wnywe"]

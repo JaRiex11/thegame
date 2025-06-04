@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://t0hgtuds0ebl"]
+
+[ext_resource type="PackedScene" uid="uid://brvuj1qm0pohq" path="res://scenes/based_scenes/Units/FireElemental.tscn" id="1_w7cm7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l2bwe"]
+radius = 224.009
+
+[node name="ElemFireMedium" instance=ExtResource("1_w7cm7")]
+
+[node name="CollisionShape2D" parent="ViewArea" index="0"]
+shape = SubResource("CircleShape2D_l2bwe")

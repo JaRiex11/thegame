@@ -7,7 +7,9 @@ enum UNIT_STATE {
 	MOVE,
 	ATTACK,
 	HURT,
-	DEAD
+	DEAD,
+	CHASE,
+	PATROL
 }
 #endregion
 
