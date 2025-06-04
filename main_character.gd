@@ -52,6 +52,7 @@ var spells_db = {
 }
 
 func _ready():
+	add_to_group("player")
 	current_health = max_health
 	if has_node("PlayerHurtbox"):
 		$PlayerHurtbox.body_entered.connect(_on_body_entered_enemy_body)

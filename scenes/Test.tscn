@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://b03caye87oq21" path="res://tutorial.gd" id="1_2loec"]
 [ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="2_jbd4l"]
 [ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="3_fu3ou"]
-[ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/units/Enemy1.tscn" id="4_bhwsq"]
 [ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="5_xftjw"]
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="6_8bdjt"]
-[ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="7_wnywe"]
-[ext_resource type="PackedScene" uid="uid://dp34ryswm1kkc" path="res://scenes/units/elem_water_small.tscn" id="8_1of5j"]
+[ext_resource type="PackedScene" uid="uid://b557w8kvay2gu" path="res://scenes/units/new_elem_fire_small.tscn" id="7_wnywe"]
+[ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/units/Enemy1.tscn" id="8_2loec"]
+[ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="8_jbd4l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5f0c"]
 texture = ExtResource("5_xftjw")
@@ -103,29 +103,26 @@ position = Vector2(-345, 396)
 [node name="PauseMenu" parent="." instance=ExtResource("3_fu3ou")]
 visible = false
 
-[node name="Enemy1" parent="." instance=ExtResource("4_bhwsq")]
-position = Vector2(460, -30)
-
-[node name="Enemy2" parent="." instance=ExtResource("4_bhwsq")]
-position = Vector2(-318, -33)
-
-[node name="Enemy3" parent="." instance=ExtResource("4_bhwsq")]
-position = Vector2(461, 420)
-
 [node name="AK-74_1" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(-247, 474)
 
 [node name="AK-74_2" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(12, 471)
 
-[node name="ElemWaterSmall" parent="." instance=ExtResource("8_1of5j")]
-position = Vector2(356, 422)
+[node name="Enemy1" parent="." instance=ExtResource("8_2loec")]
+position = Vector2(-331, -71)
 
-[node name="ElemWaterSmall2" parent="." instance=ExtResource("8_1of5j")]
-position = Vector2(426, 346)
+[node name="Enemy2" parent="." instance=ExtResource("8_2loec")]
+position = Vector2(448, -63)
+
+[node name="Enemy3" parent="." instance=ExtResource("8_2loec")]
+position = Vector2(450, 424)
+
+[node name="ElemFireSmall" parent="." instance=ExtResource("7_wnywe")]
+position = Vector2(276, 393)
 
 [node name="ElemFireSmall2" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(308, -110)
+position = Vector2(362, 77)
 
-[node name="ElemFireSmall3" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(224, -108)
+[node name="ElemFireSmall3" parent="." instance=ExtResource("8_jbd4l")]
+position = Vector2(-166, -85)

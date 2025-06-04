@@ -9,7 +9,8 @@ enum UNIT_STATE {
 	HURT,
 	DEAD,
 	CHASE,
-	PATROL
+	PATROL,
+	SEARCH
 }
 #endregion
 
@@ -55,7 +56,7 @@ func _ready() -> void:
 	change_state(UNIT_STATE.IDLE)
 
 func _physics_process(delta: float) -> void:
-#	_update_timers(delta)
+	_update_timers(delta)
 	_update_movement(delta)
 	_update_animation()
 	_handle_state_logic(delta)
@@ -198,7 +199,9 @@ func _update_movement(delta: float) -> void:
 	 
 	var movement := _calculate_movement()
 	velocity = movement * move_speed
-	move_and_collide(velocity * delta)
+	
+	# Заменяем move_and_collide на move_and_slide для Godot 4.4
+	move_and_slide()
 	
 	_update_facing()
 
@@ -207,6 +210,9 @@ func _update_facing() -> void:
 		is_facing_right = true
 	else: 
 		is_facing_right = false
+
+func _update_timers(delta) -> void:
+	pass
 
 func _calculate_movement() -> Vector2:
 	return Vector2.ZERO
@@ -271,6 +277,12 @@ func _dead_state(delta: float) -> void:
 	if death_completed:
 		queue_free()
 
+func _chase_state(delta) -> void:
+	pass
+
+func _patrol_chase(delta: float) -> void:
+	pass
+
 func _update_animation() -> void:
 	pass
 
@@ -313,7 +325,7 @@ func is_in_attack_range(target_position: Vector2) -> bool:
 	return global_position.distance_to(target_position) <= attack_range
 
 func can_see_target(target: CharacterBody2D) -> bool:
-	if not target:
+	if not target or not is_instance_valid(target):
 		return false
 	
 	var space_state = get_world_2d().direct_space_state
@@ -324,11 +336,13 @@ func can_see_target(target: CharacterBody2D) -> bool:
 	)
 	# Исключаем из проверки самого себя и возможные другие объекты
 	query.exclude = [self]
-	query.collide_with_areas = false
-	query.collide_with_bodies = true
+	#query.collide_with_areas = false
+	#query.collide_with_bodies = true
 	
 	var result = space_state.intersect_ray(query)
 	# Для отладки (можно убрать после тестов)
 	#print("Ray collider:", result.collider.name if result else "none")
-	return result.collider == target
+	if result.is_empty():  # Если луч не попал ни в что
+		return false
+	return result.collider == target  # Теперь доступ безопасен
 #endregion

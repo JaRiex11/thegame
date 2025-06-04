@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://kcb1nhotdy0a"]
+
+[ext_resource type="PackedScene" uid="uid://mbesurj7hyg4" path="res://scenes/based_scenes/Units/Elemental.tscn" id="1_4gtdj"]
+
+[node name="ElemSmallAI" instance=ExtResource("1_4gtdj")]
+
+[node name="Hitbox" parent="." index="2"]
+collision_layer = 1
+collision_mask = 1

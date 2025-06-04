@@ -248,7 +248,7 @@ animations = [{
 collision_layer = 64
 collision_mask = 57
 script = ExtResource("1_ghikb")
-max_health = 150
+max_health = 1000
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.2, 1.2)

@@ -1,5 +1,5 @@
 extends FireElemental
-class_name ElemFireSmall
+class_name OldElemFireSmall
 
 @export var large_attack_dist := 100
 @export var small_attack_dist := 20
@@ -202,16 +202,3 @@ func _generate_patrol_points(count: int) -> void:
 			randf_range(-100, 100)
 		)
 		patrol_points.append(global_position + random_offset)
-
-#func _draw_debug() -> void:
-	#if Engine.is_editor_hint():
-		#return
-		#
-	## Рисуем точки патрулирования
-	#for point in patrol_points:
-		#draw_circle(point - global_position, 5.0, Color.GREEN)
-		#
-	## Рисуем последнюю известную позицию
-	#if is_searching:
-		#draw_circle(last_known_position - global_position, 8.0, Color.RED)
-##endregion

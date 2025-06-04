@@ -227,12 +227,11 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ij3ls")
 animation = &"Death"
 
-[node name="Hitbox" parent="." index="1"]
-scale = Vector2(2, 2)
-polygon = PackedVector2Array(1, 9, 10, 5, 10, -4, 1, -7, -8, -4, -8, 5)
-
 [node name="CollisionShape2D" parent="ViewArea" index="0"]
 shape = SubResource("CircleShape2D_v8r64")
+
+[node name="Hitbox" parent="." index="2"]
+scale = Vector2(2, 2)
 
 [connection signal="body_entered" from="ViewArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
