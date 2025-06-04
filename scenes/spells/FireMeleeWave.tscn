@@ -7,102 +7,6 @@
 
 [sub_resource type="Animation" id="Animation_n87y3"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HandPivot/HandSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Hand1"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HandPivot/HandSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HandPivot/SpellEffect:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"attack1"]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("HandPivot/SpellEffect:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("HandPivot/SpellEffect:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("HandPivot/SpellEffectSecond:animation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"attack1"]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("HandPivot/SpellEffectSecond:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("HandPivot/SpellEffectSecond:frame")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_jfyoa"]
 resource_name = "attack1"
@@ -162,15 +66,63 @@ tracks/4/path = NodePath("HandPivot/SpellEffect:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.133333, 0.433333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hitbox/CollisionPolygon2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hitbox/CollisionPolygon2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hitbox/CollisionPolygon2D2:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox/CollisionPolygon2D2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_imyea"]
 resource_name = "attack2"
-length = 0.733337
+length = 0.700003
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -231,6 +183,54 @@ tracks/4/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hitbox/CollisionPolygon2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hitbox/CollisionPolygon2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hitbox/CollisionPolygon2D2:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox/CollisionPolygon2D2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_i4ty8"]
 resource_name = "attack3"
@@ -278,7 +278,7 @@ tracks/3/path = NodePath("HandPivot/SpellEffect:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.166667, 0.466667, 0.566667, 0.933333),
+"times": PackedFloat32Array(0.166667, 0.466667, 0.566667, 0.833333),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false]
@@ -302,10 +302,10 @@ tracks/5/path = NodePath("HandPivot/SpellEffectSecond:animation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.800003),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"attack1"]
+"values": [&"attack2"]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -314,10 +314,10 @@ tracks/6/path = NodePath("HandPivot/SpellEffectSecond:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.4, 0.7),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -330,6 +330,54 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox/CollisionPolygon2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.4, 0.733333, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hitbox/CollisionPolygon2D:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.4, 0.733333, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Hitbox/CollisionPolygon2D2:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Hitbox/CollisionPolygon2D2:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n1da3"]
@@ -981,26 +1029,38 @@ radius = 4.0
 script = ExtResource("2_jfyoa")
 bombastic_name = "The Revenge of Hades"
 
+[node name="CollisionPolygon2D" parent="Hitbox" index="0"]
+visible = false
+polygon = PackedVector2Array(38, -33, 60.5, -15.5, 63.5, 4.5, 51.5, 26.5, 27.5, 31.5, 10.5, 3.5)
+disabled = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Hitbox" index="1"]
+visible = false
+polygon = PackedVector2Array(28, -32, 53, -23, 63, 0, 57, 18.5, 37.5, 30, 8.5, 4)
+disabled = true
+
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_n1da3")
 }
-speed_scale = 0.5
 
 [node name="SpellEffect" parent="HandPivot" index="0"]
 position = Vector2(83, 0)
 sprite_frames = SubResource("SpriteFrames_nxw0d")
-animation = &"attack1"
+animation = &"attack2"
+frame = 2
 
 [node name="HandSprite" parent="HandPivot" index="1"]
 position = Vector2(13.5, 0)
 sprite_frames = SubResource("SpriteFrames_jfyoa")
-animation = &"Hand1"
+animation = &"Hand3"
 
 [node name="SpellEffectSecond" type="AnimatedSprite2D" parent="HandPivot" index="2"]
-position = Vector2(96.5, 0)
+visible = false
+position = Vector2(83, 0)
 sprite_frames = SubResource("SpriteFrames_lx4ww")
-animation = &"attack1"
+animation = &"attack2"
+frame = 8
 
 [node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_lx4ww")

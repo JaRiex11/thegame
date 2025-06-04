@@ -70,6 +70,10 @@ func take_damage(
 	
 	# Рассчитываем множитель урона в зависимости от элементов
 	var damage_multiplier = _get_elemental_damage_multiplier(damage_element)
+	print("  AttckElement: ", ElemSys.element_to_string(damage_element),
+	"  DefElement: ", ElemSys.element_to_string(current_element),
+	"Damage multiplier: ", damage_multiplier)
+	
 	var final_damage = amount * damage_multiplier
 	if final_damage != 0:
 		current_health -= final_damage
@@ -123,6 +127,9 @@ func _process_elemental_reaction(attacker_element: ElemSys.ELEMENT) -> void:
 	# Обрабатываем реакции между элементами
 	if is_elemental:
 		var reaction = ElemSys.get_reaction(attacker_element, current_element)
+		print("attacker_element ", ElemSys.element_to_string(attacker_element),
+			"  current_element ", ElemSys.element_to_string(current_element),
+			"  Получили реакцию ", ElemSys.element_to_string(reaction))
 		if reaction != ElemSys.ELEMENT.NONE:
 			_apply_elemental_reaction(reaction)
 	else:
@@ -136,6 +143,7 @@ func _apply_status_effect(status: ElemSys.STATUS_EFFECT) -> void:
 	if current_status_effects.has(status):
 		return
 	
+	print("append status effect: ", status)
 	current_status_effects.append(status)
 	
 	# Проверяем возможные реакции между статус эффектами
@@ -153,8 +161,9 @@ func _check_status_interactions() -> void:
 func _apply_elemental_reaction(reaction: ElemSys.ELEMENT) -> void:
 	match reaction:
 		ElemSys.ELEMENT.STEAM:
+			print("Activate STEAM reaction")
 			# Эффект пара - наносим дополнительный урон
-			take_damage(10.0, global_position, 0, ElemSys.ELEMENT.NONE)
+			take_damage(10.0, global_position, 0, ElemSys.ELEMENT.STEAM)
 			_play_steam_effect()
 		# Можно добавить другие реакции
 

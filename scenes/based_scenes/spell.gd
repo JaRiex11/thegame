@@ -42,17 +42,14 @@ func update_aim(mouse_pos: Vector2) -> void:
 	hitbox.position = hand_pivot.position #animation_player.position
 
 func start_cast(mouse_pos: Vector2) -> void:
-	print("in start cast")
 	if not is_casting:
 		# Начало нового комбо
-		print("is first time")
 		show()
 		is_casting = true
 		combo_count = 0
 		update_aim(mouse_pos)
 	
 	_add_to_combo(mouse_pos)
-	print("not first time")
 
 func _add_to_combo(mouse_pos: Vector2) -> void:
 	if combo_count >= combo_animations.size():

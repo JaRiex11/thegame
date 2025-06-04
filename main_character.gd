@@ -32,7 +32,7 @@ var weapons: Array[Weapon] = []
 # Заклинания и все с ними связанное
 enum SpellType { MELEE, RANGED }
 var current_spell_type: SpellType = SpellType.MELEE
-var current_element: ElementsSystem.ELEMENT = ElementsSystem.ELEMENT.FIRE
+var current_element: ElementsSystem.ELEMENT = ElementsSystem.ELEMENT.WATER
 var current_spell: Spell = null
 var current_active_spell: Spell = null  # Текущее активное заклинание в комбо
 var in_spell_cooldown := false
@@ -100,7 +100,6 @@ func handle_weapon():
 	# Стрельба
 	if Input.is_action_pressed("attack1"):
 		var direction = (get_global_mouse_position() - current_weapon.shoot_point.global_position).normalized()
-		current_element = ElemSys.ELEMENT.WATER
 		current_weapon.try_shoot(direction, self.position)
 	
 	# Перезарядка
@@ -114,21 +113,24 @@ func handle_spells():
 		#print("Тип заклинания: ", "Дальнее" if current_spell_type == SpellType.RANGED else "Ближнее")
 	
 	# Переключение стихии
-	#if Input.is_action_just_pressed("next_element"):
-		#_switch_element(1)
+	if Input.is_action_just_pressed("switch_to_weapon1"): #"next_element"
+		_switch_element(1)
 	#elif Input.is_action_just_pressed("prev_element"):
 		#_switch_element(-1)
 	
 	# Каст заклинания               "cast_spell"
 	if Input.is_action_just_pressed("attack2"):
-		print("Нажатие ПКМ зафиксировано")
 		cast_spell()
 
 func _switch_element(direction: int):
-	var elements = ElementsSystem.ELEMENT.values()
-	var current_idx = elements.find(current_element)
-	var new_idx = wrapi(current_idx + direction, 0, elements.size())
-	current_element = elements[new_idx]
+	#var elements = ElementsSystem.ELEMENT.values()
+	#var current_idx = elements.find(current_element)
+	#var new_idx = wrapi(current_idx + direction, 0, elements.size())
+	#current_element = elements[new_idx]
+	if(current_element == ElemSys.ELEMENT.WATER):
+		current_element = ElemSys.ELEMENT.FIRE
+	else:
+		current_element = ElemSys.ELEMENT.WATER
 	
 	# Обновляем текущее заклинание
 	current_spell.setup(self, current_element)

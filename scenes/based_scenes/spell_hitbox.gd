@@ -9,10 +9,10 @@ func setup(_damage: float, _kb_force: float, _element: ElemSys.ELEMENT):
 	damage = _damage
 	element = _element
 	knockback_force = _kb_force
-	print(damage, ElemSys.element_to_string(element), knockback_force)
 
 func _on_body_entered(body: Node) -> void:
 	if body.has_method("take_damage"):
+		print("Задели врага!!!")
 		body.take_damage(
 			damage,
 			global_position,
