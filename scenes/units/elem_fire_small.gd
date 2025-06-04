@@ -5,8 +5,8 @@ class_name ElemFireSmall
 @export var small_attack_dist := 20
 #region Экспортируемые переменные
 @export_category("AI Settings")
-@export var patrol_speed := 80.0
-@export var chase_speed := 280.0
+#@export var patrol_speed := 80.0
+#@export var chase_speed := 280.0
 @export var patrol_wait_time := 1.0
 @export var search_duration := 5.0
 @export_category("Attack Settings")
@@ -17,8 +17,8 @@ class_name ElemFireSmall
 #endregion
 
 #region Внутренние переменные
-var current_target: CharacterBody2D = null
-var last_known_position: Vector2 = Vector2.ZERO
+#var current_target: CharacterBody2D = null
+#var last_known_position: Vector2 = Vector2.ZERO
 var patrol_points: Array[Vector2] = []
 var current_patrol_index := 0
 var patrol_timer := 0.0
