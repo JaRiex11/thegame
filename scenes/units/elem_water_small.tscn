@@ -225,7 +225,7 @@ death_anim = "Death"
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ij3ls")
-animation = &"Death"
+animation = &"IdleR"
 
 [node name="CollisionShape2D" parent="ViewArea" index="0"]
 shape = SubResource("CircleShape2D_v8r64")
