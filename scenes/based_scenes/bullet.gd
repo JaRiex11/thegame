@@ -41,6 +41,7 @@ func init_components(
 	damage_element = _damage_element
 	is_from_player = _is_from_player
 	velocity = direction * speed
+	
 	if is_from_player:
 		set_collision_mask_value(7, false)
 

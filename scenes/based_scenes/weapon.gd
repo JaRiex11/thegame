@@ -22,8 +22,9 @@ enum WeaponState { IDLE, SHOOTING, RELOADING }
 @export var knockback_force: float = 1000
 @export var damage_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE 
 
-@export var pivot_offset := Vector2(20, -10)  # Смещение точки вращения
-@export var flip_offset := Vector2(-10, 0)  # Смещение при зеркалировании влево
+@export var pivot_offset := Vector2(20, 0)  # Смещение точки вращения
+@export var flip_offset := Vector2(-25, 8)  # Смещение при зеркалировании влево
+var start_pivot_pos : Vector2
 
 var current_state: WeaponState = WeaponState.IDLE
 var current_ammo: int
@@ -32,10 +33,13 @@ var can_shoot: bool = true
 var is_players: bool = false
 var shoot_cooldown: Timer
 var reload_timer: Timer
+var is_facing_right: bool = true
 
 # Спрайты и позиции
 @onready var ground_sprite: Sprite2D = $OnGroundSprite
-@onready var hand_sprite: Sprite2D = $InHandSprite
+@onready var hand_sprite: Node2D = $HandSprite
+@onready var hand_sprite_left: Sprite2D = $HandSprite/InHandSpriteLeft
+@onready var hand_sprite_right: Sprite2D = $HandSprite/InHandSpriteRight
 @onready var shoot_point = $ShootPoint
 @onready var collision := $Area2D/CollisionPolygon2D
 @onready var shoot_start_point := $ShootStartPoint
@@ -47,30 +51,39 @@ func _ready():
 	current_ammo = magazine_size
 	total_ammo = max_ammo - magazine_size
 
-	hand_sprite.z_index = 1
+	hand_sprite_left.z_index = 1
+	hand_sprite_right.z_index = 1
 # Таймеры
 	shoot_cooldown = Timer.new()
 	add_child(shoot_cooldown)
 	shoot_cooldown.timeout.connect(_on_shoot_cooldown_end)
 	shoot_cooldown.one_shot = true
-	
+
 	reload_timer = Timer.new()
 	add_child(reload_timer)
 	reload_timer.timeout.connect(_on_reload_finished)
 	reload_timer.one_shot = true
 
-func update_aim(target_position: Vector2):
+func update_aim(target_position: Vector2, is_facing_right: bool):
 	# Вычисляем направление к цели
 	var direction = (target_position - shoot_start_point.global_position).normalized()
-
 	# Поворачиваем оружие
 	rotation = direction.angle()
 	
 	# Вертикальное зеркалирование при стрельбе влево
-	if direction.x < 0:
-		scale.y = -1
+	if not is_facing_right:#direction.x < 0:
+		is_facing_right = false
+		hand_sprite_right.hide()
+		hand_sprite_left.show()
+		scale.y = -2
+		position = flip_offset
 	else:
-		scale.y = 1
+		is_facing_right = true
+		hand_sprite_right.show()
+		hand_sprite_left.hide()
+		position = start_pivot_pos + pivot_offset
+		#print("position when facing right = ", position)
+		scale.y = 2
 	
 
 func try_shoot(direction: Vector2, weapon_owner_pos: Vector2) -> bool:
@@ -129,7 +142,8 @@ func _deferred_pick_up(player):
 	# Передаем оружие игроку
 	if is_instance_valid(player) and player.has_method("pick_up_weapon"):
 		ground_sprite.hide()
-		hand_sprite.show()
+		
+		hand_sprite_right.show()
 		player.pick_up_weapon(self)
 		
 

@@ -1,18 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://daw0byti8lcfb"]
+[gd_scene load_steps=7 format=3 uid="uid://daw0byti8lcfb"]
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_mi5ef"]
 [ext_resource type="PackedScene" uid="uid://tu8eg5q1275o" path="res://scenes/weapons/Bullets/5_45_mm.tscn" id="2_o04r2"]
-[ext_resource type="Texture2D" uid="uid://6kmg82a2alk1" path="res://img/sprite_list_1.png" id="3_o04r2"]
+[ext_resource type="Texture2D" uid="uid://dbpbgjw8j18qx" path="res://img/32x64.png" id="3_7g5m4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hey3x"]
-atlas = ExtResource("3_o04r2")
-region = Rect2(64, 176, 25, 73)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g5m4"]
+atlas = ExtResource("3_7g5m4")
+region = Rect2(0, 32, 64, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gds6s"]
-atlas = ExtResource("3_o04r2")
-region = Rect2(64, 176, 25, 73)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t5mj"]
+atlas = ExtResource("3_7g5m4")
+region = Rect2(0, 0, 64, 32)
 
-[node name="AK-74_2" instance=ExtResource("1_mi5ef")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tabce"]
+atlas = ExtResource("3_7g5m4")
+region = Rect2(64, 0, 64, 32)
+
+[node name="AK-74" instance=ExtResource("1_mi5ef")]
+position = Vector2(-1, 0)
+scale = Vector2(2, 2)
 bullet_scene = ExtResource("2_o04r2")
 bullet_speed = 2000.0
 pivot_offset_y = 25
@@ -22,22 +28,37 @@ damage = 50
 fire_rate = 0.1
 magazine_size = 30
 max_ammo = 60
+pivot_offset = Vector2(30, 20)
+flip_offset = Vector2(15, 13)
 
-[node name="InHandSprite" parent="." index="0"]
-rotation = -1.5708
-texture = SubResource("AtlasTexture_hey3x")
-flip_h = true
+[node name="HandSprite" parent="." index="0"]
+position = Vector2(-5.5, -2)
+
+[node name="InHandSpriteLeft" parent="HandSprite" index="0"]
+visible = true
+position = Vector2(19.5, 4)
+scale = Vector2(-1, 1)
+texture = SubResource("AtlasTexture_7g5m4")
+
+[node name="InHandSpriteRight" parent="HandSprite" index="1"]
+visible = true
+position = Vector2(19.5, 4)
+texture = SubResource("AtlasTexture_8t5mj")
 
 [node name="OnGroundSprite" parent="." index="1"]
-rotation = -1.5708
-texture = SubResource("AtlasTexture_gds6s")
+position = Vector2(13.5, 2)
+texture = SubResource("AtlasTexture_tabce")
 flip_h = true
 
+[node name="Area2D" parent="." index="2"]
+position = Vector2(4.5, 0)
+
 [node name="CollisionPolygon2D" parent="Area2D" index="0"]
-polygon = PackedVector2Array(-36, 1, -36, -8, 4, -12, 38, -6, 1, -3, 5, 12)
+position = Vector2(9.5, 1.5)
+polygon = PackedVector2Array(-27, -2, -27, -6, -2.5, -8.5, 26.5, -6.5, 26.5, 1, 2, 10)
 
 [node name="ShootPoint" parent="." index="3"]
-position = Vector2(35, -6)
+position = Vector2(43.5, -2.5)
 
 [node name="ShootStartPoint" parent="." index="4"]
-position = Vector2(0, -6)
+position = Vector2(4.5, -2.5)

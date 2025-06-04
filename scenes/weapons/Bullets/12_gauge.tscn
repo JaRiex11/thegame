@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://6hsqorbwfo7i"]
+
+[ext_resource type="PackedScene" uid="uid://dr54ggccdhg1f" path="res://scenes/based_scenes/Bullet.tscn" id="1_uey1f"]
+[ext_resource type="Texture2D" uid="uid://c4hgr2tdvy1d2" path="res://img/5x5.png" id="2_l8brp"]
+[ext_resource type="Texture2D" uid="uid://xwx7lmghroto" path="res://img/пуля.png" id="4_coa64"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coa64"]
+atlas = ExtResource("2_l8brp")
+region = Rect2(0, 0, 5, 5)
+
+[node name="12_gauge" instance=ExtResource("1_uey1f")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+polygon = PackedVector2Array(-3, -3, -3, 3, 3, 3, 3, -3)
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_coa64")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." index="2"]
+position = Vector2(3.8147e-06, 0)
+scale = Vector2(0.1105, 0.1105)
+texture = ExtResource("4_coa64")

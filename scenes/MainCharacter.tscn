@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://byk402vjjcu8t"]
+[gd_scene load_steps=33 format=3 uid="uid://byk402vjjcu8t"]
 
 [ext_resource type="Script" uid="uid://c3wvffvw20lst" path="res://main_character.gd" id="1_ghikb"]
 [ext_resource type="Texture2D" uid="uid://cw4ci1py8ala0" path="res://img/characters_sprites_animations.png" id="2_udfat"]
@@ -244,11 +244,23 @@ animations = [{
 "speed": 13.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ppvyy"]
+radius = 4.0
+
 [node name="MainCharacter" type="CharacterBody2D" groups=["player"]]
 collision_layer = 64
 collision_mask = 57
 script = ExtResource("1_ghikb")
+SPEED = null
 max_health = 1000
+knockback_resistance = null
+idle_right_anim = null
+idle_left_anim = null
+walk_right_anim = null
+walk_left_anim = null
+hurt_right_anim = null
+hurt_left_anim = null
+death_anim = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.2, 1.2)
@@ -297,6 +309,9 @@ sprite_frames = SubResource("SpriteFrames_ppvyy")
 animation = &"IdleR"
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
-position = Vector2(0, -19)
+position = Vector2(-12, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot"]
+shape = SubResource("CircleShape2D_ppvyy")
 
 [connection signal="body_entered" from="PlayerHurtBox" to="." method="_on_body_entered_enemy_body"]

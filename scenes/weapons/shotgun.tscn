@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://kejl3d4b80xd"]
+
+[ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_lbead"]
+[ext_resource type="Texture2D" uid="uid://ducucbsaqdg12" path="res://img/16x48.png" id="2_0frcf"]
+[ext_resource type="PackedScene" uid="uid://6hsqorbwfo7i" path="res://scenes/weapons/Bullets/12_gauge.tscn" id="2_278ir"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_278ir"]
+atlas = ExtResource("2_0frcf")
+region = Rect2(0, 0, 0, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uukpr"]
+atlas = ExtResource("2_0frcf")
+region = Rect2(0, 16, 0, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn8fy"]
+atlas = ExtResource("2_0frcf")
+region = Rect2(0, 32, 0, 16)
+
+[node name="Shotgun" instance=ExtResource("1_lbead")]
+scale = Vector2(2, 2)
+bullet_scene = ExtResource("2_278ir")
+bullet_speed = 500.0
+weapon_name = "Shotgun"
+fire_rate = 1.0
+
+[node name="InHandSpriteLeft" parent="HandSprite" index="0"]
+position = Vector2(9, 0)
+texture = SubResource("AtlasTexture_278ir")
+
+[node name="InHandSpriteRight" parent="HandSprite" index="1"]
+position = Vector2(9, 0)
+scale = Vector2(-1, 1)
+texture = SubResource("AtlasTexture_uukpr")
+
+[node name="OnGroundSprite" parent="." index="1"]
+position = Vector2(9, 0)
+texture = SubResource("AtlasTexture_qn8fy")
+
+[node name="Area2D" parent="." index="2"]
+position = Vector2(1, 0)
+
+[node name="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PackedVector2Array(-13, 5, -13, -5, 29, -5, 29, 5)
+
+[node name="ShootPoint" parent="." index="3"]
+position = Vector2(30, -3)
+
+[node name="ShootStartPoint" parent="." index="4"]
+position = Vector2(3.5, -3)

@@ -96,7 +96,8 @@ func handle_weapon():
 		return
 	
 	# Обновляем прицеливание оружия
-	current_weapon.update_aim(get_global_mouse_position())
+	current_weapon.update_aim(get_global_mouse_position(), is_facing_right)
+	current_weapon.start_pivot_pos = weapon_pivot.position
 	
 	# Стрельба
 	if Input.is_action_pressed("attack1"):
