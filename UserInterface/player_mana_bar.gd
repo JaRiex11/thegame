@@ -11,7 +11,7 @@ var anim_postfix: String
 
 var check_spell_ability_timer := 0.2
 
-@onready var mana_bar_sprite : AnimatedSprite2D = $mana_bar
+@onready var mana_bar_sprite : AnimatedSprite2D = $"../mana_bar"
 
 signal mana_on_zero
 signal spell_ability(can_spell: bool)

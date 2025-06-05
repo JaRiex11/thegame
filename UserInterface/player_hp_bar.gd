@@ -13,8 +13,8 @@ var is_breaking = false
 var is_waving = false
 var is_animating = false
 
-@onready var hp_bar_sprite : AnimatedSprite2D = $hp_bar
-@onready var shield_bar := $"../PlayerShieldBar"
+@onready var hp_bar_sprite : AnimatedSprite2D = $"../hp_bar"
+@onready var shield_bar := $"../../DefendSystem/PlayerShieldBar"
 
 signal on_hp_is_zero
 signal get_damage(is_vulnerable)  # true - можно получать урон, false - неуязвим
@@ -34,28 +34,6 @@ func _process(delta: float) -> void:
 	value = cur_hp
 
 func update_animations() -> void:	
-	#match value:
-		#20: hp_bar_sprite.play("FiveFull")
-		#19: hp_bar_sprite.play("FiveWithout1")
-		#18: hp_bar_sprite.play("FiveWithout2")
-		#17: hp_bar_sprite.play("FiveWithout3")
-		#16: hp_bar_sprite.play("FourFull")
-		#15: hp_bar_sprite.play("FourWithout1")
-		#14: hp_bar_sprite.play("FourWithout2")
-		#13: hp_bar_sprite.play("FourWithout3")
-		#12: hp_bar_sprite.play("ThreeFull")
-		#11: hp_bar_sprite.play("ThreeWithout1")
-		#10: hp_bar_sprite.play("ThreeWithout2")
-		#9: hp_bar_sprite.play("ThreeWithout3")
-		#8: hp_bar_sprite.play("TwoFull")
-		#7: hp_bar_sprite.play("TwoWithout1")
-		#6: hp_bar_sprite.play("TwoWithout2")
-		#5: hp_bar_sprite.play("TwoWithout3")
-		#4: hp_bar_sprite.play("OneFull")
-		#3: hp_bar_sprite.play("OneWithout1")
-		#2: hp_bar_sprite.play("OneWithout2")
-		#1: hp_bar_sprite.play("OneWithout3")
-		#0: hp_bar_sprite.play("Zero")
 	var animation = anim_prefix + anim_postfix
 	if hp_bar_sprite.sprite_frames.has_animation(animation):
 		hp_bar_sprite.play(animation)

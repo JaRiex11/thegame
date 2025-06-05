@@ -535,89 +535,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5boqk"]
-atlas = ExtResource("1_cy8rg")
-region = Rect2(192, 0, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hrtou"]
-atlas = ExtResource("1_cy8rg")
-region = Rect2(192, 16, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2vtoc"]
-atlas = ExtResource("1_cy8rg")
-region = Rect2(192, 64, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvpba"]
-atlas = ExtResource("1_cy8rg")
-region = Rect2(192, 32, 64, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e2ek4"]
-atlas = ExtResource("1_cy8rg")
-region = Rect2(192, 48, 64, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_e171w"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5boqk")
-}],
-"loop": false,
-"name": &"Five",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hrtou")
-}],
-"loop": false,
-"name": &"Four",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2vtoc")
-}],
-"loop": false,
-"name": &"One",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lvpba")
-}],
-"loop": false,
-"name": &"Three",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e2ek4")
-}],
-"loop": false,
-"name": &"Two",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"Zero",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogsts"]
-atlas = ExtResource("3_hxu2q")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6wvac"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ogsts")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_25tvd"]
 atlas = ExtResource("1_cy8rg")
 region = Rect2(0, 0, 64, 16)
@@ -895,6 +812,89 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5boqk"]
+atlas = ExtResource("1_cy8rg")
+region = Rect2(192, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrtou"]
+atlas = ExtResource("1_cy8rg")
+region = Rect2(192, 16, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vtoc"]
+atlas = ExtResource("1_cy8rg")
+region = Rect2(192, 64, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvpba"]
+atlas = ExtResource("1_cy8rg")
+region = Rect2(192, 32, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2ek4"]
+atlas = ExtResource("1_cy8rg")
+region = Rect2(192, 48, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e171w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5boqk")
+}],
+"loop": false,
+"name": &"Five",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrtou")
+}],
+"loop": false,
+"name": &"Four",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vtoc")
+}],
+"loop": false,
+"name": &"One",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvpba")
+}],
+"loop": false,
+"name": &"Three",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2ek4")
+}],
+"loop": false,
+"name": &"Two",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Zero",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogsts"]
+atlas = ExtResource("3_hxu2q")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6wvac"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogsts")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="StatsIndicators" type="CanvasLayer"]
 script = ExtResource("1_i2eml")
 
@@ -906,75 +906,90 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerHpBar" type="ProgressBar" parent="Control"]
-layout_mode = 0
-offset_left = 224.0
-offset_top = 8.0
-offset_right = 291.0
-offset_bottom = 35.0
+[node name="HPSystem" type="Node2D" parent="Control"]
+
+[node name="PlayerHpBar" type="ProgressBar" parent="Control/HPSystem"]
+visible = false
+offset_left = 43.0
+offset_top = 239.0
+offset_right = 105.0
+offset_bottom = 270.0
 scale = Vector2(2, 2)
 max_value = 20.0
 step = 1.0
 value = 20.0
 script = ExtResource("1_p3c1u")
 
-[node name="hp_bar" type="AnimatedSprite2D" parent="Control/PlayerHpBar"]
-position = Vector2(-50, 13)
+[node name="hp_bar" type="AnimatedSprite2D" parent="Control/HPSystem"]
+position = Vector2(216, 65)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_qsqj1")
 animation = &"FiveFull"
 autoplay = "FiveFull"
 
-[node name="Heart" type="AnimatedSprite2D" parent="Control/PlayerHpBar"]
-position = Vector2(-94, 12.5)
+[node name="Heart" type="AnimatedSprite2D" parent="Control/HPSystem"]
+position = Vector2(60, 50)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_5boqk")
 autoplay = "default"
 frame_progress = 0.184486
 
-[node name="PlayerShieldBar" type="ProgressBar" parent="Control"]
-layout_mode = 0
-offset_left = 226.0
-offset_top = 75.0
-offset_right = 359.0
-offset_bottom = 126.0
+[node name="ManaSystem" type="Node2D" parent="Control"]
+
+[node name="PlayerManaBar" type="ProgressBar" parent="Control/ManaSystem"]
+visible = false
+offset_left = 45.0
+offset_top = 329.0
+offset_right = 109.0
+offset_bottom = 358.0
+scale = Vector2(2, 2)
+max_value = 20.0
+step = 1.0
+value = 20.0
+script = ExtResource("6_gxjmw")
+
+[node name="mana_bar" type="AnimatedSprite2D" parent="Control/ManaSystem"]
+position = Vector2(215, 160)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_hrtou")
+animation = &"FiveFull"
+
+[node name="Mana" type="AnimatedSprite2D" parent="Control/ManaSystem"]
+position = Vector2(60, 145)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_25tvd")
+autoplay = "default"
+frame_progress = 0.343279
+
+[node name="DefendSystem" type="Node2D" parent="Control"]
+
+[node name="PlayerShieldBar" type="ProgressBar" parent="Control/DefendSystem"]
+visible = false
+offset_left = 203.0
+offset_top = 245.0
+offset_right = 267.0
+offset_bottom = 276.0
+scale = Vector2(2, 2)
 max_value = 5.0
 step = 1.0
 value = 5.0
 script = ExtResource("5_qsqj1")
 
-[node name="shield_bar" type="AnimatedSprite2D" parent="Control/PlayerShieldBar"]
-position = Vector2(-102, 3)
-scale = Vector2(2, 2)
+[node name="shield_bar" type="AnimatedSprite2D" parent="Control/DefendSystem"]
+position = Vector2(547, 65)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_e171w")
-animation = &"Five"
+animation = &"Zero"
 autoplay = "Five"
 
-[node name="Shield" type="AnimatedSprite2D" parent="Control/PlayerShieldBar"]
-position = Vector2(-190, -1)
-scale = Vector2(2, 2)
+[node name="Shield" type="AnimatedSprite2D" parent="Control/DefendSystem"]
+position = Vector2(396, 50)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_6wvac")
 
-[node name="PlayerManaBar" type="ProgressBar" parent="Control"]
-layout_mode = 0
-offset_right = 4.0
-offset_bottom = 27.0
-script = ExtResource("6_gxjmw")
-
-[node name="mana_bar" type="AnimatedSprite2D" parent="Control/PlayerManaBar"]
-position = Vector2(123, 124)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_hrtou")
-animation = &"FiveFull"
-
-[node name="Mana" type="AnimatedSprite2D" parent="Control/PlayerManaBar"]
-position = Vector2(40, 118)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_25tvd")
-autoplay = "default"
-frame_progress = 0.959063
-
-[connection signal="on_change_hp_down" from="." to="Control/PlayerHpBar" method="change_health_down"]
-[connection signal="spend_mana" from="." to="Control/PlayerManaBar" method="change_mana_down"]
-[connection signal="get_damage" from="Control/PlayerHpBar" to="." method="_on_player_hp_bar_get_damage"]
-[connection signal="need_to_break_shield" from="Control/PlayerHpBar" to="Control/PlayerShieldBar" method="break_shield"]
-[connection signal="on_hp_is_zero" from="Control/PlayerHpBar" to="." method="_on_player_hp_bar_on_hp_is_zero"]
-[connection signal="animation_finished" from="Control/PlayerHpBar/hp_bar" to="Control/PlayerHpBar" method="_on_hp_bar_animation_finished"]
+[connection signal="on_change_hp_down" from="." to="Control/HPSystem/PlayerHpBar" method="change_health_down"]
+[connection signal="spend_mana" from="." to="Control/ManaSystem/PlayerManaBar" method="change_mana_down"]
+[connection signal="get_damage" from="Control/HPSystem/PlayerHpBar" to="." method="_on_player_hp_bar_get_damage"]
+[connection signal="need_to_break_shield" from="Control/HPSystem/PlayerHpBar" to="Control/DefendSystem/PlayerShieldBar" method="break_shield"]
+[connection signal="on_hp_is_zero" from="Control/HPSystem/PlayerHpBar" to="." method="_on_player_hp_bar_on_hp_is_zero"]
+[connection signal="animation_finished" from="Control/HPSystem/hp_bar" to="Control/HPSystem/PlayerHpBar" method="_on_hp_bar_animation_finished"]
