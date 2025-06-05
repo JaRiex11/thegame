@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var pause_menu = $PauseMenu
-
 @onready var player_sprite = $BodySprite
 @onready var hands_sprite = $HandsSprite
 
@@ -43,6 +41,10 @@ var current_active_spell: Spell = null  # Текущее активное зак
 var in_spell_cooldown := false
 var spell_coldown_timer : float = 0.3
 var is_spelling := false
+var is_invincible := false
+var can_spell := true
+
+signal on_cast_spell
 
 # Словарь заклинаний 
 var spells_db = {
@@ -68,8 +70,8 @@ func _ready():
 	current_spell.setup(self, current_element)
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("esc"):
-		toggle_pause()
+	#if Input.is_action_just_pressed("esc"):
+		#toggle_pause()
 	
 	update_facing_direction()
 	handle_movement()
@@ -78,13 +80,13 @@ func _physics_process(delta):
 	
 	handle_spells()  # Добавляем обработку заклинаний
 
-func toggle_pause():
-	if get_tree().paused:
-		pause_menu.hide()
-		get_tree().paused = false
-	else:
-		pause_menu.show()
-		get_tree().paused = true
+#func toggle_pause():
+	#if get_tree().paused:
+		#pause_menu.hide()
+		#get_tree().paused = false
+	#else:
+		#pause_menu.show()
+		#get_tree().paused = true
 
 func update_facing_direction():
 	var mouse_pos = get_global_mouse_position()
@@ -142,6 +144,7 @@ func handle_spells():
 	# Каст заклинания               "cast_spell"
 	if Input.is_action_just_pressed("attack2"):
 		cast_spell()
+		play_anim("CastSpell")
 
 func _switch_element(direction: int):
 	#var elements = ElementsSystem.ELEMENT.values()
@@ -226,6 +229,9 @@ func switch_weapon(index: int):
 	current_weapon = weapons[index]
 	current_weapon.hand_sprite.show()
 	current_weapon.set_process(true)
+	# Отключаем спрайт рук
+	is_without_hands = true
+	hands_sprite.hide()
 
 	# Для правильного порядка отрисовки
 	weapon_pivot.move_child(current_weapon, weapon_pivot.get_child_count() - 1)
@@ -244,7 +250,7 @@ func cast_spell() -> void:
 		current_active_spell.combo_finished.connect(_on_spell_combo_finished)
 	
 	current_active_spell.start_cast(mouse_pos)
-	
+	emit_signal("on_cast_spell")
 	# Короткая анимация каста
 	#player_sprite.play("cast_quick")
 
@@ -264,7 +270,7 @@ func take_damage(
 	attacker_kb_force: float, 
 	damage_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
 	):
-	if current_state == PlayerState.DEAD or current_state == PlayerState.HURT:
+	if current_state == PlayerState.DEAD or current_state == PlayerState.HURT or is_invincible:
 		return
 	
 	# Рассчитываем множитель урона в зависимости от элементов
@@ -315,3 +321,16 @@ func _on_body_entered_enemy_body(body: Node2D) -> void:
 func play_anim(anim_name: String):
 	if (player_sprite.sprite_frames.has_animation(anim_name)): # Чтобы игра не упала, если не найдет анимацию
 		player_sprite.play(anim_name)
+	if (is_without_hands):
+		hands_sprite.show()
+		if(hands_sprite.sprite_frames.has_animation(anim_name)):
+			hands_sprite.play(anim_name)
+
+
+func _on_stats_indicators_player_need_to_be_invincible() -> void:
+	is_invincible = true
+	print("is invincible")
+
+func _on_stats_indicators_player_is_not_invincible() -> void:
+	is_invincible = false
+	print("not is invincible")

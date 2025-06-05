@@ -1045,15 +1045,16 @@ libraries = {
 }
 
 [node name="SpellEffect" parent="HandPivot" index="0"]
+visible = false
 position = Vector2(83, 0)
 sprite_frames = SubResource("SpriteFrames_nxw0d")
-animation = &"attack2"
-frame = 2
+animation = &"attack1"
+frame = 8
 
 [node name="HandSprite" parent="HandPivot" index="1"]
 position = Vector2(13.5, 0)
 sprite_frames = SubResource("SpriteFrames_jfyoa")
-animation = &"Hand3"
+animation = &"Hand1"
 
 [node name="SpellEffectSecond" type="AnimatedSprite2D" parent="HandPivot" index="2"]
 visible = false

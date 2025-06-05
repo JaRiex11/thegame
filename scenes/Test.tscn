@@ -101,9 +101,6 @@ texture_filter = 1
 texture_repeat = 1
 position = Vector2(-345, 396)
 
-[node name="PauseMenu" parent="." instance=ExtResource("3_fu3ou")]
-visible = false
-
 [node name="AK-74_1" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(-175, 477)
 
@@ -121,13 +118,18 @@ position = Vector2(450, 424)
 
 [node name="ElemFireSmall3" parent="." instance=ExtResource("8_jbd4l")]
 position = Vector2(308, -87)
+collision_mask = 224
 metadata/_edit_group_ = true
 
 [node name="ElemFireSmall4" parent="." instance=ExtResource("8_jbd4l")]
 position = Vector2(349, 375)
+collision_mask = 224
 
 [node name="Shotgun" parent="." instance=ExtResource("8_fu3ou")]
 position = Vector2(-144, 396)
 
 [node name="Pistol" parent="." instance=ExtResource("10_fu3ou")]
 position = Vector2(-172, 317)
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_fu3ou")]
+visible = false

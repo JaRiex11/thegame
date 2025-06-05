@@ -4,7 +4,7 @@
 
 [node name="Unit" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 224
+collision_mask = 228
 safe_margin = 10.0
 script = ExtResource("1_gtclq")
 

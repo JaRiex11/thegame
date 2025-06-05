@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cw4ci1py8ala0" path="res://img/characters_sprites_animations.png" id="2_udfat"]
 [ext_resource type="Texture2D" uid="uid://dk3velau7becx" path="res://img/spriteset.png" id="3_8wgdu"]
 [ext_resource type="Script" uid="uid://dfm23eoqta2k" path="res://scenes/camera_2d.gd" id="3_iivhx"]
+[ext_resource type="PackedScene" uid="uid://bt1vsa8tmovff" path="res://UserInterface/stats_indicators.tscn" id="4_3h3nx"]
 [ext_resource type="Texture2D" uid="uid://cspa3j0xj67v5" path="res://img/magic and HUD sprites1.png" id="5_ppvyy"]
-[ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="6_1hnck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahhtf"]
 atlas = ExtResource("5_ppvyy")
@@ -245,10 +245,31 @@ animations = [{
 "speed": 13.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ppvyy"]
-radius = 4.0
+[sub_resource type="SpriteFrames" id="SpriteFrames_1hnck"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"IdleL",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"IdleR",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"WalkL",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"WalkR",
+"speed": 5.0
+}]
 
 [node name="MainCharacter" type="CharacterBody2D" groups=["player"]]
+position = Vector2(800, 450)
 collision_layer = 64
 collision_mask = 57
 script = ExtResource("1_ghikb")
@@ -265,6 +286,7 @@ drag_bottom_margin = 0.1
 script = ExtResource("3_iivhx")
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
+visible = false
 z_index = -2940
 offset_left = -1480.0
 offset_top = -766.0
@@ -276,10 +298,12 @@ color = Color(0.129412, 0.129412, 0.137255, 1)
 
 [node name="Heart" type="AnimatedSprite2D" parent="Camera2D/HUD"]
 z_index = 2845
-position = Vector2(-784, -436)
+position = Vector2(16, 14)
 sprite_frames = SubResource("SpriteFrames_6fi6k")
 animation = &"HeartStandart"
 frame_progress = 0.0597292
+
+[node name="StatsIndicators" parent="Camera2D" instance=ExtResource("4_3h3nx")]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
@@ -298,17 +322,18 @@ shape = SubResource("CapsuleShape2D_g4qar")
 [node name="BodySprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, 1)
 sprite_frames = SubResource("SpriteFrames_ppvyy")
-animation = &"IdleL"
+animation = &"WalkR"
 
 [node name="HandsSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1hnck")
+animation = &"WalkR"
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
 position = Vector2(-12, -7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot"]
-shape = SubResource("CircleShape2D_ppvyy")
-
-[node name="PauseMenu" parent="." instance=ExtResource("6_1hnck")]
-visible = false
-
+[connection signal="on_cast_spell" from="." to="Camera2D/StatsIndicators" method="_on_main_character_on_cast_spell"]
+[connection signal="player_is_not_invincible" from="Camera2D/StatsIndicators" to="." method="_on_stats_indicators_player_is_not_invincible"]
+[connection signal="player_need_to_be_invincible" from="Camera2D/StatsIndicators" to="." method="_on_stats_indicators_player_need_to_be_invincible"]
+[connection signal="players_hp_is_zero" from="Camera2D/StatsIndicators" to="." method="die"]
 [connection signal="body_entered" from="PlayerHurtBox" to="." method="_on_body_entered_enemy_body"]
+[connection signal="body_entered" from="PlayerHurtBox" to="Camera2D/StatsIndicators" method="_on_player_hurt_box_body_entered"]

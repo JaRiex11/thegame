@@ -1,5 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://faewyyfknygv"]
+[gd_scene load_steps=20 format=3 uid="uid://faewyyfknygv"]
 
+[ext_resource type="Script" uid="uid://dlpcrbv63dmpb" path="res://floors/floor_1.gd" id="1_40wru"]
+[ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="1_n3gc0"]
 [ext_resource type="PackedScene" uid="uid://bionpxytwc2e0" path="res://rooms/BigRoom.tscn" id="1_ny6vo"]
 [ext_resource type="PackedScene" uid="uid://cp0kirhikc1mr" path="res://rooms/Bridge.tscn" id="2_jg8sh"]
 [ext_resource type="PackedScene" uid="uid://c071rhnwo15kq" path="res://rooms/LongRoom.tscn" id="3_cbqkb"]
@@ -19,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dkc56j350v1n1" path="res://scenes/weapons/pistol.tscn" id="17_40wru"]
 
 [node name="Floor1" type="Node2D"]
+script = ExtResource("1_40wru")
 
 [node name="Rooms" type="Node2D" parent="."]
 z_index = -10
@@ -60,66 +63,87 @@ position = Vector2(2816, -514)
 
 [node name="ElemFireSmall2" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-168, -1989)
+collision_mask = 224
 
 [node name="ElemFireSmall3" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-89, -2677)
+collision_mask = 224
 
 [node name="ElemFireSmall4" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-25, -2244)
+collision_mask = 224
 
 [node name="ElemWaterSmall" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1791, -2591)
+collision_mask = 224
 
 [node name="ElemWaterSmall2" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1976, -2667)
+collision_mask = 224
 
 [node name="ElemWaterSmall3" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1864, -2684)
+collision_mask = 224
 
 [node name="ElemWaterSmall4" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1729, -1927)
+collision_mask = 224
 
 [node name="ElemWaterSmall5" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1750, -2080)
+collision_mask = 224
 
 [node name="ElemWaterSmall6" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1913, -2096)
+collision_mask = 224
 
 [node name="ElemWaterSmall7" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-2151, -2697)
+collision_mask = 224
 
 [node name="ElemFireSmall5" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-665, -2666)
+collision_mask = 224
 
 [node name="ElemFireSmall6" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-715, -2015)
+collision_mask = 224
 
 [node name="ElemFireSmall7" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-401, -2583)
+collision_mask = 224
 
 [node name="ElemFireSmall8" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-295, -2236)
+collision_mask = 224
 
 [node name="ElemFireSmall9" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-783, -2077)
+collision_mask = 224
 
 [node name="ElemFireSmall10" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-1384, -1429)
+collision_mask = 224
 
 [node name="ElemFireSmall11" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-1139, -511)
+collision_mask = 224
 
 [node name="ElemFireSmall12" parent="Enemys" instance=ExtResource("13_o4wi3")]
 position = Vector2(-1436, -719)
+collision_mask = 224
 
 [node name="ElemWaterSmall8" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1111, -1398)
+collision_mask = 224
 
 [node name="ElemWaterSmall9" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1464, -1450)
+collision_mask = 224
 
 [node name="ElemWaterSmall10" parent="Enemys" instance=ExtResource("14_embot")]
 position = Vector2(-1151, -722)
+collision_mask = 224
 
 [node name="MainCharacter" parent="." instance=ExtResource("12_8huru")]
 position = Vector2(-2615, -2262)
@@ -132,3 +156,6 @@ position = Vector2(-2519, -2268)
 
 [node name="Pistol" parent="." instance=ExtResource("17_40wru")]
 position = Vector2(-2517, -2319)
+
+[node name="PauseMenu" parent="." instance=ExtResource("1_n3gc0")]
+visible = false
