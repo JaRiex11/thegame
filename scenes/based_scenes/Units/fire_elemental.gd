@@ -1,4 +1,4 @@
-extends ElemMediumAI
+extends Elemental
 class_name FireElemental
 
 func _ready():

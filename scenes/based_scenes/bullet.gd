@@ -24,6 +24,7 @@ func _ready() -> void:
 	start_position = global_position
 	if is_from_player:
 		set_collision_mask_value(7, false)
+	print("Выстрел")
 
 func _physics_process(delta: float) -> void:
 	var movement = velocity * delta

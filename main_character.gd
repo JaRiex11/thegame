@@ -1,7 +1,10 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var player_sprite = $AnimatedSprite2D
+@onready var pause_menu = $PauseMenu
+
+@onready var player_sprite = $BodySprite
+@onready var hands_sprite = $HandsSprite
 
 const Weapon = preload("res://scenes/based_scenes/weapon.gd")
 
@@ -21,6 +24,7 @@ enum PlayerState { IDLE, WALK, HURT, DEAD }
 
 var current_state: PlayerState = PlayerState.IDLE
 var is_facing_right = true
+var is_without_hands = false
 var timer_jump = Timer.new()
 var hurt_timer: float = 0.0
 @onready var weapon_pivot := $WeaponPivot
@@ -64,12 +68,23 @@ func _ready():
 	current_spell.setup(self, current_element)
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("esc"):
+		toggle_pause()
+	
 	update_facing_direction()
 	handle_movement()
 	handle_weapon()
 	update_animations()
 	
 	handle_spells()  # Добавляем обработку заклинаний
+
+func toggle_pause():
+	if get_tree().paused:
+		pause_menu.hide()
+		get_tree().paused = false
+	else:
+		pause_menu.show()
+		get_tree().paused = true
 
 func update_facing_direction():
 	var mouse_pos = get_global_mouse_position()

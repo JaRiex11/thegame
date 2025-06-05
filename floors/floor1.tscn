@@ -1,0 +1,134 @@
+[gd_scene load_steps=18 format=3 uid="uid://faewyyfknygv"]
+
+[ext_resource type="PackedScene" uid="uid://bionpxytwc2e0" path="res://rooms/BigRoom.tscn" id="1_ny6vo"]
+[ext_resource type="PackedScene" uid="uid://cp0kirhikc1mr" path="res://rooms/Bridge.tscn" id="2_jg8sh"]
+[ext_resource type="PackedScene" uid="uid://c071rhnwo15kq" path="res://rooms/LongRoom.tscn" id="3_cbqkb"]
+[ext_resource type="PackedScene" uid="uid://cxq480ll4nagl" path="res://rooms/LongRoomUp.tscn" id="4_jg8sh"]
+[ext_resource type="PackedScene" uid="uid://c1h8g1enlc622" path="res://rooms/BridgeUpRight.tscn" id="5_cbqkb"]
+[ext_resource type="PackedScene" uid="uid://b44s6sq6ksi8o" path="res://rooms/SmallDeadEndL.tscn" id="7_ktt50"]
+[ext_resource type="PackedScene" uid="uid://cpq5t7h5tawsf" path="res://rooms/SmallDeadEndR.tscn" id="8_5k5og"]
+[ext_resource type="PackedScene" uid="uid://d8fw3pmx0ppo" path="res://rooms/BridgeCrossT.tscn" id="8_hfgh6"]
+[ext_resource type="PackedScene" uid="uid://dtncvk25hur30" path="res://rooms/BossRoom.tscn" id="9_hfgh6"]
+[ext_resource type="PackedScene" uid="uid://dud3wtbh2qo8k" path="res://rooms/BridgeUpLeft.tscn" id="10_1v0bb"]
+[ext_resource type="PackedScene" uid="uid://buqrvcyoro1g" path="res://rooms/BridgeUp.tscn" id="11_wkx7q"]
+[ext_resource type="PackedScene" uid="uid://byk402vjjcu8t" path="res://scenes/MainCharacter.tscn" id="12_8huru"]
+[ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="13_o4wi3"]
+[ext_resource type="PackedScene" uid="uid://dp34ryswm1kkc" path="res://scenes/units/elem_water_small.tscn" id="14_embot"]
+[ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="15_bvvb4"]
+[ext_resource type="PackedScene" uid="uid://kejl3d4b80xd" path="res://scenes/weapons/shotgun.tscn" id="16_n3gc0"]
+[ext_resource type="PackedScene" uid="uid://dkc56j350v1n1" path="res://scenes/weapons/pistol.tscn" id="17_40wru"]
+
+[node name="Floor1" type="Node2D"]
+
+[node name="Rooms" type="Node2D" parent="."]
+z_index = -10
+
+[node name="BigRoom" parent="Rooms" instance=ExtResource("1_ny6vo")]
+position = Vector2(0, -2)
+
+[node name="Bridge" parent="Rooms" instance=ExtResource("2_jg8sh")]
+position = Vector2(1024, -2)
+
+[node name="LongRoom" parent="Rooms" instance=ExtResource("3_cbqkb")]
+position = Vector2(1792, -2)
+
+[node name="LongRoomUp" parent="Rooms" instance=ExtResource("4_jg8sh")]
+position = Vector2(-1280, -1025)
+
+[node name="BridgeUpRight" parent="Rooms" instance=ExtResource("5_cbqkb")]
+position = Vector2(-1280, -257)
+
+[node name="SmallRoom" parent="Rooms" instance=ExtResource("7_ktt50")]
+position = Vector2(-384, -2304)
+
+[node name="SmallRoom2" parent="Rooms" instance=ExtResource("8_5k5og")]
+position = Vector2(-2176, -2304)
+
+[node name="BridgeCross" parent="Rooms" instance=ExtResource("8_hfgh6")]
+position = Vector2(-1280, -2305)
+
+[node name="BossRoom" parent="Rooms" instance=ExtResource("9_hfgh6")]
+position = Vector2(2816, -1922)
+
+[node name="BridgeUpRight2" parent="Rooms" instance=ExtResource("10_1v0bb")]
+position = Vector2(2816, -258)
+
+[node name="BridgeUp" parent="Rooms" instance=ExtResource("11_wkx7q")]
+position = Vector2(2816, -514)
+
+[node name="Enemys" type="Node2D" parent="."]
+
+[node name="ElemFireSmall2" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-168, -1989)
+
+[node name="ElemFireSmall3" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-89, -2677)
+
+[node name="ElemFireSmall4" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-25, -2244)
+
+[node name="ElemWaterSmall" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1791, -2591)
+
+[node name="ElemWaterSmall2" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1976, -2667)
+
+[node name="ElemWaterSmall3" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1864, -2684)
+
+[node name="ElemWaterSmall4" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1729, -1927)
+
+[node name="ElemWaterSmall5" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1750, -2080)
+
+[node name="ElemWaterSmall6" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1913, -2096)
+
+[node name="ElemWaterSmall7" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-2151, -2697)
+
+[node name="ElemFireSmall5" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-665, -2666)
+
+[node name="ElemFireSmall6" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-715, -2015)
+
+[node name="ElemFireSmall7" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-401, -2583)
+
+[node name="ElemFireSmall8" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-295, -2236)
+
+[node name="ElemFireSmall9" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-783, -2077)
+
+[node name="ElemFireSmall10" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-1384, -1429)
+
+[node name="ElemFireSmall11" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-1139, -511)
+
+[node name="ElemFireSmall12" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(-1436, -719)
+
+[node name="ElemWaterSmall8" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1111, -1398)
+
+[node name="ElemWaterSmall9" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1464, -1450)
+
+[node name="ElemWaterSmall10" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-1151, -722)
+
+[node name="MainCharacter" parent="." instance=ExtResource("12_8huru")]
+position = Vector2(-2615, -2262)
+
+[node name="AK-74" parent="." instance=ExtResource("15_bvvb4")]
+position = Vector2(-2534, -2205)
+
+[node name="Shotgun" parent="." instance=ExtResource("16_n3gc0")]
+position = Vector2(-2519, -2268)
+
+[node name="Pistol" parent="." instance=ExtResource("17_40wru")]
+position = Vector2(-2517, -2319)

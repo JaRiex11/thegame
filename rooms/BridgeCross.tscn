@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=4 uid="uid://1m33pxv8dqvh"]
+
+[ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="1_gr756"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sypd1"]
+texture = ExtResource("1_gr756")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_65542"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_sypd1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gr756"]
+size = Vector2(255.469, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sypd1"]
+size = Vector2(193.001, 255.999)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65542"]
+size = Vector2(256, 256)
+
+[node name="BridgeCross" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAACAAMAAAAAAP//AAACAAMAAAD/////AAACAAMAAAD//wAAAAACAAMAAAACAP//AAACAAIAAAACAAAAAAACAAQAAAABAAAAAAACAAQAAAABAP//AAACAAIAAAD+////AAACAAIAAAD9////AAACAAIAAAD9/wAAAAACAAQAAAD+/wAAAAACAAQAAAAAAP7/AAADAAMAAAAAAP3/AAADAAMAAAD///3/AAABAAMAAAD///7/AAABAAMAAAAAAAEAAAADAAMAAAAAAAIAAAADAAMAAAD//wIAAAABAAMAAAD//wEAAAABAAMAAAACAP7/AAACAAEAAAABAP7/AAACAAEAAAD+//7/AAACAAEAAAD9//7/AAACAAEAAAD9//3/AAACAAAAAAD+//3/AAACAAAAAAABAP3/AAACAAAAAAACAP3/AAACAAAAAAD9/wEAAAACAAUAAAD+/wEAAAACAAUAAAABAAEAAAACAAUAAAACAAEAAAACAAUAAAA=")
+tile_set = SubResource("TileSet_65542")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD+/wEAAAAAAAIAAAD+/wIAAAAAAAIAAAD+//3/AAAAAAIAAAABAAEAAAAEAAIAAAABAAIAAAAEAAIAAAABAP3/AAAEAAIAAAA=")
+tile_set = SubResource("TileSet_65542")
+
+[node name="Area2D" type="StaticBody2D" parent="."]
+position = Vector2(-2, -1)
+collision_layer = 32
+collision_mask = 79
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-254, 257)
+shape = SubResource("RectangleShape2D_gr756")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(258, -287.5)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_sypd1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(258, 257)
+shape = SubResource("RectangleShape2D_65542")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-254, -286)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_sypd1")

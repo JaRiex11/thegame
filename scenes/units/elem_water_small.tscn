@@ -233,5 +233,12 @@ shape = SubResource("CircleShape2D_v8r64")
 [node name="Hitbox" parent="." index="2"]
 scale = Vector2(2, 2)
 
+[node name="CollisionPolygon2D" parent="Hitbox" index="0"]
+polygon = PackedVector2Array(0, -8, 9.5, -3.5, 9.5, 5.5, 0, 10, -10, 4.5, -10, -3)
+
+[node name="Hurtbox" parent="." index="3"]
+scale = Vector2(2, 2)
+polygon = PackedVector2Array(0, -8, 9.5, -3.5, 9.5, 5.5, 0, 10, -10, 4.5, -10, -3)
+
 [connection signal="body_entered" from="ViewArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]

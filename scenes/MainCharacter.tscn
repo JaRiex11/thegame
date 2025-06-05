@@ -1,10 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://byk402vjjcu8t"]
+[gd_scene load_steps=34 format=3 uid="uid://byk402vjjcu8t"]
 
 [ext_resource type="Script" uid="uid://c3wvffvw20lst" path="res://main_character.gd" id="1_ghikb"]
 [ext_resource type="Texture2D" uid="uid://cw4ci1py8ala0" path="res://img/characters_sprites_animations.png" id="2_udfat"]
 [ext_resource type="Texture2D" uid="uid://dk3velau7becx" path="res://img/spriteset.png" id="3_8wgdu"]
 [ext_resource type="Script" uid="uid://dfm23eoqta2k" path="res://scenes/camera_2d.gd" id="3_iivhx"]
 [ext_resource type="Texture2D" uid="uid://cspa3j0xj67v5" path="res://img/magic and HUD sprites1.png" id="5_ppvyy"]
+[ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="6_1hnck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahhtf"]
 atlas = ExtResource("5_ppvyy")
@@ -294,15 +295,20 @@ collision_mask = 36
 position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_g4qar")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, 1)
 sprite_frames = SubResource("SpriteFrames_ppvyy")
-animation = &"IdleR"
+animation = &"IdleL"
+
+[node name="HandsSprite" type="AnimatedSprite2D" parent="."]
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
 position = Vector2(-12, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot"]
 shape = SubResource("CircleShape2D_ppvyy")
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_1hnck")]
+visible = false
 
 [connection signal="body_entered" from="PlayerHurtBox" to="." method="_on_body_entered_enemy_body"]

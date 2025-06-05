@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=4 uid="uid://cxq480ll4nagl"]
+
+[ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="1_ioebv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghnid"]
+texture = ExtResource("1_ioebv")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_mos23"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_ghnid")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ioebv"]
+size = Vector2(15.875, 1553)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghnid"]
+size = Vector2(16, 144.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mos23"]
+size = Vector2(143.625, 80)
+
+[node name="LongRoomUp" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAP//AAACAAMAAAAAAAAAAAACAAMAAAAAAAEAAAACAAMAAAD//wEAAAACAAMAAAD//wAAAAACAAMAAAD/////AAACAAMAAAD///7/AAACAAMAAAAAAP7/AAACAAMAAAAAAP3/AAACAAMAAAD///3/AAACAAMAAAAAAAIAAAACAAMAAAD//wIAAAACAAMAAAAAAPr/AAACAAMAAAAAAPv/AAACAAMAAAAAAPz/AAACAAMAAAD///z/AAACAAMAAAD///v/AAACAAMAAAD///r/AAACAAMAAAAAAAMAAAACAAMAAAD//wMAAAACAAMAAAAAAAQAAAACAAMAAAD//wQAAAACAAMAAAABAAMAAAADAAMAAAABAAIAAAADAAMAAAABAAEAAAADAAMAAAABAAAAAAADAAMAAAABAP//AAADAAMAAAABAP7/AAADAAMAAAABAP3/AAADAAMAAAABAPz/AAADAAMAAAABAPv/AAADAAMAAAD+//v/AAABAAMAAAD+//z/AAABAAMAAAD+//3/AAABAAMAAAD+//7/AAABAAMAAAD+////AAABAAMAAAD+/wAAAAABAAMAAAD+/wEAAAABAAMAAAD+/wIAAAABAAMAAAD+/wMAAAABAAMAAAD+/wQAAAABAAQAAAABAAQAAAADAAQAAAABAPr/AAADAAIAAAD+//r/AAABAAIAAAD+//n/AAABAAEAAAABAPn/AAADAAEAAAD+//j/AAABAAAAAAABAPj/AAADAAAAAAD9//j/AAAAAAAAAAACAPj/AAAEAAAAAAD9//n/AAAAAAIAAAD9//3/AAAAAAIAAAD9//r/AAAAAAIAAAD9//v/AAAAAAIAAAD9//z/AAAAAAIAAAD9//7/AAAAAAIAAAD9////AAAAAAIAAAD9/wAAAAAAAAIAAAD9/wEAAAAAAAIAAAD9/wIAAAAAAAIAAAD9/wMAAAAAAAIAAAD9/wQAAAAAAAIAAAACAPn/AAAEAAIAAAACAPr/AAAEAAIAAAACAPv/AAAEAAIAAAACAPz/AAAEAAIAAAACAP3/AAAEAAIAAAACAP7/AAAEAAIAAAACAP//AAAEAAIAAAACAAAAAAAEAAIAAAACAAEAAAAEAAIAAAACAAIAAAAEAAIAAAACAAMAAAAEAAIAAAACAAQAAAAEAAIAAAABAAUAAAADAAUAAAD+/wUAAAABAAUAAAD9/wUAAAAAAAUAAAACAAUAAAAEAAUAAAAAAPn/AAADAAMAAAD///n/AAABAAMAAAA=")
+tile_set = SubResource("TileSet_mos23")
+
+[node name="Area2D" type="StaticBody2D" parent="."]
+position = Vector2(-2, -1)
+collision_layer = 32
+collision_mask = 79
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-262, -133.5)
+shape = SubResource("RectangleShape2D_ioebv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(266, -128)
+shape = SubResource("RectangleShape2D_ioebv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(201.5, 649)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_ghnid")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-198, -871)
+shape = SubResource("RectangleShape2D_mos23")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(201.813, -871)
+shape = SubResource("RectangleShape2D_mos23")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-197.75, 649)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_ghnid")

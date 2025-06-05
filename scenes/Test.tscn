@@ -5,11 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="3_fu3ou"]
 [ext_resource type="Texture2D" uid="uid://bhmw0egtjy0to" path="res://img/sprites game full hd mega sega cega1.png" id="5_xftjw"]
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="6_8bdjt"]
-[ext_resource type="PackedScene" uid="uid://b557w8kvay2gu" path="res://scenes/units/new_elem_fire_small.tscn" id="7_wnywe"]
 [ext_resource type="PackedScene" uid="uid://d3b74vb00dhnb" path="res://scenes/units/Enemy1.tscn" id="8_2loec"]
+[ext_resource type="PackedScene" uid="uid://kejl3d4b80xd" path="res://scenes/weapons/shotgun.tscn" id="8_fu3ou"]
 [ext_resource type="PackedScene" uid="uid://clpwy2ai3ac6p" path="res://scenes/units/elem_fire_small.tscn" id="8_jbd4l"]
+[ext_resource type="PackedScene" uid="uid://dkc56j350v1n1" path="res://scenes/weapons/pistol.tscn" id="10_fu3ou"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5f0c"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fu3ou"]
 texture = ExtResource("5_xftjw")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
@@ -45,7 +46,7 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_0g6v0"]
 tile_size = Vector2i(128, 128)
-sources/0 = SubResource("TileSetAtlasSource_u5f0c")
+sources/0 = SubResource("TileSetAtlasSource_fu3ou")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5f0c"]
 size = Vector2(16, 626)
@@ -104,7 +105,7 @@ position = Vector2(-345, 396)
 visible = false
 
 [node name="AK-74_1" parent="." instance=ExtResource("6_8bdjt")]
-position = Vector2(-247, 474)
+position = Vector2(-175, 477)
 
 [node name="AK-74_2" parent="." instance=ExtResource("6_8bdjt")]
 position = Vector2(12, 471)
@@ -118,11 +119,15 @@ position = Vector2(448, -63)
 [node name="Enemy3" parent="." instance=ExtResource("8_2loec")]
 position = Vector2(450, 424)
 
-[node name="ElemFireSmall" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(276, 393)
-
-[node name="ElemFireSmall2" parent="." instance=ExtResource("7_wnywe")]
-position = Vector2(362, 77)
-
 [node name="ElemFireSmall3" parent="." instance=ExtResource("8_jbd4l")]
-position = Vector2(-166, -85)
+position = Vector2(308, -87)
+metadata/_edit_group_ = true
+
+[node name="ElemFireSmall4" parent="." instance=ExtResource("8_jbd4l")]
+position = Vector2(349, 375)
+
+[node name="Shotgun" parent="." instance=ExtResource("8_fu3ou")]
+position = Vector2(-144, 396)
+
+[node name="Pistol" parent="." instance=ExtResource("10_fu3ou")]
+position = Vector2(-172, 317)

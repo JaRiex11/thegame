@@ -46,6 +46,11 @@ var animated_sprite : AnimatedSprite2D
 var current_status_effects: Array[ElemSys.STATUS_EFFECT] = []
 var current_element: ElemSys.ELEMENT = ElemSys.ELEMENT.NONE
 var is_elemental: bool = false
+
+# Добавить переменную для кеширования результатов
+var last_visibility_check := 0.0
+var visibility_cache := false
+var cache_cooldown := 0.1  # Кешировать на 0.1 секунды
 #endregion
 
 #region Встроенные функции
@@ -229,6 +234,12 @@ func _handle_state_logic(delta: float) -> void:
 			_hurt_state(delta)
 		UNIT_STATE.DEAD:
 			_dead_state(delta)
+		UNIT_STATE.CHASE:    # Добавлено
+			_chase_state(delta)
+		UNIT_STATE.PATROL:   # Добавлено
+			_patrol_state(delta)
+		UNIT_STATE.SEARCH:   # Добавлено
+			_search_state(delta)
 
 func _enter_state(new_state: UNIT_STATE) -> void:
 	var anim_name = ""
@@ -248,6 +259,12 @@ func _enter_state(new_state: UNIT_STATE) -> void:
 			# Для анимации смерти подписываемся на её завершение
 			if animated_sprite.sprite_frames.has_animation(anim_name):
 				animated_sprite.animation_finished.connect(_on_death_animation_finished, CONNECT_ONE_SHOT)
+		UNIT_STATE.PATROL:
+			anim_name = walk_right_anim if is_facing_right else walk_left_anim
+		UNIT_STATE.CHASE:
+			anim_name = walk_right_anim if is_facing_right else walk_left_anim
+		UNIT_STATE.SEARCH:
+			anim_name = walk_right_anim if is_facing_right else walk_left_anim
 		
 	play_anim(anim_name)
 
@@ -280,7 +297,10 @@ func _dead_state(delta: float) -> void:
 func _chase_state(delta) -> void:
 	pass
 
-func _patrol_chase(delta: float) -> void:
+func _patrol_state(delta: float) -> void:
+	pass
+
+func _search_state(delta: float) -> void:
 	pass
 
 func _update_animation() -> void:
@@ -325,24 +345,53 @@ func is_in_attack_range(target_position: Vector2) -> bool:
 	return global_position.distance_to(target_position) <= attack_range
 
 func can_see_target(target: CharacterBody2D) -> bool:
-	if not target or not is_instance_valid(target):
+	#if not target or not is_instance_valid(target):
+		#return false
+	#
+	#var space_state = get_world_2d().direct_space_state
+	#var query = PhysicsRayQueryParameters2D.create(
+		#global_position,
+		#target.global_position,
+		#collision_mask
+	#)
+	## Исключаем из проверки самого себя и возможные другие объекты
+	#query.exclude = [self]
+	##query.collide_with_areas = false
+	##query.collide_with_bodies = true
+	#
+	#var result = space_state.intersect_ray(query)
+	## Для отладки (можно убрать после тестов)
+	##print("Ray collider:", result.collider.name if result else "none")
+	#if result.is_empty():  # Если луч не попал ни в что
+		#return false
+	#return result.collider == target  # Теперь доступ безопасен
+	if !target:
 		return false
+		
+	# Используем кеш, если время не вышло
+	if Time.get_ticks_msec() - last_visibility_check < cache_cooldown * 1000:
+		return visibility_cache
+		
+	last_visibility_check = Time.get_ticks_msec()
 	
+	# Оптимизация: не проверять далекие цели
+	if global_position.distance_to(target.global_position) > 500:
+		visibility_cache = false
+		return false
+		
+	# Оригинальная проверка видимости...
+	visibility_cache = _raycast_visibility(target)
+	return visibility_cache
+
+# Вынесем сложную логику в отдельный метод
+func _raycast_visibility(target: CharacterBody2D) -> bool:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(
 		global_position,
 		target.global_position,
 		collision_mask
 	)
-	# Исключаем из проверки самого себя и возможные другие объекты
 	query.exclude = [self]
-	#query.collide_with_areas = false
-	#query.collide_with_bodies = true
-	
 	var result = space_state.intersect_ray(query)
-	# Для отладки (можно убрать после тестов)
-	#print("Ray collider:", result.collider.name if result else "none")
-	if result.is_empty():  # Если луч не попал ни в что
-		return false
-	return result.collider == target  # Теперь доступ безопасен
+	return result.is_empty() || result.collider == target
 #endregion

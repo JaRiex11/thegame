@@ -32,9 +32,9 @@ func _ready() -> void:
 	# Убедитесь что нода ViewArea существует
 	if not has_node("ViewArea"):
 		push_error("ViewArea node is missing!")
-	else:
-		$ViewArea.body_entered.connect(_on_view_area_body_entered)
-		$ViewArea.body_exited.connect(_on_view_area_body_exited)
+	#else:
+		#$ViewArea.body_entered.connect(_on_view_area_body_entered)
+		#$ViewArea.body_exited.connect(_on_view_area_body_exited)
 	
 	add_to_group("hazards")
 	_generate_patrol_points(4)
