@@ -5,15 +5,17 @@
 [node name="Weapon" type="Node2D"]
 texture_filter = 1
 texture_repeat = 1
+scale = Vector2(2, 2)
 script = ExtResource("1_og7uq")
 
 [node name="HandSprite" type="Node2D" parent="."]
 visible = false
 
-[node name="InHandSpriteLeft" type="Sprite2D" parent="HandSprite"]
+[node name="InHandSpriteLeft" type="AnimatedSprite2D" parent="HandSprite"]
 visible = false
+scale = Vector2(-1, 1)
 
-[node name="InHandSpriteRight" type="Sprite2D" parent="HandSprite"]
+[node name="InHandSpriteRight" type="AnimatedSprite2D" parent="HandSprite"]
 visible = false
 
 [node name="OnGroundSprite" type="Sprite2D" parent="."]

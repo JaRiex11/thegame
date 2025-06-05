@@ -9,15 +9,17 @@ atlas = ExtResource("2_l8brp")
 region = Rect2(0, 0, 5, 5)
 
 [node name="12_gauge" instance=ExtResource("1_uey1f")]
+max_distance = 500.0
+falloff_start = 100.0
+falloff_end = 300.0
+min_damage_factor = 0.2
 
 [node name="CollisionShape2D" parent="." index="0"]
-polygon = PackedVector2Array(-3, -3, -3, 3, 3, 3, 3, -3)
+polygon = PackedVector2Array(0, -2, -2, 0, 0, 2, 2, 0)
 
 [node name="Sprite2D" parent="." index="1"]
-scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_coa64")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." index="2"]
-position = Vector2(3.8147e-06, 0)
-scale = Vector2(0.1105, 0.1105)
+scale = Vector2(0.0202176, 0.0202176)
 texture = ExtResource("4_coa64")

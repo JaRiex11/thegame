@@ -28,6 +28,7 @@ var hurt_timer: float = 0.0
 var current_health: float
 var weapons: Array[Weapon] = []
 @onready var current_weapon: Weapon = null
+var cur_weapon_index: int
 
 # Заклинания и все с ними связанное
 enum SpellType { MELEE, RANGED }
@@ -107,6 +108,9 @@ func handle_weapon():
 	# Перезарядка
 	if Input.is_action_just_pressed("reload"):
 		current_weapon.try_reload()
+	
+	if Input.is_action_just_pressed("switch_to_weapon2"):
+		switch_weapon((weapons.find(current_weapon) + 1) % weapons.size())#(cur_weapon_index + 1)% weapons.size()
 
 func handle_spells():
 	# Переключение типа заклинания
@@ -182,13 +186,13 @@ func _deferred_add_weapon(new_weapon: Weapon):
 	weapon_pivot.add_child(new_weapon)
 	new_weapon.z_index = 1  # Оружие поверх персонажа
 	
-	new_weapon.position.x = new_weapon.pivot_offset_x
-	new_weapon.position.y = new_weapon.pivot_offset_y
+	#new_weapon.position.x = new_weapon.pivot_offset_x
+	#new_weapon.position.y = new_weapon.pivot_offset_y
 	
 	# Настраиваем оружие
 	new_weapon.ground_sprite.hide()
-	new_weapon.hand_sprite.show()
-	new_weapon.set_process(true)
+	#new_weapon.hand_sprite.show()
+	#new_weapon.set_process(true)
 	
 	weapons.append(new_weapon)
 	if weapons.size() == 1:
@@ -201,10 +205,12 @@ func switch_weapon(index: int):
 	# Скрываем текущее оружие
 	if current_weapon and is_instance_valid(current_weapon):
 		current_weapon.hand_sprite.hide()
+		current_weapon.set_process(false)
 	
 	# Показываем новое
 	current_weapon = weapons[index]
 	current_weapon.hand_sprite.show()
+	current_weapon.set_process(true)
 
 	# Для правильного порядка отрисовки
 	weapon_pivot.move_child(current_weapon, weapon_pivot.get_child_count() - 1)

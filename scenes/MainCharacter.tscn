@@ -251,16 +251,7 @@ radius = 4.0
 collision_layer = 64
 collision_mask = 57
 script = ExtResource("1_ghikb")
-SPEED = null
 max_health = 1000
-knockback_resistance = null
-idle_right_anim = null
-idle_left_anim = null
-walk_right_anim = null
-walk_left_anim = null
-hurt_right_anim = null
-hurt_left_anim = null
-death_anim = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.2, 1.2)

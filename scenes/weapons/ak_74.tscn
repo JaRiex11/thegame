@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://daw0byti8lcfb"]
+[gd_scene load_steps=9 format=3 uid="uid://daw0byti8lcfb"]
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_mi5ef"]
 [ext_resource type="PackedScene" uid="uid://tu8eg5q1275o" path="res://scenes/weapons/Bullets/5_45_mm.tscn" id="2_o04r2"]
@@ -8,9 +8,31 @@
 atlas = ExtResource("3_7g5m4")
 region = Rect2(0, 32, 64, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8t5mj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8t5mj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7g5m4")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvinn"]
 atlas = ExtResource("3_7g5m4")
 region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tabce"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvinn")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tabce"]
 atlas = ExtResource("3_7g5m4")
@@ -18,7 +40,6 @@ region = Rect2(64, 0, 64, 32)
 
 [node name="AK-74" instance=ExtResource("1_mi5ef")]
 position = Vector2(-1, 0)
-scale = Vector2(2, 2)
 bullet_scene = ExtResource("2_o04r2")
 bullet_speed = 2000.0
 pivot_offset_y = 25
@@ -37,13 +58,14 @@ position = Vector2(-5.5, -2)
 [node name="InHandSpriteLeft" parent="HandSprite" index="0"]
 visible = true
 position = Vector2(19.5, 4)
-scale = Vector2(-1, 1)
-texture = SubResource("AtlasTexture_7g5m4")
+sprite_frames = SubResource("SpriteFrames_8t5mj")
+animation = &"Idle"
 
 [node name="InHandSpriteRight" parent="HandSprite" index="1"]
 visible = true
 position = Vector2(19.5, 4)
-texture = SubResource("AtlasTexture_8t5mj")
+sprite_frames = SubResource("SpriteFrames_tabce")
+animation = &"Idle"
 
 [node name="OnGroundSprite" parent="." index="1"]
 position = Vector2(13.5, 2)
@@ -61,4 +83,4 @@ polygon = PackedVector2Array(-27, -2, -27, -6, -2.5, -8.5, 26.5, -6.5, 26.5, 1, 
 position = Vector2(43.5, -2.5)
 
 [node name="ShootStartPoint" parent="." index="4"]
-position = Vector2(4.5, -2.5)
+position = Vector2(0.5, -2.5)

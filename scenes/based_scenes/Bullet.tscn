@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://g8d1u1exfdtv" path="res://scenes/based_scenes/bullet.gd" id="1_aayb2"]
 
 [node name="Bullet" type="CharacterBody2D"]
-scale = Vector2(0.160076, 0.146392)
+scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 100
 script = ExtResource("1_aayb2")
@@ -17,4 +17,3 @@ rotation = 1.5708
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 1
-rotation = -1.5708

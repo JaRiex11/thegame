@@ -1,36 +1,71 @@
-[gd_scene load_steps=7 format=3 uid="uid://kejl3d4b80xd"]
+[gd_scene load_steps=10 format=3 uid="uid://kejl3d4b80xd"]
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_lbead"]
 [ext_resource type="Texture2D" uid="uid://ducucbsaqdg12" path="res://img/16x48.png" id="2_0frcf"]
-[ext_resource type="PackedScene" uid="uid://6hsqorbwfo7i" path="res://scenes/weapons/Bullets/12_gauge.tscn" id="2_278ir"]
+[ext_resource type="Script" uid="uid://cbdpgbkyqxxlq" path="res://scenes/weapons/shotgun.gd" id="2_278ir"]
+[ext_resource type="PackedScene" uid="uid://6hsqorbwfo7i" path="res://scenes/weapons/Bullets/12_gauge.tscn" id="3_uukpr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_278ir"]
 atlas = ExtResource("2_0frcf")
-region = Rect2(0, 0, 0, 16)
+region = Rect2(0, 16, 48, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uukpr"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_uukpr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_278ir")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtykv"]
 atlas = ExtResource("2_0frcf")
-region = Rect2(0, 16, 0, 16)
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vx5qo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtykv")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qn8fy"]
 atlas = ExtResource("2_0frcf")
 region = Rect2(0, 32, 0, 16)
 
 [node name="Shotgun" instance=ExtResource("1_lbead")]
-scale = Vector2(2, 2)
-bullet_scene = ExtResource("2_278ir")
-bullet_speed = 500.0
+script = ExtResource("2_278ir")
+pellets_count = 16
+spread_angle = 25.0
+pellet_damage = 8
+pellet_speed_variation = 0.2
+bullet_scene = ExtResource("3_uukpr")
+bullet_speed = 3000.0
 weapon_name = "Shotgun"
 fire_rate = 1.0
+magazine_size = 8
+max_ammo = 16
+reload_time = 2.0
+pivot_offset = Vector2(25, 15)
+flip_offset = Vector2(15, 10)
 
 [node name="InHandSpriteLeft" parent="HandSprite" index="0"]
+visible = true
 position = Vector2(9, 0)
-texture = SubResource("AtlasTexture_278ir")
+sprite_frames = SubResource("SpriteFrames_uukpr")
+animation = &"Idle"
 
 [node name="InHandSpriteRight" parent="HandSprite" index="1"]
+visible = true
 position = Vector2(9, 0)
-scale = Vector2(-1, 1)
-texture = SubResource("AtlasTexture_uukpr")
+sprite_frames = SubResource("SpriteFrames_vx5qo")
+animation = &"Idle"
 
 [node name="OnGroundSprite" parent="." index="1"]
 position = Vector2(9, 0)
@@ -46,4 +81,4 @@ polygon = PackedVector2Array(-13, 5, -13, -5, 29, -5, 29, 5)
 position = Vector2(30, -3)
 
 [node name="ShootStartPoint" parent="." index="4"]
-position = Vector2(3.5, -3)
+position = Vector2(0, -3)

@@ -38,8 +38,8 @@ var is_facing_right: bool = true
 # Спрайты и позиции
 @onready var ground_sprite: Sprite2D = $OnGroundSprite
 @onready var hand_sprite: Node2D = $HandSprite
-@onready var hand_sprite_left: Sprite2D = $HandSprite/InHandSpriteLeft
-@onready var hand_sprite_right: Sprite2D = $HandSprite/InHandSpriteRight
+@onready var hand_sprite_left: AnimatedSprite2D = $HandSprite/InHandSpriteLeft
+@onready var hand_sprite_right: AnimatedSprite2D = $HandSprite/InHandSpriteRight
 @onready var shoot_point = $ShootPoint
 @onready var collision := $Area2D/CollisionPolygon2D
 @onready var shoot_start_point := $ShootStartPoint

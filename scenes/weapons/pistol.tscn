@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkc56j350v1n1"]
+
+[ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_4jni1"]
+[ext_resource type="PackedScene" uid="uid://b5aqjfyxk16f2" path="res://scenes/weapons/Bullets/9_mm.tscn" id="2_60a84"]
+[ext_resource type="Texture2D" uid="uid://ctfehunqhbjqw" path="res://img/16x16.png" id="2_r3071"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivc8v"]
+atlas = ExtResource("2_r3071")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60a84"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivc8v")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3071"]
+atlas = ExtResource("2_r3071")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1ie7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3071")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60a84"]
+atlas = ExtResource("2_r3071")
+region = Rect2(48, 32, 16, 16)
+
+[node name="Pistol" instance=ExtResource("1_4jni1")]
+bullet_scene = ExtResource("2_60a84")
+bullet_speed = 1800.0
+fire_rate = 0.2
+magazine_size = 8
+max_ammo = 24
+pivot_offset = Vector2(20, 12)
+flip_offset = Vector2(0, 5)
+
+[node name="HandSprite" parent="." index="0"]
+position = Vector2(16, 0)
+
+[node name="InHandSpriteLeft" parent="HandSprite" index="0"]
+visible = true
+position = Vector2(7, 0)
+sprite_frames = SubResource("SpriteFrames_60a84")
+animation = &"Idle"
+
+[node name="InHandSpriteRight" parent="HandSprite" index="1"]
+visible = true
+position = Vector2(7, 0)
+sprite_frames = SubResource("SpriteFrames_t1ie7")
+animation = &"Idle"
+
+[node name="OnGroundSprite" parent="." index="1"]
+texture = SubResource("AtlasTexture_60a84")
+
+[node name="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PackedVector2Array(-8, -7, 14, -6.5, -8, 10)
+
+[node name="ShootPoint" parent="." index="3"]
+position = Vector2(29.5, -2.5)
+
+[node name="ShootStartPoint" parent="." index="4"]
+position = Vector2(0, -2.5)
