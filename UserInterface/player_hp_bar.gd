@@ -13,6 +13,9 @@ var is_breaking = false
 var is_waving = false
 var is_animating = false
 
+var hp_regen_duration : float = 3.0
+var regen_hp_timer := hp_regen_duration
+
 @onready var hp_bar_sprite : AnimatedSprite2D = $"../hp_bar"
 @onready var shield_bar := $"../../DefendSystem/PlayerShieldBar"
 
@@ -32,11 +35,32 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	value = cur_hp
+	regen_hp_timer -= delta
+	if (regen_hp_timer < 0):
+		regen_hp_timer = hp_regen_duration
+		change_health_up()
 
 func update_animations() -> void:	
 	var animation = anim_prefix + anim_postfix
 	if hp_bar_sprite.sprite_frames.has_animation(animation):
 		hp_bar_sprite.play(animation)
+
+func change_health_up():
+	if is_animating or cur_hp >= max_hp:
+		return
+	cur_hp += 1
+	last_heart_hits_cnt -= 1
+	if (last_heart_hits_cnt < 0):
+		play_wave_animation()
+		cur_heart_amount += 1
+		if (cur_heart_amount < 6):
+			cur_heart_amount = 5
+			last_heart_hits_cnt = 3
+		else :
+			last_heart_hits_cnt = 0
+	
+	update_anim_name()
+	update_animations()
 
 func change_health_down():
 	if shield_bar.has_shields():

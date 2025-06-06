@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://faewyyfknygv"]
+[gd_scene load_steps=22 format=3 uid="uid://faewyyfknygv"]
 
 [ext_resource type="Script" uid="uid://dlpcrbv63dmpb" path="res://floors/floor_1.gd" id="1_40wru"]
 [ext_resource type="PackedScene" uid="uid://c8ko6p45x2opv" path="res://scenes/PauseMenu.tscn" id="1_n3gc0"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://daw0byti8lcfb" path="res://scenes/weapons/ak_74.tscn" id="15_bvvb4"]
 [ext_resource type="PackedScene" uid="uid://kejl3d4b80xd" path="res://scenes/weapons/shotgun.tscn" id="16_n3gc0"]
 [ext_resource type="PackedScene" uid="uid://dkc56j350v1n1" path="res://scenes/weapons/pistol.tscn" id="17_40wru"]
+[ext_resource type="PackedScene" uid="uid://ctolofvcp34mv" path="res://scenes/pickupitems/shield.tscn" id="20_e0031"]
+[ext_resource type="PackedScene" uid="uid://b557w8kvay2gu" path="res://scenes/units/new_elem_fire_small.tscn" id="21_kbjhv"]
 
 [node name="Floor1" type="Node2D"]
 script = ExtResource("1_40wru")
@@ -57,6 +59,7 @@ position = Vector2(2816, -1922)
 position = Vector2(2816, -258)
 
 [node name="BridgeUp" parent="Rooms" instance=ExtResource("11_wkx7q")]
+z_index = -1
 position = Vector2(2816, -514)
 
 [node name="Enemys" type="Node2D" parent="."]
@@ -145,17 +148,191 @@ collision_mask = 224
 position = Vector2(-1151, -722)
 collision_mask = 224
 
+[node name="ElemFireSmall13" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(691, -665)
+
+[node name="ElemFireSmall14" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(630, 636)
+
+[node name="ElemWaterSmall11" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-359, -815)
+
+[node name="ElemWaterSmall12" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-676, -710)
+
+[node name="ElemWaterSmall13" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-209, -493)
+
+[node name="ElemWaterSmall14" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-409, -493)
+
+[node name="ElemWaterSmall15" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-654, 408)
+
+[node name="ElemWaterSmall16" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-493, 286)
+
+[node name="ElemWaterSmall17" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(-432, 408)
+
+[node name="ElemFireSmall15" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(447, 419)
+
+[node name="ElemFireSmall16" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(675, 230)
+
+[node name="ElemFireSmall17" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(247, 591)
+
+[node name="ElemFireSmall18" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(447, -715)
+
+[node name="ElemWaterSmall18" parent="Enemys" instance=ExtResource("14_embot")]
+position = Vector2(141, -220)
+
+[node name="ElemFireSmall19" parent="Enemys" instance=ExtResource("13_o4wi3")]
+position = Vector2(91, -120)
+
 [node name="MainCharacter" parent="." instance=ExtResource("12_8huru")]
-position = Vector2(-2615, -2262)
+position = Vector2(-2619, -1929)
 
 [node name="AK-74" parent="." instance=ExtResource("15_bvvb4")]
-position = Vector2(-2534, -2205)
+position = Vector2(-2510, -2074)
 
 [node name="Shotgun" parent="." instance=ExtResource("16_n3gc0")]
-position = Vector2(-2519, -2268)
+position = Vector2(-2629, -2074)
 
 [node name="Pistol" parent="." instance=ExtResource("17_40wru")]
-position = Vector2(-2517, -2319)
+position = Vector2(-2368, -2072)
 
 [node name="PauseMenu" parent="." instance=ExtResource("1_n3gc0")]
 visible = false
+
+[node name="Shield" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1443, -2380)
+
+[node name="Shield2" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1281, -2376)
+
+[node name="Shield3" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1108, -2374)
+
+[node name="Shield4" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1281, -1770)
+
+[node name="Shield5" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1281, -1713)
+
+[node name="Shield6" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1279, -1652)
+
+[node name="Shield7" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1280, -1597)
+
+[node name="Shield8" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-1281, -1533)
+
+[node name="AK-75" parent="." instance=ExtResource("15_bvvb4")]
+position = Vector2(-1485, -1704)
+
+[node name="Shotgun2" parent="." instance=ExtResource("16_n3gc0")]
+position = Vector2(-1116, -1700)
+
+[node name="Shotgun3" parent="." instance=ExtResource("16_n3gc0")]
+position = Vector2(-19, -747)
+
+[node name="Shield9" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-128, -836)
+
+[node name="Shield10" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(0, -835)
+
+[node name="Shield11" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(130, -836)
+
+[node name="Shield12" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(259, -835)
+
+[node name="Shield13" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-260, -835)
+
+[node name="Shield14" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(831, 442)
+
+[node name="Shield15" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(829, 508)
+
+[node name="Shield16" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(832, 576)
+
+[node name="Pistol2" parent="." instance=ExtResource("17_40wru")]
+position = Vector2(731, 518)
+
+[node name="Shield17" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(2003, -6)
+
+[node name="Shield18" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(2109, -3)
+
+[node name="Shield19" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(2237, -3)
+
+[node name="Shield20" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(2368, -4)
+
+[node name="Shield21" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(2495, -3)
+
+[node name="AK-76" parent="." instance=ExtResource("15_bvvb4")]
+position = Vector2(1250, 189)
+
+[node name="Shotgun4" parent="." instance=ExtResource("16_n3gc0")]
+position = Vector2(1248, -201)
+
+[node name="Pistol3" parent="." instance=ExtResource("17_40wru")]
+position = Vector2(2623, 2)
+
+[node name="ElemFireSmall" parent="." instance=ExtResource("21_kbjhv")]
+position = Vector2(2727, -461)
+
+[node name="ElemFireSmall2" parent="." instance=ExtResource("13_o4wi3")]
+position = Vector2(1804, -198)
+
+[node name="ElemFireSmall3" parent="." instance=ExtResource("13_o4wi3")]
+position = Vector2(1798, 167)
+
+[node name="ElemFireSmall4" parent="." instance=ExtResource("13_o4wi3")]
+position = Vector2(1710, -144)
+
+[node name="ElemFireSmall5" parent="." instance=ExtResource("13_o4wi3")]
+position = Vector2(1673, 96)
+
+[node name="ElemWaterSmall" parent="." instance=ExtResource("14_embot")]
+position = Vector2(1910, -96)
+
+[node name="ElemWaterSmall2" parent="." instance=ExtResource("14_embot")]
+position = Vector2(1918, 33)
+
+[node name="ElemWaterSmall3" parent="." instance=ExtResource("14_embot")]
+position = Vector2(1965, -26)
+
+[node name="Shotgun5" parent="." instance=ExtResource("16_n3gc0")]
+position = Vector2(-150, -3)
+
+[node name="AK-77" parent="." instance=ExtResource("15_bvvb4")]
+position = Vector2(114, 1)
+
+[node name="Shield22" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-137, -71)
+
+[node name="Shield23" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(-136, 61)
+
+[node name="Shield24" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(146, -66)
+
+[node name="Shield25" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(144, 60)
+
+[node name="Shield26" parent="." instance=ExtResource("20_e0031")]
+position = Vector2(1, 1)

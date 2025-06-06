@@ -10,10 +10,14 @@ var anim_prefix: String
 var anim_postfix: String
 
 var check_spell_ability_timer := 0.2
+var mana_regen_duration := 0.9
+var regen_mana_timer := mana_regen_duration
+
+var is_spending := false
+
 
 @onready var mana_bar_sprite : AnimatedSprite2D = $"../mana_bar"
 
-signal mana_on_zero
 signal spell_ability(can_spell: bool)
 
 func _ready() -> void:
@@ -28,9 +32,30 @@ func _process(delta: float) -> void:
 	value = cur_mp
 	check_spell_ability_timer -= delta
 	if (check_spell_ability_timer < 0):
+		check_spell_ability_timer = 0.2
 		check_ability_to_spell()
+	
+	regen_mana_timer -= delta
+	if (regen_mana_timer < 0):
+		regen_mana_timer = mana_regen_duration
+		change_mana_up()
+
+func change_mana_up():
+	if (cur_mp >= max_mp) or is_spending: return
+	cur_mp += 1
+	last_mana_hits_cnt -= 1
+	if (last_mana_hits_cnt < 0):
+		cur_mana_amount += 1
+		if (cur_mana_amount < 5):
+			last_mana_hits_cnt = 3
+		else :
+			last_mana_hits_cnt = 0
+	update_anim_name()
+	update_animations()
 
 func change_mana_down():
+	if (cur_mp <= 0): return
+	is_spending = true
 	cur_mp -= 1
 	last_mana_hits_cnt += 1
 	
@@ -40,6 +65,11 @@ func change_mana_down():
 	
 	update_anim_name()
 	update_animations()
+	
+	if (cur_mp <= 0):
+		check_ability_to_spell()
+		await get_tree().create_timer(2).timeout
+	is_spending = false
 
 func check_ability_to_spell():
 	if (cur_mp > 0):
@@ -86,7 +116,7 @@ func update_anim_name():
 		0: 
 			anim_prefix = "Zero"
 			anim_postfix = ""
-			emit_signal("mana_on_zero")
+			emit_signal("spell_ability", false)
 			return
 	
 	match last_mana_hits_cnt:

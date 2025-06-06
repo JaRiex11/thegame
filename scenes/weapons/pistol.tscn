@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkc56j350v1n1"]
+[gd_scene load_steps=10 format=3 uid="uid://dkc56j350v1n1"]
 
 [ext_resource type="PackedScene" uid="uid://busfdkt32lom" path="res://scenes/based_scenes/Weapon.tscn" id="1_4jni1"]
-[ext_resource type="PackedScene" uid="uid://b5aqjfyxk16f2" path="res://scenes/weapons/Bullets/9_mm.tscn" id="2_60a84"]
+[ext_resource type="Script" uid="uid://wing0bauiowj" path="res://scenes/weapons/pistol.gd" id="2_60a84"]
 [ext_resource type="Texture2D" uid="uid://ctfehunqhbjqw" path="res://img/16x16.png" id="2_r3071"]
+[ext_resource type="PackedScene" uid="uid://b5aqjfyxk16f2" path="res://scenes/weapons/Bullets/9_mm.tscn" id="3_ivc8v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivc8v"]
 atlas = ExtResource("2_r3071")
@@ -39,10 +40,11 @@ atlas = ExtResource("2_r3071")
 region = Rect2(48, 32, 16, 16)
 
 [node name="Pistol" instance=ExtResource("1_4jni1")]
-bullet_scene = ExtResource("2_60a84")
+script = ExtResource("2_60a84")
+bullet_scene = ExtResource("3_ivc8v")
 bullet_speed = 1800.0
 fire_rate = 0.2
-magazine_size = 8
+magazine_size = 12
 max_ammo = 24
 pivot_offset = Vector2(20, 12)
 flip_offset = Vector2(0, 5)

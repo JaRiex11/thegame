@@ -5,6 +5,10 @@ extends Weapon
 @export var pellet_damage: int = 5  # Урон одной дробинки
 @export var pellet_speed_variation: float = 0.2  # Разброс скорости
 
+func _ready() -> void:
+	super._ready()
+	damage_element = ElemSys.ELEMENT.FIRE
+
 func shoot(weapon_owner_pos: Vector2):
 	current_state = WeaponState.SHOOTING
 	emit_signal("state_changed", current_state)
@@ -37,7 +41,7 @@ func shoot(weapon_owner_pos: Vector2):
 	
 	# Обновление боезапаса (1 выстрел = -1 патрон)
 	current_ammo -= 1
-	emit_signal("ammo_updated", current_ammo, total_ammo)
+	emit_signal("ammo_updated", current_ammo, magazine_size, total_ammo)
 	
 	# Откат стрельбы
 	can_shoot = false

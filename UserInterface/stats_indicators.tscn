@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://bt1vsa8tmovff"]
+[gd_scene load_steps=103 format=3 uid="uid://bt1vsa8tmovff"]
 
 [ext_resource type="Texture2D" uid="uid://cf8cpu2yvsiyq" path="res://img/16x64.png" id="1_cy8rg"]
 [ext_resource type="Script" uid="uid://bmmu50dq07ies" path="res://UserInterface/stats_indicators.gd" id="1_i2eml"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://ctfehunqhbjqw" path="res://img/16x16.png" id="3_hxu2q"]
 [ext_resource type="Script" uid="uid://culjkwe62nim4" path="res://UserInterface/player_shield_bar.gd" id="5_qsqj1"]
 [ext_resource type="Script" uid="uid://drn0032lls2x8" path="res://UserInterface/player_mana_bar.gd" id="6_gxjmw"]
+[ext_resource type="Script" uid="uid://bwpxae42xqx6m" path="res://UserInterface/weapon_system.gd" id="7_5boqk"]
+[ext_resource type="Script" uid="uid://c8tviyd7eowu" path="res://UserInterface/spell_system.gd" id="8_6g64d"]
+[ext_resource type="Texture2D" uid="uid://ds1mv12u0uj5p" path="res://img/64x64.png" id="8_c4vp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c4vp7"]
 atlas = ExtResource("1_cy8rg")
@@ -895,6 +898,51 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_gxjmw"]
+font_size = 30
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wt1pv"]
+atlas = ExtResource("8_c4vp7")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5ffy"]
+atlas = ExtResource("8_c4vp7")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asriq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wt1pv")
+}],
+"loop": false,
+"name": &"Fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5ffy")
+}],
+"loop": false,
+"name": &"Water",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ognt5"]
+atlas = ExtResource("8_c4vp7")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m8wk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ognt5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="StatsIndicators" type="CanvasLayer"]
 script = ExtResource("1_i2eml")
 
@@ -979,7 +1027,7 @@ script = ExtResource("5_qsqj1")
 position = Vector2(547, 65)
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_e171w")
-animation = &"Zero"
+animation = &"Five"
 autoplay = "Five"
 
 [node name="Shield" type="AnimatedSprite2D" parent="Control/DefendSystem"]
@@ -987,9 +1035,67 @@ position = Vector2(396, 50)
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_6wvac")
 
+[node name="WeaponSystem" type="Control" parent="Control"]
+layout_mode = 1
+anchor_left = 0.701
+anchor_top = 0.715
+anchor_right = 0.952
+anchor_bottom = 0.954
+offset_left = 193.08
+offset_top = 43.8
+offset_right = 92.1599
+offset_bottom = 49.6799
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("7_5boqk")
+
+[node name="Label" type="Label" parent="Control/WeaponSystem"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.359
+anchor_top = -0.295
+anchor_right = 0.735
+anchor_bottom = 0.756
+offset_left = 106.779
+offset_top = 143.88
+offset_right = -1.035
+offset_bottom = -8.58401
+grow_horizontal = 2
+grow_vertical = 2
+text = "Обойма: 
+В запасе: "
+label_settings = SubResource("LabelSettings_gxjmw")
+
+[node name="SpellSystem" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("8_6g64d")
+
+[node name="ElementIcon" type="AnimatedSprite2D" parent="Control/SpellSystem"]
+z_index = 1
+position = Vector2(155, -114)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_asriq")
+animation = &"Water"
+
+[node name="Container" type="AnimatedSprite2D" parent="Control/SpellSystem"]
+position = Vector2(155, -115)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_0m8wk")
+
+[connection signal="change_element" from="." to="Control/SpellSystem" method="change_element"]
+[connection signal="is_shields_needed" from="." to="Control/DefendSystem/PlayerShieldBar" method="_on_stats_indicators_is_shields_needed"]
+[connection signal="need_to_restore_shield" from="." to="Control/DefendSystem/PlayerShieldBar" method="restore_shield"]
 [connection signal="on_change_hp_down" from="." to="Control/HPSystem/PlayerHpBar" method="change_health_down"]
 [connection signal="spend_mana" from="." to="Control/ManaSystem/PlayerManaBar" method="change_mana_down"]
 [connection signal="get_damage" from="Control/HPSystem/PlayerHpBar" to="." method="_on_player_hp_bar_get_damage"]
 [connection signal="need_to_break_shield" from="Control/HPSystem/PlayerHpBar" to="Control/DefendSystem/PlayerShieldBar" method="break_shield"]
 [connection signal="on_hp_is_zero" from="Control/HPSystem/PlayerHpBar" to="." method="_on_player_hp_bar_on_hp_is_zero"]
 [connection signal="animation_finished" from="Control/HPSystem/hp_bar" to="Control/HPSystem/PlayerHpBar" method="_on_hp_bar_animation_finished"]
+[connection signal="spell_ability" from="Control/ManaSystem/PlayerManaBar" to="." method="_on_player_mana_bar_spell_ability"]
+[connection signal="die_shield_item" from="Control/DefendSystem/PlayerShieldBar" to="." method="_on_player_shield_bar_die_shield_item"]

@@ -123,8 +123,8 @@ func get_body_damage():
 #region Стихийная логика
 func _get_elemental_damage_multiplier(damage_element: ElemSys.ELEMENT) -> float:
 	if is_elemental:
-		if (damage_element == ElemSys.ELEMENT.NONE || damage_element == ElemSys.ELEMENT.PHYSIC): # Пока что 1.0, но вообще, надо 0
-			return 0.5
+		if (damage_element == ElemSys.ELEMENT.NONE || damage_element == ElemSys.ELEMENT.PHYSIC): # Пока что 0.1, но вообще, надо 0
+			return 0.1
 		# Для элементалей учитываем их стихию
 		return ElemSys.get_damage_multiplier(damage_element, current_element)
 	else:
@@ -205,7 +205,6 @@ func _update_movement(delta: float) -> void:
 	var movement := _calculate_movement()
 	velocity = movement * move_speed
 	
-	# Заменяем move_and_collide на move_and_slide для Godot 4.4
 	move_and_slide()
 	
 	_update_facing()

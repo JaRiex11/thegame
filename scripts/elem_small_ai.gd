@@ -57,9 +57,7 @@ func _physics_process(delta: float) -> void:
 	# Только если не в состоянии атаки или подготовки
 	if current_state != UNIT_STATE.ATTACK || prepare_timer <= 0:
 		move_and_slide()
-	
-	queue_redraw()
-	#_draw()
+
 
 func _update_timers(delta) -> void:
 	#if patrol_timer > 0:
@@ -332,18 +330,3 @@ func _generate_patrol_points(count: int) -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and body != self:
 		body.take_damage(body_damage, global_position, 100.0, current_element)
-
-func _draw():
-	# Рисуем точки патрулирования
-	for i in range(patrol_points.size()):
-		var point = patrol_points[i]
-		var color = Color.RED if i == current_patrol_index else Color.GREEN
-		draw_circle(to_local(point), 10, color)
-	
-	# Рисуем путь к текущей точке
-	if patrol_points.size() > 0:
-		draw_line(Vector2.ZERO, to_local(patrol_points[current_patrol_index]) - position, Color.YELLOW, 2)
-	
-	# Рисуем направление движения
-	if velocity.length() > 0:
-		draw_line(Vector2.ZERO, velocity.normalized() * 50, Color.BLUE, 3)

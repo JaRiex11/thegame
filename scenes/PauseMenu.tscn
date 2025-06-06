@@ -6,26 +6,40 @@
 script = ExtResource("1_3okcx")
 
 [node name="Panel" type="Panel" parent="."]
-anchors_preset = -1
-anchor_right = 0.763
-anchor_bottom = 0.753
-offset_right = 498.024
-offset_bottom = 325.056
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ResumeButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 70.0
-offset_top = 41.0
-offset_right = 284.0
-offset_bottom = 124.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.4919
+offset_top = -85.148
+offset_right = 114.508
+offset_bottom = -2.14801
+grow_horizontal = 2
+grow_vertical = 2
 text = "ПРОДОЛЖИТЬ"
 
 [node name="MainMenuButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 73.0
-offset_top = 156.0
-offset_right = 285.0
-offset_bottom = 236.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.4919
+offset_top = 20.852
+offset_right = 113.508
+offset_bottom = 100.852
+grow_horizontal = 2
+grow_vertical = 2
 text = "ГЛАВНОЕ МЕНЮ"
 
 [connection signal="pressed" from="Panel/ResumeButton" to="." method="_on_resume_button_pressed"]

@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @onready var player_sprite = $BodySprite
-@onready var hands_sprite = $HandsSprite
+@onready var without_hands_sprite = $WithoutHandsSprite
 
 const Weapon = preload("res://scenes/based_scenes/weapon.gd")
 
@@ -44,7 +44,14 @@ var is_spelling := false
 var is_invincible := false
 var can_spell := true
 
+# Интерфейс
+@onready var spell_system := $Camera2D/StatsIndicators/Control/SpellSystem
+
 signal on_cast_spell
+signal need_to_restore_shield
+signal is_shields_needed(body)
+signal die_shield_item
+signal change_element(element: String)
 
 # Словарь заклинаний 
 var spells_db = {
@@ -77,8 +84,7 @@ func _physics_process(delta):
 	handle_movement()
 	handle_weapon()
 	update_animations()
-	
-	handle_spells()  # Добавляем обработку заклинаний
+	handle_spells()
 
 #func toggle_pause():
 	#if get_tree().paused:
@@ -112,7 +118,12 @@ func handle_movement():
 func handle_weapon():
 	if not current_weapon:
 		return
-	
+	if is_spelling:
+		current_weapon.hand_sprite.hide()
+		current_weapon.set_process(false)
+	else:
+		current_weapon.hand_sprite.show()
+		current_weapon.set_process(true)
 	# Обновляем прицеливание оружия
 	current_weapon.update_aim(get_global_mouse_position(), is_facing_right)
 	current_weapon.start_pivot_pos = weapon_pivot.position
@@ -158,6 +169,7 @@ func _switch_element(direction: int):
 	
 	# Обновляем текущее заклинание
 	current_spell.setup(self, current_element)
+	emit_signal("change_element", ElementsSystem.element_to_string(current_element))
 	print("Стихия изменена на: ", ElementsSystem.element_to_string(current_element))
 
 func change_state(new_state: PlayerState):
@@ -229,16 +241,18 @@ func switch_weapon(index: int):
 	current_weapon = weapons[index]
 	current_weapon.hand_sprite.show()
 	current_weapon.set_process(true)
+	current_weapon.update_ammo(0)
 	# Отключаем спрайт рук
 	is_without_hands = true
-	hands_sprite.hide()
+	player_sprite.hide()
+	without_hands_sprite.show()
 
 	# Для правильного порядка отрисовки
 	weapon_pivot.move_child(current_weapon, weapon_pivot.get_child_count() - 1)
 
 func cast_spell() -> void:
 	is_spelling = true
-	if in_spell_cooldown: return
+	if in_spell_cooldown or not can_spell: return
 	
 	var mouse_pos = get_global_mouse_position()
 	if not current_active_spell or not is_instance_valid(current_active_spell):
@@ -322,9 +336,10 @@ func play_anim(anim_name: String):
 	if (player_sprite.sprite_frames.has_animation(anim_name)): # Чтобы игра не упала, если не найдет анимацию
 		player_sprite.play(anim_name)
 	if (is_without_hands):
-		hands_sprite.show()
-		if(hands_sprite.sprite_frames.has_animation(anim_name)):
-			hands_sprite.play(anim_name)
+		without_hands_sprite.show()
+		player_sprite.hide()
+		if(without_hands_sprite.sprite_frames.has_animation(anim_name)):
+			without_hands_sprite.play(anim_name)
 
 
 func _on_stats_indicators_player_need_to_be_invincible() -> void:
@@ -334,3 +349,19 @@ func _on_stats_indicators_player_need_to_be_invincible() -> void:
 func _on_stats_indicators_player_is_not_invincible() -> void:
 	is_invincible = false
 	print("not is invincible")
+
+func _on_stats_indicators_spell_ability(flag: bool) -> void:
+	if flag:
+		can_spell = true
+	else:
+		can_spell = false
+
+func restore_shield():
+	emit_signal("need_to_restore_shield")
+
+func check_shields(body: Variant):
+	emit_signal("is_shields_needed", body)
+
+
+func _on_stats_indicators_die_shield_item(body) -> void:
+	emit_signal("die_shield_item", body)

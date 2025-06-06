@@ -44,8 +44,11 @@ var is_facing_right: bool = true
 @onready var collision := $Area2D/CollisionPolygon2D
 @onready var shoot_start_point := $ShootStartPoint
 
+# Интерфейс
+@onready var ammo_label := $"../MainCharacter/Camera2D/StatsIndicators/Control/WeaponSystem"
+
 signal state_changed(new_state)
-signal ammo_updated(current, total)
+signal ammo_updated(current_ammo, magazine_size, total_ammo)
 
 func _ready():
 	current_ammo = magazine_size
@@ -63,6 +66,8 @@ func _ready():
 	add_child(reload_timer)
 	reload_timer.timeout.connect(_on_reload_finished)
 	reload_timer.one_shot = true
+	
+	ammo_updated.connect(ammo_label.update_ammo)
 
 func update_aim(target_position: Vector2, is_facing_right: bool):
 	# Вычисляем направление к цели
@@ -110,7 +115,7 @@ func shoot(weapon_owner_pos: Vector2):
 	
 	# Обновление боезапаса
 	current_ammo -= 1
-	emit_signal("ammo_updated", current_ammo, total_ammo)
+	emit_signal("ammo_updated", current_ammo, magazine_size, total_ammo)
 	
 	# Откат стрельбы
 	can_shoot = false
@@ -145,7 +150,6 @@ func _deferred_pick_up(player):
 		
 		hand_sprite_right.show()
 		player.pick_up_weapon(self)
-		
 
 func try_reload() -> bool:
 	if current_state != WeaponState.IDLE or total_ammo <= 0 or current_ammo == magazine_size:
@@ -170,10 +174,11 @@ func _on_reload_finished():
 	current_ammo += ammo_to_add
 	total_ammo -= ammo_to_add
 	
-	emit_signal("ammo_updated", current_ammo, total_ammo)
+	emit_signal("ammo_updated", current_ammo, magazine_size, total_ammo)
 	current_state = WeaponState.IDLE
 	emit_signal("state_changed", current_state)
 
 func update_ammo(new_ammo: int): # Нужно при подборе патронов для оружия
 	total_ammo += new_ammo
 	total_ammo = min(total_ammo, max_ammo)
+	emit_signal("ammo_updated", current_ammo, magazine_size, total_ammo)
